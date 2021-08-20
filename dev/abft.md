@@ -250,16 +250,16 @@ Votes
 \newcommand \Equivocation {\mathrm{Equivocation}}
 
 Let $I$ be an address, $r$ be a round, $p$ be a period, $s$ be a step,
-and $v$ be a proposal-value, let $x$ be a canonical encoding of the
-5-tuple $(I, r, p, s, v)$, and let $x'$ be a canonical encoding of the
-4-tuple $(I, r, p, s)$.  Let $y$ be an arbitrary bitstring.
+$b$ the digest $\Digest(e_{r-1})$ of the previous round $r-1$, and $v$ be a proposal-value, let $x$ be a canonical encoding of the
+5-tuple $(I, r, p, s, b, v)$, and let $x'$ be a canonical encoding of the
+4-tuple $(I, r, p, s, b))$.  Let $y$ be an arbitrary bitstring.
 Then we say that the tuple
 $$
-(I, r, p, s, v, y)
+(I, r, p, s, b, v, y)
 $$
 is a _vote from $I$ for $v$ at round $r$, period $p$,
-step $s$_ (or _a vote from $I$ for $v$ at $(r, p, s)$_),
-denoted $\Vote(I, r, p, s, v)$.
+step $s$ conditioned on a previous round with digest $b = \Digest(e_{r-1})$_ (or _a vote from $I$ for $v$ at $(r, p, s, b)$_),
+denoted $\Vote(I, r, p, s, b, v)$.
 
 Moreover, let $L$ be a ledger where $|L| \geq \delta_b$.
 Let $(\sk, \pk)$ be a keypair, $B, \Bbar$ be 64-bit integers, $Q$ be a
@@ -303,13 +303,13 @@ Informally, these conditions check the following:
    $\delta_b$ rounds before the vote.
 
 An _equivocation vote pair_ or _equivocation vote_
-$\Equivocation(I, r, p, s)$ is a pair of votes which differ in
+$\Equivocation(I, r, p, s, b)$ is a pair of votes which differ in
 their proposal values. In other words,
 $$
 \begin{aligned}
-\Equivocation(I, r, p, s)
- = (&\Vote(I, r, p, s, v_1), \\
-    &\Vote(I, r, p, s, v_2))
+\Equivocation(I, r, p, s, b)
+ = (&\Vote(I, r, p, s, b, v_1), \\
+    &\Vote(I, r, p, s, b, v_2))
 \end{aligned}
 $$
 for some $v_1 \neq v_2$.
@@ -325,9 +325,9 @@ Bundles
 \newcommand \Bundle {\mathrm{Bundle}}
 
 Let $V$ be any set of votes and equivocation votes. We say that $V$
-_is a bundle for $v$ in round $r$, period $p$, and step $s$_
-(or a _bundle for $v$ at $(r, p, s)$_), denoted
-$\Bundle(r, p, s, v)$.
+_is a bundle for $v$ in round $r$, period $p$, step $s$, conditioned on a previous round with digest $b = \Digest(e_{r-1})$_
+(or a _bundle for $v$ at $(r, p, s, b)$_), denoted
+$\Bundle(r, p, s, b), v)$.
 
 Moreover, let $L$ be a ledger where $|L| \geq \delta_b$. We
 say that this bundle is _valid with respect to $L$_ (or simply _valid_
@@ -337,7 +337,7 @@ if $L$ is unambiguous) if the following conditions are true:
 
  - For any two elements $a_i, a_j \in V$, $I_i \neq I_j$.
 
- - For any element $a_i \in V$, $r_i = r, p_i = p, s_i = s$.
+ - For any element $a_i \in V$, $r_i = r, p_i = p, s_i = s, b_i = b$.
 
  - For any element $a_i \in V$, either $a_i$ is a vote and
    $v_i = v$, or $a_i$ is an equivocation vote.
@@ -498,6 +498,7 @@ where
  - $p$ is the current period,
  - $s$ is the current step,
  - $\sbar$ is the _last concluding step_,
+ - $b$ is the digest of the previous round $\Digest(e_{r-1})$,
  - $V$ is the set of all votes,
  - $P$ is the set of all proposals, and
  - $\vbar$ is the _pinned_ value.
@@ -505,27 +506,27 @@ where
 We say that a player has _observed_ 
 
  - $\Proposal(v)$ if $\Proposal(v) \in P$
- - $\Vote_l(r, p, s, v)$ if $\Vote_l(r, p, s, v) \in V$
- - $\Bundle(r, p, s, v)$ if $\Bundle_l(r, p, s, v) \subset V$
+ - $\Vote_l(r, p, s, b, v)$ if $\Vote_l(r, p, s, b, v) \in V$
+ - $\Bundle(r, p, s, b, v)$ if $\Bundle_l(r, p, s, b, v) \subset V$
  - that round $r$ (period 0) has _begun_ if there exists some $p$ such
-   that $\Bundle(r-1, p, \Cert, v)$ was also observed
+   that $\Bundle(r-1, p, \Cert, b, v)$ was also observed
  - that round $r$, period $p > 0$ has _begun_ if there exists some $p$
    such that either
-    - $\Bundle(r, p-1, s, v)$ was also observed for some 
+    - $\Bundle(r, p-1, s, b, v)$ was also observed for some 
       $s > \Cert, v$, or
-    - $\Bundle(r, p, \Soft, v)$ was observed for some $v$.
+    - $\Bundle(r, p, \Soft, b, v)$ was observed for some $v$.
 
 An event causes a player to observe something if the player has not
 observed that thing before receiving the event and has observed that
 thing after receiving the event. For instance, a player may observe a
 vote $\Vote$, which adds this vote to $V$:
 $$
- N((r, p, s, \sbar, V, P, \vbar), L_0, \Vote)
+ N((r, p, s, \sbar, b, V, P, \vbar), L_0, \Vote)
 = ((r', p', \ldots, V \cup \{\Vote\}, P, \vbar'), L_1, \ldots).
 $$
 We abbreviate the transition above as
 $$
- N((r, p, s, \sbar, V, P, \vbar), L_0, \Vote)
+ N((r, p, s, \sbar, b, V, P, \vbar), L_0, \Vote)
  = ((S \cup \Vote, P, \vbar), L_1, \ldots).
 $$
 Note that _observing_ a message is distinct from _receiving_ a
@@ -537,30 +538,30 @@ rules][Relay Rules] for details.
 Special Values
 --------------
 
-We define two functions $\mu(S, r, p), \sigma(S, r, p)$, which are
+We define two functions $\mu(S, r, p, b), \sigma(S, r, p, b)$, which are
 defined as follows:
 
-$\mu(S, r, p)$ is defined as the proposal-value in the vote in round
-$r$ and period $p$ with the minimal credential. More formally, let
+$\mu(S, r, p, b)$ is defined as the proposal-value in the vote in round
+$r$ and period $p$ with the minimal credential, conditioned on a previous round with digest $b = \Digest(e_{r-1})$. More formally, let
 $$
-V_{r, p} = \{\Vote(I, r, p, 0, v) | \Vote \in V\}
+V_{r, p, b} = \{\Vote(I, r, p, 0, b, v) | \Vote \in V\}
 $$
-where $V$ is the set of votes in $S$. Then if $\Vote_l(r, p, 0, v_l)$
-is the vote with the smallest weight in $V_{r, p}$, then
-$\mu(S, r, p) = v_l$.
+where $V$ is the set of votes in $S$. Then if $\Vote_l(r, p, 0, b, v_l)$
+is the vote with the smallest weight in $V_{r, p, b}$, then
+$\mu(S, r, p, b) = v_l$.
 
-If $V_{r, p}$ is empty, then $\mu(S, r, p) = \bot$.
+If $V_{r, p, b}$ is empty, then $\mu(S, r, p, b) = \bot$.
 
-$\sigma(S, r, p)$ is defined as the sole proposal-value for which
-there exists a soft-bundle in round $r$ and period $p$. More formally,
-suppose $\Bundle(r, p, \Soft, v) \subset V$. Then
-$\sigma(S, r, p) = v$.
+$\sigma(S, r, p, b)$ is defined as the sole proposal-value for which
+there exists a soft-bundle in round $r$, period $p$, and previous round digest $b$. More formally,
+suppose $\Bundle(r, p, \Soft, b, v) \subset V$. Then
+$\sigma(S, r, p, b) = v$.
 
-If no such soft-bundle exists, then $\sigma(S, r, p) = \bot$.
+If no such soft-bundle exists, then $\sigma(S, r, p, b) = \bot$.
 
 If there exists a proposal-value $v$ such that $\Proposal(v) \in V$
-and $\sigma(S, r, p) = v$, we say that $v$ is _committable for round
-$r$, period $p$_ (or simply that $v$ is _committable_ if $(r, p)$ is
+and $\sigma(S, r, p, b) = v$, we say that $v$ is _committable for round
+$r$, period $p$, previous round digest $b$_ (or simply that $v$ is _committable_ if $(r, p, b)$ is
 unambiguous).
 
 
@@ -587,7 +588,7 @@ receiving that message.
 Votes
 -----
 
-On receiving a vote $Vote_k(r_k, p_k, s_k, v)$ a player
+On receiving a vote $Vote_k(r_k, p_k, s_k, b_k, v)$ a player
 
  - Ignores* it if $\Vote_k$ is invalid.
  - Ignores it if $s = 0$ and $\Vote_k \in V$.
