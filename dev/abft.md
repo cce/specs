@@ -251,15 +251,15 @@ Votes
 
 Let $I$ be an address, $r$ be a round, $p$ be a period, $s$ be a step,
 $b$ the digest $\Digest(e_{r-1})$ of the previous round $r-1$, and $v$ be a proposal-value, let $x$ be a canonical encoding of the
-5-tuple $(I, r, p, s, b, v)$, and let $x'$ be a canonical encoding of the
-4-tuple $(I, r, p, s, b))$.  Let $y$ be an arbitrary bitstring.
+5-tuple $(I, r, b, p, s, v)$, and let $x'$ be a canonical encoding of the
+4-tuple $(I, r, b, p, s))$.  Let $y$ be an arbitrary bitstring.
 Then we say that the tuple
 $$
-(I, r, p, s, b, v, y)
+(I, r, b, p, s, v, y)
 $$
 is a _vote from $I$ for $v$ at round $r$, period $p$,
-step $s$ conditioned on a previous round with digest $b = \Digest(e_{r-1})$_ (or _a vote from $I$ for $v$ at $(r, p, s, b)$_),
-denoted $\Vote(I, r, p, s, b, v)$.
+step $s$ conditioned on a previous round with digest $b = \Digest(e_{r-1})$_ (or _a vote from $I$ for $v$ at $(r, b, p, s)$_),
+denoted $\Vote(I, r, b, p, s, v)$.
 
 Moreover, let $L$ be a ledger where $|L| \geq \delta_b$.
 Let $(\sk, \pk)$ be a keypair, $B, \Bbar$ be 64-bit integers, $Q$ be a
@@ -303,13 +303,13 @@ Informally, these conditions check the following:
    $\delta_b$ rounds before the vote.
 
 An _equivocation vote pair_ or _equivocation vote_
-$\Equivocation(I, r, p, s, b)$ is a pair of votes which differ in
+$\Equivocation(I, r, b, p, s)$ is a pair of votes which differ in
 their proposal values. In other words,
 $$
 \begin{aligned}
-\Equivocation(I, r, p, s, b)
- = (&\Vote(I, r, p, s, b, v_1), \\
-    &\Vote(I, r, p, s, b, v_2))
+\Equivocation(I, r, b, p, s)
+ = (&\Vote(I, r, b, p, s, v_1), \\
+    &\Vote(I, r, b, p, s, v_2))
 \end{aligned}
 $$
 for some $v_1 \neq v_2$.
@@ -326,8 +326,8 @@ Bundles
 
 Let $V$ be any set of votes and equivocation votes. We say that $V$
 _is a bundle for $v$ in round $r$, period $p$, step $s$, conditioned on a previous round with digest $b = \Digest(e_{r-1})$_
-(or a _bundle for $v$ at $(r, p, s, b)$_), denoted
-$\Bundle(r, p, s, b), v)$.
+(or a _bundle for $v$ at $(r, b, p, s)$_), denoted
+$\Bundle(r, b, p, s), v)$.
 
 Moreover, let $L$ be a ledger where $|L| \geq \delta_b$. We
 say that this bundle is _valid with respect to $L$_ (or simply _valid_
@@ -337,7 +337,7 @@ if $L$ is unambiguous) if the following conditions are true:
 
  - For any two elements $a_i, a_j \in V$, $I_i \neq I_j$.
 
- - For any element $a_i \in V$, $r_i = r, p_i = p, s_i = s, b_i = b$.
+ - For any element $a_i \in V$, $r_i = r, b_i = b, p_i = p, s_i = s$.
 
  - For any element $a_i \in V$, either $a_i$ is a vote and
    $v_i = v$, or $a_i$ is an equivocation vote.
@@ -480,7 +480,7 @@ except for the sender.
 A broadcast action is simply written as the message to be
 transmitted.  A relay action is written as the same message except
 with an asterisk.  For instance, an action to relay a vote is written
-as $\Vote^*(r, p, s, v)$.
+as $\Vote^*(r, b, p, s, v)$.
 
 
 Player State Definition
@@ -490,15 +490,15 @@ Player State Definition
 
 We define the _player state_ $S$ to be the following tuple:
 $$
-S = (r, p, s, \sbar, V, P, \vbar)
+S = (r, b, p, s, \sbar, V, P, \vbar)
 $$
 where
 
  - $r$ is the current round,
+ - $b$ is the digest of the previous round $\Digest(e_{r-1})$,
  - $p$ is the current period,
  - $s$ is the current step,
  - $\sbar$ is the _last concluding step_,
- - $b$ is the digest of the previous round $\Digest(e_{r-1})$,
  - $V$ is the set of all votes,
  - $P$ is the set of all proposals, and
  - $\vbar$ is the _pinned_ value.
@@ -506,27 +506,27 @@ where
 We say that a player has _observed_ 
 
  - $\Proposal(v)$ if $\Proposal(v) \in P$
- - $\Vote_l(r, p, s, b, v)$ if $\Vote_l(r, p, s, b, v) \in V$
- - $\Bundle(r, p, s, b, v)$ if $\Bundle_l(r, p, s, b, v) \subset V$
+ - $\Vote_l(r, b, p, s, v)$ if $\Vote_l(r, b, p, s, v) \in V$
+ - $\Bundle(r, b, p, s, v)$ if $\Bundle_l(r, b, p, s, v) \subset V$
  - that round $r$ (period 0) has _begun_ if there exists some $p$ such
-   that $\Bundle(r-1, p, \Cert, b, v)$ was also observed
+   that $\Bundle(r-1, b, p, \Cert, v)$ was also observed
  - that round $r$, period $p > 0$ has _begun_ if there exists some $p$
    such that either
-    - $\Bundle(r, p-1, s, b, v)$ was also observed for some 
+    - $\Bundle(r, b, p-1, s, v)$ was also observed for some 
       $s > \Cert, v$, or
-    - $\Bundle(r, p, \Soft, b, v)$ was observed for some $v$.
+    - $\Bundle(r, b, p, \Soft, v)$ was observed for some $v$.
 
 An event causes a player to observe something if the player has not
 observed that thing before receiving the event and has observed that
 thing after receiving the event. For instance, a player may observe a
 vote $\Vote$, which adds this vote to $V$:
 $$
- N((r, p, s, \sbar, b, V, P, \vbar), L_0, \Vote)
-= ((r', p', \ldots, V \cup \{\Vote\}, P, \vbar'), L_1, \ldots).
+ N((r, b, p, s, \sbar, V, P, \vbar), L_0, \Vote)
+= ((r', b', p', \ldots, V \cup \{\Vote\}, P, \vbar'), L_1, \ldots).
 $$
 We abbreviate the transition above as
 $$
- N((r, p, s, \sbar, b, V, P, \vbar), L_0, \Vote)
+ N((r, b, p, s, \sbar, V, P, \vbar), L_0, \Vote)
  = ((S \cup \Vote, P, \vbar), L_1, \ldots).
 $$
 Note that _observing_ a message is distinct from _receiving_ a
@@ -538,30 +538,30 @@ rules][Relay Rules] for details.
 Special Values
 --------------
 
-We define two functions $\mu(S, r, p, b), \sigma(S, r, p, b)$, which are
+We define two functions $\mu(S, r, b, p), \sigma(S, r, b, p)$, which are
 defined as follows:
 
-$\mu(S, r, p, b)$ is defined as the proposal-value in the vote in round
+$\mu(S, r, b, p)$ is defined as the proposal-value in the vote in round
 $r$ and period $p$ with the minimal credential, conditioned on a previous round with digest $b = \Digest(e_{r-1})$. More formally, let
 $$
-V_{r, p, b} = \{\Vote(I, r, p, 0, b, v) | \Vote \in V\}
+V_{r, b, p} = \{\Vote(I, r, b, p, 0, v) | \Vote \in V\}
 $$
-where $V$ is the set of votes in $S$. Then if $\Vote_l(r, p, 0, b, v_l)$
-is the vote with the smallest weight in $V_{r, p, b}$, then
-$\mu(S, r, p, b) = v_l$.
+where $V$ is the set of votes in $S$. Then if $\Vote_l(r, b, p, 0, v_l)$
+is the vote with the smallest weight in $V_{r, b, p}$, then
+$\mu(S, r, b, p) = v_l$.
 
-If $V_{r, p, b}$ is empty, then $\mu(S, r, p, b) = \bot$.
+If $V_{r, b, p}$ is empty, then $\mu(S, r, b, p) = \bot$.
 
-$\sigma(S, r, p, b)$ is defined as the sole proposal-value for which
+$\sigma(S, r, b, p)$ is defined as the sole proposal-value for which
 there exists a soft-bundle in round $r$, period $p$, and previous round digest $b$. More formally,
-suppose $\Bundle(r, p, \Soft, b, v) \subset V$. Then
-$\sigma(S, r, p, b) = v$.
+suppose $\Bundle(r, b, p, \Soft, v) \subset V$. Then
+$\sigma(S, r, b, p) = v$.
 
-If no such soft-bundle exists, then $\sigma(S, r, p, b) = \bot$.
+If no such soft-bundle exists, then $\sigma(S, r, b, p) = \bot$.
 
 If there exists a proposal-value $v$ such that $\Proposal(v) \in V$
-and $\sigma(S, r, p, b) = v$, we say that $v$ is _committable for round
-$r$, period $p$, previous round digest $b$_ (or simply that $v$ is _committable_ if $(r, p, b)$ is
+and $\sigma(S, r, b, p) = v$, we say that $v$ is _committable for round
+$r$, period $p$, previous round digest $b$_ (or simply that $v$ is _committable_ if $(r, b, p)$ is
 unambiguous).
 
 
@@ -588,7 +588,7 @@ receiving that message.
 Votes
 -----
 
-On receiving a vote $Vote_k(r_k, p_k, s_k, b_k, v)$ a player
+On receiving a vote $Vote_k(r_k, b_k, p_k, s_k, v)$ a player
 
  - Ignores* it if $\Vote_k$ is invalid.
  - Ignores it if $s = 0$ and $\Vote_k \in V$.
@@ -610,62 +610,62 @@ On receiving a vote $Vote_k(r_k, p_k, s_k, b_k, v)$ a player
 
 Specifically, if a player ignores the vote,
 $$
-N(S, L, \Vote_k(r_k, p_k, s_k, v)) = (S, L, \epsilon)
+N(S, L, \Vote_k(r_k, b_k, p_k, s_k, v)) = (S, L, \epsilon)
 $$
 while if a player relays the vote,
 $$
- N(S, L, \Vote_k(r_k, p_k, s_k, v))
-= (S' \cup \Vote(I, r_k, p_k, s_k, v), L',
-   (\Vote_k^*(r_k, p_k, s_k, v),\ldots)).
+ N(S, L, \Vote_k(r_k, b_k, p_k, s_k, v))
+= (S' \cup \Vote(I, r_k, b_k, p_k, s_k, v), L',
+   (\Vote_k^*(r_k, b_k, p_k, s_k, v),\ldots)).
 $$
 
 
 Bundles
 -------
 
-On receiving a bundle $\Bundle(r_k, p_k, s_k, v)$ a player
+On receiving a bundle $\Bundle(r_k, b_k, p_k, s_k, v)$ a player
 
- - Ignores* it if $\Bundle(r, p, s, v)$ is invalid.
+ - Ignores* it if $\Bundle(r, b, p, s, v)$ is invalid.
  - Ignores it if
     - $r_k \neq r$ or
     - $r_k = r$ and $p_k + 1 < p$.
- - Otherwise, observes the votes in $\Bundle(r_k, p_k, s_k, v)$ in
+ - Otherwise, observes the votes in $\Bundle(r_k, b_k, p_k, s_k, v)$ in
    sequence. If there exists a vote which causes the player to observe
-   some bundle $\Bundle(r_k, p_k, s_k, v')$ for some $s_k$, then the
-   player relays $\Bundle(r_k, p_k, s_k, v')$, and then executes any
+   some bundle $\Bundle(r_k, b_k, p_k, s_k, v')$ for some $s_k$, then the
+   player relays $\Bundle(r_k, b_k, p_k, s_k, v')$, and then executes any
    consequent action; if there does not, the player ignores it.
    
 Specifically, if the player ignores the bundle without observing its
 votes,
 $$
-N(S, L, \Bundle(r_k, p_k, s_k, v)) = (S, L, \epsilon);
+N(S, L, \Bundle(r_k, b_k, p_k, s_k, v)) = (S, L, \epsilon);
 $$
 while if a player ignores the bundle but observes its votes,
 $$
-N(S, L, \Bundle(r_k, p_k, s_k, v))
-= (S' \cup \Bundle(r_k, p_k, s_k, v), L, \epsilon);
+N(S, L, \Bundle(r_k, b_k, p_k, s_k, v))
+= (S' \cup \Bundle(r_k, b_k, p_k, s_k, v), L, \epsilon);
 $$
 and if a player, on observing the votes in the bundle, observes a
 bundle for some value (not necessarily distinct from the bundle's
 value),
 $$
-N(S, L, \Bundle(r_k, p_k, s_k, v))
-= (S' \cup \Bundle(r_k, p_k, s_k, v), L',
-   (\Bundle^*(r_, p_k, s_k, v'), \ldots)).
+N(S, L, \Bundle(r_k, b_k, p_k, s_k, v))
+= (S' \cup \Bundle(r_k, b_k, p_k, s_k, v), L',
+   (\Bundle^*(r_k, b_k, p_k, s_k, v'), \ldots)).
 $$
-
+<!--- seems like a typo r_k -->
 
 Proposals
 ---------
 
 On receiving a proposal $\Proposal(v)$ a player
 
- - Relays $\Proposal(v)$ if $\sigma(S, r+1, 0) = v$.
+ - Relays $\Proposal(v)$ if $\sigma(S, r+1, b, 0) = v$.
  - Ignores it if it is invalid.
  - Ignores it if $\Proposal(v) \in P$.
  - Relays $\Proposal(v)$, observes it, and then produces any
    consequent output,
-   if $v \in \{\sigma(S, r, p), \vbar, \mu(S, r, p)\}$.
+   if $v \in \{\sigma(S, r, b, p), \vbar, \mu(S, r, b, p)\}$.
  - Otherwise, ignores it.
 
 Specifically, if the player ignores a proposal,
@@ -697,9 +697,9 @@ required to relay proposals which match the following proposal-values
 (where $r$ is the current round and $p$ is the current period):
 
  - $\vbar$
- - $\sigma(S, r, p), \sigma(S, r, p-1)$
- - $\mu(S, r, p)$ if $\sigma(S, r, p)$ is not set and $\mu(S, r, p+1)$
-   if $\sigma(S, r, p+1)$ is not set
+ - $\sigma(S, r, b, p), \sigma(S, r, b, p-1)$
+ - $\mu(S, r, b, p)$ if $\sigma(S, r, b, p)$ is not set and $\mu(S, r, b, p+1)$
+   if $\sigma(S, r, b, p+1)$ is not set
 
 
 Internal Transitions
@@ -712,67 +712,68 @@ its state.
 New Round
 ---------
 
-When a player observes that a new round $(r, 0)$ has begun, the player
-sets $\sbar := s, \vbar := \bot, p := 0, s := 0$. Specifically,
+When a player observes that a new round $(r, b, 0)$ has begun, the player
+sets $\sbar := s, \vbar := \bot, p := 0, s := 0, b := \Digest(e_{r-1})$. Specifically,
 if a new round has begun,
 $$
- N((r-i, p, s, \sbar, V, P, \vbar), L, \ldots)
- = ((r, 0, 0, s, V', P', \bot), L', \ldots)
+ N((r-i, b_{r-i}, p, s, \sbar, V, P, \vbar), L, \ldots)
+ = ((r, b, 0, 0, s, V', P', \bot), L', \ldots)
 $$
 for some $i > 0$.
-
+<!--- there is no \sbar on the RHS and there needs to be two different values for b on LHS/RHS -->
 
 New Period
 ----------
 
-When a player observes that a new period $(r, p)$ has begun, the
+When a player observes that a new period $(r, b, p)$ has begun, the
 player sets $\sbar := s, s := 0$. Also, the player sets $\vbar := v$ if
-the player has observed $\Bundle(r, p-1, s, v)$ given some values $s > \Cert$
+the player has observed $\Bundle(r, b, p-1, s, v)$ given some values $s > \Cert$
 (or $s = \Soft$), $v \neq \bot$; if none exist, the player sets $\vbar :=
-\sigma(S, r, p-i)$ if it exists, where $p-i$ was the player's period
+\sigma(S, r, b, p-i)$ if it exists, where $p-i$ was the player's period
 immediately before observing the new period; and if none exist, the
 player does not update $\vbar$.
 
-In other words, if $\Bundle(r, p-1, s, v) \in V'$ for some
+In other words, if $\Bundle(r, b, p-1, s, v) \in V'$ for some
 $v \neq \bot, s > \Cert$ or $s = \Soft$,
 $$
- N((r, p-i, s, \sbar, V, P, \vbar), L, \ldots)
- = ((r, p, 0, s, V', P, v), L', \ldots);
+ N((r, b, p-i, s, \sbar, V, P, \vbar), L, \ldots)
+ = ((r, b, p, 0, s, V', P, v), L', \ldots);
 $$
-and otherwise, if $\Bundle(r, p-1, s, \bot) \in V'$ for some $s > \Cert$
-with $\sigma(S, r, p-i)$ defined,
+and otherwise, if $\Bundle(r, b, p-1, s, \bot) \in V'$ for some $s > \Cert$
+with $\sigma(S, r, b, p-i)$ defined,
 $$
- N((r, p-i, s, \sbar, V, P, \vbar), L, \ldots)
- = ((r, p, 0, s, V', P, \sigma(S, r, p-i)), L', \ldots);
+ N((r, b, p-i, s, \sbar, V, P, \vbar), L, \ldots)
+ = ((r, b, p, 0, s, V', P, \sigma(S, r, p-i)), L', \ldots);
 $$
 and otherwise
 $$
- N((r, p-i, s, \sbar, V, P, \vbar), L, \ldots)
- = ((r, p, 0, s, V', P, \vbar), L', \ldots);
+ N((r, b, p-i, s, \sbar, V, P, \vbar), L, \ldots)
+ = ((r, b, p, 0, s, V', P, \vbar), L', \ldots);
 $$
-for some $i > 0$ (where $S = (r, p-i, s, \sbar, V, P, \vbar))$.
+for some $i > 0$ (where $S = (r, b, p-i, s, \sbar, V, P, \vbar))$.
 
 
 Garbage Collection
 ------------------
 
 When a player observes that either a new round or a new period
-$(r, p)$ has begun, then the player _garbage-collects_ old state. In
+$(r, b, p)$ has begun, then the player _garbage-collects_ old state. In
 other words,
 $$
- N((r-i, p-i, s, \sbar, V, P, \vbar), L, \ldots)
- = ((r, p, \sbar, 0, V' \setminus V^*_{r, p}, P' \setminus P^*_{r, p},
+ N((r-i, b_{r-i}, p-i, s, \sbar, V, P, \vbar), L, \ldots)
+ = ((r, b, p, \sbar, 0, V' \setminus V^*_{r, b, p}, P' \setminus P^*_{r, b, p},
     \vbar), L, \ldots).
 $$
 where
 $$
 \begin{aligned}
-V^*_{r, p}
- &=    \{\Vote(I, r', p', \sbar, v) | \Vote \in V, r' < r\} \\
- &\cup \{\Vote(I, r', p', \sbar, v) | \Vote \in V, r' = r, p' + 1 < p\}
+V^*_{r, b, p}
+ &=    \{\Vote(I, r', b', p', \sbar, v) | \Vote \in V, r' < r\} \\
+ &\cup \{\Vote(I, r', b', p', \sbar, v) | \Vote \in V, r' = r, b' = b, p' + 1 < p\}
 \end{aligned}
 $$
-and $P^*_{r, p}$ is defined similarly.
+<!--- garbage collecting before first uncommitted / "current round" -->
+and $P^*_{r, b, p}$ is defined similarly.
 
 
 New Step
@@ -794,13 +795,13 @@ $s := s_t$.
 In other words,
 $$
 \begin{aligned}
-  &N((r, p, s, \sbar, V, P, \vbar), L, t(2\lambda, p))
- &&= ((r, p, \Cert, \sbar, V, P, \vbar), L', \ldots) \\
-  &N((r, p, s, \sbar, V, P, \vbar), L, t(\max\{4\lambda, \Lambda\}, p))
- &&= ((r, p, \Next_0, \sbar, V, P, \vbar), L', \ldots) \\
-  &N((r, p, s, \sbar, V, P, \vbar), L,
+  &N((r, b, p, s, \sbar, V, P, \vbar), L, t(2\lambda, p))
+ &&= ((r, b, p, \Cert, \sbar, V, P, \vbar), L', \ldots) \\
+  &N((r, b, p, s, \sbar, V, P, \vbar), L, t(\max\{4\lambda, \Lambda\}, p))
+ &&= ((r, b, p, \Next_0, \sbar, V, P, \vbar), L', \ldots) \\
+  &N((r, b, p, s, \sbar, V, P, \vbar), L,
      t(\max\{4\lambda, \Lambda\} + 2^{s_t}\lambda + r, p))
- &&= ((r, p, s_t, \sbar, V, P, \vbar), L', \ldots).
+ &&= ((r, b, p, s_t, \sbar, V, P, \vbar), L', \ldots).
  \end{aligned}
 $$
 
@@ -815,18 +816,18 @@ player may also append an entry to the ledger.
 A correct player emits only valid votes.  Suppose the player is
 identified with the address $I$ and possesses the secret key $\sk$,
 and the agreement is occurring on the ledger $L$.  Then the player
-constructs a vote $\Vote(I, r, p, s, v)$ by doing the following:
+constructs a vote $\Vote(I, r, b, p, s, v)$ by doing the following:
 
  - Let $(\pk, B) = \Record(L, r - \delta_b, I)$,
    $\Bbar = \Stake(L, r - \delta_b)$, $Q = \Seed(L, r - \delta_s)$,
    $\tau = \CommitteeThreshold(s)$, $\taubar = \CommitteeSize(s).$
 
- - Encode $x := (I, r, p, s, v), x' := (I, r, p, s).$
+ - Encode $x := (I, r, b, p, s, v), x' := (I, r, b, p, s).$
 
  - Try to set $y := \Sign(x, x', \sk, B, \Bbar, Q, \tau, \taubar).$
 
 If the signing procedure succeeds, the player broadcasts
-$\Vote(I, r, p, s, v) = (I, r, p, s, v, y)$. Otherwise, the player
+$\Vote(I, r, b, p, s, v) = (I, r, b, p, s, v, y)$. Otherwise, the player
 does not broadcast anything.
 
 For certain broadcast vote-messages specified here, a node is
@@ -846,14 +847,14 @@ resynchronization attempt involves the following:
 
  - First, the player broadcasts its _freshest bundle_, if one exists.
    A player's freshest bundle is a complete bundle defined as follows:
-    - $\Bundle(r, p, \Soft, v) \subset V$ for some $v$, if it exists,
+    - $\Bundle(r, b, p, \Soft, v) \subset V$ for some $v$, if it exists,
       or else
-    - $\Bundle(r, p-1, s, \bot) \subset V$ for some $s > \Cert$, if it
+    - $\Bundle(r, b, p-1, s, \bot) \subset V$ for some $s > \Cert$, if it
       exists, or else
-    - $\Bundle(r, p-1, s, v) \subset V$ for some
+    - $\Bundle(r, b, p-1, s, v) \subset V$ for some
       $s > \Cert, v \neq \bot$, if it exists.
 
- - Second, if the player broadcasted a bundle $\Bundle(r, p, s, v)$,
+ - Second, if the player broadcasted a bundle $\Bundle(r, b, p, s, v)$,
    and $v \neq \bot$, then the player broadcasts $\Proposal(v)$ if the
    player has it.
 
@@ -866,34 +867,35 @@ corresponds to a broadcast of a bundle after a relay output and before
 any subsequent broadcast outputs, if a freshest bundle exists but no
 matching proposal exists
 $$
-N(S, L, \ldots) = (S', L', (\ldots, \Bundle^*(r, p, \Soft, v), \ldots)),
+N(S, L, \ldots) = (S', L', (\ldots, \Bundle^*(r, b, p, \Soft, v), \ldots)),
 $$
 and otherwise corresponds to a broadcast of both a bundle and a
 proposal after a relay output and before any subsequent broadcast
 outputs
 $$
  N(S, L, \ldots) = (S', L',
-    (\ldots, \Bundle^*(r, p, \Soft, v), \Proposal(v), \ldots)).
+    (\ldots, \Bundle^*(r, b, p, \Soft, v), \Proposal(v), \ldots)).
 $$
 
 
 Proposals
 ---------
 
-On observing that $(r, p)$ has begun, the player attempts to
+On observing that $(r, b, p)$ has begun, the player attempts to
 resynchronize, and then
 
  - if $p = 0$ or there exists some $s > \Cert$ where
-   $\Bundle(r, p-1, s, \bot)$ was observed, then a player generates a
+   $\Bundle(r, b, p-1, s, \bot)$ was observed, then a player generates a
    new proposal $(v', \Proposal(v'))$ and then broadcasts
-   $(\Vote(I, r, p, 0, v'), \Proposal(v'))$.
+   $(\Vote(I, r, b, p, 0, v'), \Proposal(v'))$.
 
  - if $p > 0$ and there exists some $s_0 > \Cert, v$ where
-   $\Bundle(r, p-1, s_0, v)$ was observed, while there exists no
-   $s_1 > \Cert$ where $\Bundle(r, p-1, s_1, \bot)$ was observed,
-   then the player broadcasts $\Vote(I, r, p, 0, v)$. Moreover, if
+   $\Bundle(r, b, p-1, s_0, v)$ was observed, while there exists no
+   $s_1 > \Cert$ where $\Bundle(r, b, p-1, s_1, \bot)$ was observed,
+   then the player broadcasts $\Vote(I, r, b, p, 0, v)$. Moreover, if
    $\Proposal(v) \in P$, the player then broadcasts $\Proposal(v)$.
    
+<!--- re-explanation of proposal -->
 A player generates a new proposal by executing the entry-generation
 procedure and by setting the fields of the proposal
 accordingly. Specifically, the player creates a proposal payload
@@ -906,15 +908,15 @@ $v = (I, p, \Digest(e), \Hash(\Encoding(e))).$
 
 In other words, if the player generates a new proposal,
 $$
-N(S, L, \ldots) = (S', L', (\ldots, \Vote(I, r, p, 0, v'), \Proposal(v'))),
+N(S, L, \ldots) = (S', L', (\ldots, \Vote(I, r, b, p, 0, v'), \Proposal(v'))),
 $$
 while if the player broadcasts an old proposal,
 $$
-N(S, L, \ldots) = (S', L', (\ldots, \Vote(I, r, p-1, 0, v), \Proposal(v)))
+N(S, L, \ldots) = (S', L', (\ldots, \Vote(I, r, b, p-1, 0, v), \Proposal(v)))
 $$
 if $\Proposal(v) \in P$ and
 $$
-N(S, L, \ldots) = (S', L', (\ldots, \Vote(I, r, p-1, 0, v)))
+N(S, L, \ldots) = (S', L', (\ldots, \Vote(I, r, b, p-1, 0, v)))
 $$
 otherwise.
 
@@ -922,12 +924,12 @@ otherwise.
 Reproposal Payloads
 -------------------
 
-On observing $\Vote(I, r, p, 0, v)$, if $\Proposal(v) \in P$ then the
+On observing $\Vote(I, r, b, p, 0, v)$, if $\Proposal(v) \in P$ then the
 player broadcasts $\Proposal(v)$.
 
 In other words, if $\Proposal(v) \in P$,
 $$
-N(S, L, \Vote(I, r, p, 0, v)) = (S', L', (\Proposal(v))).
+N(S, L, \Vote(I, r, b, p, 0, v)) = (S', L', (\Proposal(v))).
 $$
 
 
@@ -935,29 +937,29 @@ Filtering
 ---------
 
 On observing a timeout event of $2\lambda$ (where
-$\mu = (H, H', l, p_\mu) = \mu(S, r, p)$),
+$\mu = (H, H', l, p_\mu) = \mu(S, r, b, p)$),
 
  - if $\mu \neq \bot$ and if
     - $p_\mu = p$ or
     - there exists some $s > \Cert$ such that
-      $\Bundle(r, p-1, s, \mu)$ was observed.
-   then the player broadcasts $\Vote(I, r, p, \Soft, \mu)$.
+      $\Bundle(r, b, p-1, s, \mu)$ was observed.
+   then the player broadcasts $\Vote(I, r, b, p, \Soft, \mu)$.
 
  - if there exists some $s_0 > \Cert$ such that
-   $\Bundle(r, p-1, s_0, \vbar)$ was observed and there exists no
-   $s_1 > \Cert$ such that $\Bundle(r, p-1, s_1, \bot)$ was
+   $\Bundle(r, b, p-1, s_0, \vbar)$ was observed and there exists no
+   $s_1 > \Cert$ such that $\Bundle(r, b, p-1, s_1, \bot)$ was
    observed, then the player broadcasts*
-   $\Vote(I, r, p, \Soft, \vbar)$.
+   $\Vote(I, r, b, p, \Soft, \vbar)$.
 
  - otherwise, the player does nothing.
 
 In other words, in the first case above,
 $$
-N(S, L, t(2\lambda, p)) = (S, L, \Vote(I, r, p, \Soft, \mu));
+N(S, L, t(2\lambda, p)) = (S, L, \Vote(I, r, b, p, \Soft, \mu));
 $$
 while in the second case above,
 $$
-N(S, L, t(2\lambda, p)) = (S, L, \Vote(I, r, p, \Soft, \vbar));
+N(S, L, t(2\lambda, p)) = (S, L, \Vote(I, r, b, p, \Soft, \vbar));
 $$
 and if neither case is true,
 $$
@@ -970,27 +972,27 @@ Certifying
 On observing that some proposal-value $v$ is committable for its
 current round $r$, and some period $p' \geq p$ (its current period),
 if $s \leq \Cert$, then then the player broadcasts*
-$\Vote(I, r, p, \Cert, v)$.  (It can be shown that this occurs either
+$\Vote(I, r, b, p, \Cert, v)$.  (It can be shown that this occurs either
 after a proposal is received or a soft-vote, which can be part of a
 bundle, is received.)
 
 In other words, if observing a soft-vote causes a proposal-value to
 become committable,
 $$
- N(S, L, \Vote(I, r, p, \Soft, v))
- = (S', L, (\ldots, \Vote(I, r, p, \Cert, v)));
+ N(S, L, \Vote(I, r, b, p, \Soft, v))
+ = (S', L, (\ldots, \Vote(I, r, b, p, \Cert, v)));
 $$
 while if observing a bundle causes a proposal-value to become
 committable,
 $$
- N(S, L, \Bundle(r, p, \Soft, v))
- = (S', L, (\ldots, \Vote(I, r, p, \Cert, v)));
+ N(S, L, \Bundle(r, b, p, \Soft, v))
+ = (S', L, (\ldots, \Vote(I, r, b, p, \Cert, v)));
 $$
 and if observing a proposal causes a proposal-value to become
 committable,
 $$
  N(S, L, \Proposal(v))
- = (S', L, (\ldots, \Vote(I, r, p, \Cert, v)));
+ = (S', L, (\ldots, \Vote(I, r, b, p, \Cert, v)));
 $$
 as long as $s \leq \Cert$.
 
@@ -998,7 +1000,7 @@ as long as $s \leq \Cert$.
 Commitment
 ----------
 
-On observing $\Bundle(r, p, \Cert, v)$ for some value $v$, the player
+On observing $\Bundle(r, b, p, \Cert, v)$ for some value $v$, the player
 _commits_ the entry $e$ corresponding to $\Proposal(v)$; i.e., the
 player appends $e$ to the sequence of entries on its ledger $L$.
 (Evidently, this occurs either after a vote is received or after a
@@ -1007,12 +1009,12 @@ bundle is received.)
 In other words, if observing a cert-vote causes the player to commit
 $e$,
 $$
- N(S, L, \Vote(I, r, p, \Cert, v))
+ N(S, L, \Vote(I, r, b, p, \Cert, v))
  = (S', L || e, \ldots));
 $$
 while if observing a bundle causes the player to commit $e$,
 $$
- N(S, L, \Bundle(r, p, \Cert, v))
+ N(S, L, \Bundle(r, b, p, \Cert, v))
  = (S', L || e, \ldots)).
 $$
 Note: Occasionally, an implementation may not have $e$ at the point
@@ -1034,27 +1036,27 @@ On observing a timeout event of
    $r \in [0, 2^{s_t}\lambda]$ sampled uniformly at random,
 
 the player attempts to resynchronize and then broadcasts*
-$\Vote(I, r, p, \Next_s, v)$ where
+$\Vote(I, r, b, p, \Next_s, v)$ where
 
- - $v = \sigma(S, r, p)$ if $v$ is committable in $(r, p)$,
+ - $v = \sigma(S, r, b, p)$ if $v$ is committable in $(r, b, p)$,
  - $v = \vbar$ if there does not exist a $s_0 > \Cert$ such that
-   $\Bundle(r, p-1, s_0, \bot)$ was observed and there exists an
-   $s_1 > \Cert$ such that $\Bundle(r, p-1, s_1, \vbar)$ was
+   $\Bundle(r, b, p-1, s_0, \bot)$ was observed and there exists an
+   $s_1 > \Cert$ such that $\Bundle(r, b, p-1, s_1, \vbar)$ was
    observed,
  - and $v = \bot$ otherwise.
 
 In other words, if a proposal-value $v$ is committable in the current
 period,
 $$
-N(S, L, t(T, p)) = (S', L, (\ldots, \Vote(I, r, p, \Next_s, v)));
+N(S, L, t(T, p)) = (S', L, (\ldots, \Vote(I, r, b, p, \Next_s, v)));
 $$
 while in the second case,
 $$
-N(S, L, t(T, p)) = (S', L, (\ldots, \Vote(I, r, p, \Next_s, \vbar)));
+N(S, L, t(T, p)) = (S', L, (\ldots, \Vote(I, r, b, p, \Next_s, \vbar)));
 $$
 and otherwise,
 $$
-N(S, L, t(T, p)) = (S', L, (\ldots, \Vote(I, r, p, \Next_s, \bot))).
+N(S, L, t(T, p)) = (S', L, (\ldots, \Vote(I, r, b, p, \Next_s, \bot))).
 $$
 
 
@@ -1065,16 +1067,16 @@ On observing a timeout event of $T = k\lambda_f + r$ where $k$ is a positive
 integer and $r \in [0, \lambda_f]$ sampled uniformly at random, the player
 attempts to resynchronize.  Then,
 
- - The player broadcasts* $\Vote(I, r, p, \Late, v)$ if $v = \sigma(S, r, p)$ is
-   committable in $(r, p)$.
- - The player broadcasts* $\Vote(I, r, p, \Redo, \vbar)$ if there does not exist
-   a $s_0 > \Cert$ such that $\Bundle(r, p-1, s_0, \bot)$ was observed and there
-   exists an $s_1 > \Cert$ such that $\Bundle(r, p-1, s_1, \vbar)$ was
+ - The player broadcasts* $\Vote(I, r, b, p, \Late, v)$ if $v = \sigma(S, r, b, p)$ is
+   committable in $(r, b, p)$.
+ - The player broadcasts* $\Vote(I, r, b, p, \Redo, \vbar)$ if there does not exist
+   a $s_0 > \Cert$ such that $\Bundle(r, b, p-1, s_0, \bot)$ was observed and there
+   exists an $s_1 > \Cert$ such that $\Bundle(r, b, p-1, s_1, \vbar)$ was
    observed.
- - Otherwise, the player broadcasts* $\Vote(I, r, p, \Down, \bot)$.
+ - Otherwise, the player broadcasts* $\Vote(I, r, b, p, \Down, \bot)$.
 
-Finally, the player broadcasts all $\Vote(I, r, p, \Late, v) \in V$, all
-$\Vote(I, r, p, \Redo, v) \in V$, and all $\Vote(I, r, p, \Down, \bot) \in V$
+Finally, the player broadcasts all $\Vote(I, r, b, p, \Late, v) \in V$, all
+$\Vote(I, r, b, p, \Redo, v) \in V$, and all $\Vote(I, r, b, p, \Down, \bot) \in V$
 that it has observed.
 
 
