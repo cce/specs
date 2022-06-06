@@ -251,8 +251,8 @@ Votes
 
 Let $I$ be an address, $r$ be a round, $p$ be a period, $s$ be a step,
 $b$ the digest $\Digest(e_{r-1})$ of the previous round $r-1$, and $v$ be a proposal-value, let $x$ be a canonical encoding of the
-5-tuple $(I, r, b, p, s, v)$, and let $x'$ be a canonical encoding of the
-4-tuple $(I, r, b, p, s))$.  Let $y$ be an arbitrary bitstring.
+6-tuple $(I, r, b, p, s, v)$, and let $x'$ be a canonical encoding of the
+5-tuple $(I, r, b, p, s))$.  Let $y$ be an arbitrary bitstring.
 Then we say that the tuple
 $$
 (I, r, b, p, s, v, y)
