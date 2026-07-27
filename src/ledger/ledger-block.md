@@ -130,8 +130,10 @@ $$
 \min\left( \left\lfloor \frac{1{,}000{,}000 \cdot s}{\MaxTxnBytesPerBlock} \right\rfloor, \; 1{,}000{,}000 \right)
 $$
 
-where \\( s \\) is the total number of transaction bytes in the block and
-\\( \MaxTxnBytesPerBlock \\) is the [maximum number of transaction bytes in a
+where \\( s \\) is the sum of the byte lengths of the canonical msgpack encoding
+of each `SignedTxnInBlock` in the block's payset. The payset's array framing is
+not included. This is the same total used to enforce
+\\( \MaxTxnBytesPerBlock \\), the [maximum number of transaction bytes in a
 block](./ledger-parameters.md).
 
 ### Congestion Tax
