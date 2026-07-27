@@ -223,7 +223,7 @@ The Algorand _Ledger_ is parameterized by the values in the following tables.
 |     \\( \MaxInnerTransactions \\)     |    \\( 16 \\)     |     txn      | Maximum number of inner transactions for an `appl` transaction                                                                    | `MaxInnerTransactions`         |
 |    \\( \SchemaBytesMinBalance \\)     | \\( 25{,}000 \\)  |    μALGO     | Additional MBR for `[]bytes` values in application state                                                                          | `SchemaBytesMinBalance`        |
 |   \\( \SchemaMinBalancePerEntry \\)   | \\( 25{,}000 \\)  |    μALGO     | MBR for key-value pair in application state                                                                                       | `SchemaMinBalancePerEntry`     |
-|     \\( \SchemaUintMinBalance \\)     |  \\( 35{,}00 \\)  |    μALGO     | Additional MBR for `uint64` values in application state                                                                           | `SchemaUintMinBalance`         |
+|     \\( \SchemaUintMinBalance \\)     |  \\( 3{,}500 \\)  |    μALGO     | Additional MBR for `uint64` values in application state                                                                           | `SchemaUintMinBalance`         |
 
 ---
 
