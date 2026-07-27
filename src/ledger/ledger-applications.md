@@ -221,3 +221,20 @@ of the application ID) is modified.
 When a box with name \\( n \\) and size \\( s \\) is created, the minimum balance
 requirement is raised by \\( \BoxFlatMinBalance + \BoxByteMinBalance \times (\mathrm{len}(n) + s) \\).
 The same amount is decremented from the minimum balance when the box is destroyed.
+
+## Family Reentrancy
+
+The boxes of an application whose `FamilyBoxAccess` is true are mutable state shared
+across every application with the same creator, so they are subject to a family-scoped
+analogue of the reentrancy restriction on applications. Two applications are in the
+same _family_ when their creator addresses are equal.
+
+An application _touches_ family-shared state when it reads or modifies a box of an
+application whose `FamilyBoxAccess` is true — including its own. A touch by \\( c \\)
+is also a touch by each application in the unbroken chain of callers of \\( c \\) that
+are in \\( c \\)’s family, and remains so after \\( c \\) returns.
+
+Modifying such a box **FAILS** if the chain of callers of the modifying application
+\\( c \\) contains an application in \\( c \\)’s family that has already touched
+family-shared state and is separated from \\( c \\) by at least one application outside
+the family. Reads never trigger this rule.
