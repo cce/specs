@@ -135,7 +135,7 @@ The Algorand _Ledger_ is parameterized by the values in the following tables.
 |:---------------------------------:|:-----------------:|:------:|-----------------------------------------------------------|-------------------------------|
 | \\( \DefaultUpgradeWaitRounds \\) | \\( 140{,}000 \\) | rounds | Default number of rounds needed to prepare for an upgrade | `DefaultUpgradeWaitRounds`    |
 |   \\( \MaxUpgradeWaitRounds \\)   | \\( 250{,}000 \\) | rounds | Maximum number of rounds needed to prepare for an upgrade | `MaxUpgradeWaitRounds`        |
-|  \\( \\MinUpgradeWaitRounds \\)   | \\( 10{,}000 \\)  | rounds | Minimum number of rounds needed to prepare for an upgrade | `MinUpgradeWaitRounds`        |
+|  \\( \MinUpgradeWaitRounds \\)   | \\( 10{,}000 \\)  | rounds | Minimum number of rounds needed to prepare for an upgrade | `MinUpgradeWaitRounds`        |
 |     \\( \UpgradeThreshold \\)     |  \\( 9{,}000 \\)  |        | Number of votes needed to execute an upgrade              | `UpgradeThreshold`            |
 |    \\( \UpgradeVoteRounds \\)     | \\( 10{,}000 \\)  | rounds | Number of rounds over which an upgrade proposal is open   | `UpgradeVoteRounds`           |
 
