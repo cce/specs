@@ -188,7 +188,7 @@ The Algorand _Ledger_ is parameterized by the values in the following tables.
 |                Parameter                |  Current Value   |  Unit   | Description                                                                                                                                                     | Reference Implementation Name    |
 |:---------------------------------------:|:----------------:|:-------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
 |        \\( \LogicSigMaxCost \\)         | \\( 20{,}000 \\) | opcodes | Maximum opcode cost for LSig                                                                                                                                    | `LogicSigMaxCost`                |
-|        \\( \LogicSigMaxSize \\)         | \\( 1{,}000 \\)  |  bytes  | Maximum combined length of LSig program and LSig arguments                                                                                                      | `LogicSigMaxSize`                |
+|        \\( \LogicSigMaxSize \\)         | \\( 1{,}000 \\)  |  bytes  | Unit used to compute two independent group-wide allowances: the pooled LSig argument allowance and the free program-byte allowance                              | `LogicSigMaxSize` 
 | \\( \MaxAbsoluteLogicSigProgramSize \\) | \\( 16{,}000 \\) |  bytes  | Absolute maximum length of a single LSig program; program bytes beyond \\( \LogicSigMaxSize \\) per transaction (pooled across the group) incur a fee surcharge | `MaxAbsoluteLogicSigProgramSize` |
 
 ## Application
