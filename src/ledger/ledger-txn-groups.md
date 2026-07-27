@@ -84,10 +84,17 @@ bytes beyond their basic total length;
 - the group's logic signature programs, for bytes beyond a pooled free allowance of
 \\( n \times \LogicSigMaxSize \\) bytes.
 
-If the sum of the fees paid by the \\( n \\) transactions in a transaction group is
-less than the sum of the fees they require (each transaction's \\( \MinTxnFee \\)
-plus its size surcharges), then the block is invalid. There are two exceptions to
-this fee requirement:
+Surcharges are fractional multiples of \\( \MinTxnFee \\), so they are accumulated
+across the group before being converted to μALGO. Let \\( u \\) be the sum, over the
+\\( n \\) transactions, of \\( 1{,}000{,}000 \\) plus each transaction's surcharges,
+all expressed in millionths of \\( \MinTxnFee \\). The group's required fee is
+
+$$
+\left\lceil \frac{\MinTxnFee \cdot u}{1{,}000{,}000} \right\rceil
+$$
+
+If the sum of the fees paid by the \\( n \\) transactions is less than this amount,
+then the block is invalid. There are two exceptions to this fee requirement:
 
 1. State Proof transactions require no fee;
 
