@@ -141,7 +141,9 @@ block](./ledger-parameters.md).
 The block's _congestion tax_ measures network congestion. It is stored in msgpack
 field `ct` as a fixed-point value in millionths, and is derived deterministically
 from the previous block's _load_ and _congestion tax_: it rises when the previous
-block was more than half full and falls when it was less than half full.
+block was more than half full, falls when it was less than half full, and remains
+unchanged when it was exactly half full. The congestion tax currently does not
+affect the fee required by any transaction.
 
 Let \\( L \\) and \\( C \\) be the _load_ and _congestion tax_ of the previous block,
 and let
