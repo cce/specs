@@ -162,7 +162,9 @@ def image_digest(image: str) -> str:
                 "inspect",
                 image,
                 "--format",
-                "{{.Manifest.Digest}}",
+                # Buildx below 0.33 routes any format starting with "{{.Manifest"
+                # to its human-readable printer; "{{json ...}}" avoids that prefix.
+                "{{json .Manifest.Digest}}",
             ],
             check=True,
             capture_output=True,
@@ -174,7 +176,11 @@ def image_digest(image: str) -> str:
     except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
         detail = getattr(error, "stderr", "") or str(error)
         raise UpdateError(f"failed to inspect {image}: {detail.strip()}") from error
-    match = DIGEST_RE.fullmatch(result.stdout.strip())
+    try:
+        digest = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        digest = None
+    match = DIGEST_RE.fullmatch(digest) if isinstance(digest, str) else None
     if not match:
         raise UpdateError(f"invalid image digest for {image}: {result.stdout.strip()!r}")
     return match.group(1)
