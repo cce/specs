@@ -94,6 +94,18 @@ and `GlobalStateSchema`. When zero, the application’s creator bears those cont
 This field is encoded with msgpack field `ss`, and is exposed to the AVM as the
 `AppSizeSponsor` field of `app_params_get` (see [Size Sponsor](#size-sponsor)).
 
+- A mutable “foreign box reads” flag (`ForeignBoxReads`). When true, another
+application may read this application’s boxes, provided the boxes are available
+to the transaction group. It does not permit another application to modify the
+boxes. This field is encoded with msgpack field `fbr`.
+
+- A mutable “family box access” flag (`FamilyBoxAccess`). When true, applications
+with the same creator may read and modify this application’s boxes, provided the
+boxes are available to the transaction group. This field is encoded with msgpack
+field `fba`.
+
+Both box-access flags are initially false and may be changed by the application
+using `app_params_set`.
 Each application created increases the minimum balance requirement of the creator
 by \\( \AppFlatParamsMinBalance \times (1+\ExtraProgramPages) \\) μALGO, plus the
 [`GlobalStateSchema` minimum balance contribution](#app-minimum-balance-changes).
