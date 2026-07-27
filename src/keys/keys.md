@@ -1,6 +1,6 @@
 # Algorand Keys Specification
 
-An Algorand node interacts with three types of cryptographic material:
+An Algorand node interacts with three types of cryptographic keys:
 
 - _Root keys_, the authorization material used to control the access to a particular
 account: a single key pair (such as Ed25519 or a post-quantum scheme), a multisignature

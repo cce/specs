@@ -73,7 +73,11 @@ in the [Post-Quantum Signature](#post-quantum-signature) section.
   section.
 
   - An **OPTIONAL** array of byte strings `arg` which are arguments supplied to the
-  program in `l` (`arg` bytes are not covered by `sig`, `lmsig`, or `pqsig`).
+  program in `l` (`arg` bytes are not covered by `sig`, `lmsig`, or `pqsig`). The
+  array **MUST NOT** contain more than \\( 255 \\) elements and each element
+  **MUST NOT** exceed \\( 4096 \\) bytes. The combined length of the program and
+  its arguments is further limited, as described in the [Bytecode Size](../avm/avm-mode-logic-signatures.md#bytecode-size)
+  section of the AVM specifications.
 
 The logic signature is valid if the one set is a valid [delegation signature](#logic-signature-delegation)
 of the program by the authorizer address of the transaction, or if none of them is
@@ -173,7 +177,7 @@ an additional fee, given by the _scheme fee contribution_:
 This contribution adds to the [minimum fee](./ledger-txn-groups.md) otherwise required
 by the transaction or by its transaction group, if any. The contribution adds even
 when the minimum fee is discounted in a fee-exempt Heartbeat transaction authorized
-by a post-quantum signature. The contribution never applies to a State Proof transaction,
+by a post-quantum signature. The contribution never applies to a [State Proof transaction](./ledger-txn-state-proof.md#validation),
 since it carries no authorization at all.
 
 ## Logic Signature Delegation

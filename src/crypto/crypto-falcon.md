@@ -8,8 +8,7 @@ to sign in State Proofs, and to authorize transactions and delegate logic signat
 from post-quantum accounts (scheme identifier `f1`, see
 [Authorization and Signatures](../ledger/ledger-txn-authorization.md#post-quantum-signature)).
 
-FALCON signatures contain a _salt version_. Algorand only accepts signatures with
-a salt version equal to `0`.
+FALCON signatures contain a _salt version_.
 
 FALCON-1024 signatures **MUST** be in compressed format.
 

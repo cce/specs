@@ -3,8 +3,8 @@
 Root keys are used to identify ownership of an account. An Algorand node only
 interacts with the public part of a root key (public keys or program bytecode).
 
-Each account is controlled by a _root_ authorization method, which also binds the
-account address to the authorization material:
+An account is controlled by one of the following _root_ authorization methods, which
+also bind the account address to the authorization material:
 
 - A single [Ed25519](../crypto/crypto-ed25519.md) key pair. The public key of the
 root key is used directly as the account address;
@@ -17,10 +17,15 @@ version, the authorization threshold, and all the participating public keys;
 program, wholly in charge of a _contract account_. The account address is derived
 by hashing the program bytecode;
 
-- A post-quantum scheme key pair. The account address is derived by hashing the
-scheme identifier, an address salt, and the public key, as specified in the
-[Post-Quantum Signature](../ledger/ledger-txn-authorization.md#post-quantum-signature)
-section of the Ledger specification.
+- A [post-quantum scheme](../ledger/ledger-txn-authorization.md#post-quantum-signature)
+key pair. The account address is derived by hashing the scheme identifier, an address
+salt, and the public key.
+
+{{#include ../_include/styles.md:note}}
+> Application accounts are the exception: their address is the hash of the Application
+> ID (prefixed by `appID`), which binds no authorization material. No root key exists
+> for these accounts: they cannot authorize top-level transactions and, unless rekeyed,
+> are controlled exclusively by their Application through [inner transactions](../avm/avm-ops-inner-transactions.md).
 
 Regardless of the authorization method, root keys are used to authorize transaction
 messages as well as delegating the voting authentication using _voting keys_, unless
