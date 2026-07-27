@@ -138,9 +138,11 @@ scheme. The supported values are:
 
 - The address salt `slt`, a 1-byte unsigned integer.
 
-- The canonical public key `pk` of the scheme, a byte string.
+- The canonical public key `pk` of the scheme, a byte string whose length **MUST**
+be the public key size defined by the scheme.
 
-- The canonical signature `sig` of the scheme, a non-empty byte string.
+- The canonical signature `sig` of the scheme, a non-empty byte string whose length
+**MUST NOT** exceed the maximum signature size defined by the scheme.
 
 The _post-quantum address_ of a scheme identifier, salt, and public key is derived
 by hashing their concatenation with the domain separation prefix \\( \PQAPrefix \\):
