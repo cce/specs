@@ -51,10 +51,11 @@ scheme defined in the [Algorand Participation Keys specification](../keys/keys-p
 
 The _heartbeat challenge discount_ (**OPTIONAL**) is a flag requesting the reduced fee
 that a challenged account owes when responding to a challenge (see the
-[Heartbeat Transaction Semantics](./ledger-txn-semantics-heartbeat.md)). It is a
-request rather than an assertion: the discount is granted only if the _heartbeat
-address_ is in fact under challenge, and an account willing to pay the ordinary fee
-**MAY** leave it unset even while challenged.
+[Heartbeat Transaction Semantics](./ledger-txn-semantics-heartbeat.md)). When set,
+the required fee is reduced by one minimum transaction fee, but the transaction
+**FAILS** unless the _heartbeat address_ satisfies the challenge conditions. An
+account willing to pay the ordinary fee **MAY** leave the flag unset even while
+challenged.
 
 - When set, the transaction's [_note_](./ledger-transactions.md#note),
 [_lease_](./ledger-transactions.md#lease), and
