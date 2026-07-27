@@ -1,5 +1,5 @@
 [global]
-# Lift MD041 exclusion if when allow_preamble is available
+# Lift MD041 exclusion when allow_preamble is available
 disable = ["MD028", "MD041"]
 exclude = ["src/SUMMARY.md"]
 
