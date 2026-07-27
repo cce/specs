@@ -115,8 +115,9 @@ Each logic signature _program_ **MUST NOT** exceed \\( \MaxAbsoluteLogicSigProgr
 bytes, and the sum of the lengths of all the logic signature _arguments_ in a transaction
 group **MUST NOT** exceed the number of transactions in the group times
 \\( \LogicSigMaxSize \\); otherwise the block is invalid. Logic signature _program_
-bytes beyond a pooled free allowance of the same size are permitted, but incur a size
-surcharge as described in the group fee requirement above.
+bytes beyond a pooled free allowance of \\( n \times \LogicSigMaxSize \\) are
+permitted, but incur a size surcharge as described in the group fee requirement
+above.
 
 Beyond the _group_ field, group minimum fee, group I/O Budget, and group logic sig
 size checks, each transaction in a group is evaluated separately and **MUST** be
