@@ -135,7 +135,7 @@ The Algorand _Ledger_ is parameterized by the values in the following tables.
 |:---------------------------------:|:-----------------:|:------:|-----------------------------------------------------------|-------------------------------|
 | \\( \DefaultUpgradeWaitRounds \\) | \\( 140{,}000 \\) | rounds | Default number of rounds needed to prepare for an upgrade | `DefaultUpgradeWaitRounds`    |
 |   \\( \MaxUpgradeWaitRounds \\)   | \\( 250{,}000 \\) | rounds | Maximum number of rounds needed to prepare for an upgrade | `MaxUpgradeWaitRounds`        |
-|  \\( \MinUpgradeWaitRounds \\)   | \\( 10{,}000 \\)  | rounds | Minimum number of rounds needed to prepare for an upgrade | `MinUpgradeWaitRounds`        |
+|   \\( \MinUpgradeWaitRounds \\)   | \\( 10{,}000 \\)  | rounds | Minimum number of rounds needed to prepare for an upgrade | `MinUpgradeWaitRounds`        |
 |     \\( \UpgradeThreshold \\)     |  \\( 9{,}000 \\)  |        | Number of votes needed to execute an upgrade              | `UpgradeThreshold`            |
 |    \\( \UpgradeVoteRounds \\)     | \\( 10{,}000 \\)  | rounds | Number of rounds over which an upgrade proposal is open   | `UpgradeVoteRounds`           |
 
@@ -188,7 +188,7 @@ The Algorand _Ledger_ is parameterized by the values in the following tables.
 |                Parameter                |  Current Value   |  Unit   | Description                                                                                                                                                     | Reference Implementation Name    |
 |:---------------------------------------:|:----------------:|:-------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
 |        \\( \LogicSigMaxCost \\)         | \\( 20{,}000 \\) | opcodes | Maximum opcode cost for LSig                                                                                                                                    | `LogicSigMaxCost`                |
-|        \\( \LogicSigMaxSize \\)         | \\( 1{,}000 \\)  |  bytes  | Unit used to compute two independent group-wide allowances: the pooled LSig argument allowance and the free program-byte allowance                              | `LogicSigMaxSize` 
+|        \\( \LogicSigMaxSize \\)         | \\( 1{,}000 \\)  |  bytes  | Unit used to compute two independent group-wide allowances: the pooled LSig argument allowance and the free program-byte allowance                              | `LogicSigMaxSize`                |
 | \\( \MaxAbsoluteLogicSigProgramSize \\) | \\( 16{,}000 \\) |  bytes  | Absolute maximum length of a single LSig program; program bytes beyond \\( \LogicSigMaxSize \\) per transaction (pooled across the group) incur a fee surcharge | `MaxAbsoluteLogicSigProgramSize` |
 
 ## Application
