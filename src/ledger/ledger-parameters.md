@@ -49,7 +49,7 @@ $$
 \newcommand \MaxAbsoluteLogicSigProgramSize {\LogicSig_{\mathrm{abs}}}
 \newcommand \LogicSigVersion {\LogicSig_{V}}
 \newcommand \MaxProposedExpiredOnlineAccounts {B_{N_\mathrm{e},\max}}
-\newcommand \PayoutMaxMarkAbsent {B_{N_\mathrm{a},\max}}
+\newcommand \PayoutsMaxMarkAbsent {B_{N_\mathrm{a},\max}}
 \newcommand \PayoutsMaxBalance {A_{r,\max}}
 \newcommand \PayoutsMinBalance {A_{r,\min}}
 \newcommand \PayoutsPercent {B_{p,\\%}}
@@ -110,7 +110,7 @@ The Algorand _Ledger_ is parameterized by the values in the following tables.
 |      \\( \MaxTimestampIncrement \\)       |      \\( 25 \\)       | seconds | Maximum difference between successive timestamps                      | `MaxTimestampIncrement`            |
 |       \\( \MaxVersionStringLen \\)        |      \\( 128 \\)      |  bytes  | Maximum length of protocol version strings                            | `MaxVersionStringLen`              |
 | \\( \MaxProposedExpiredOnlineAccounts \\) |      \\( 32 \\)       |         | Maximum number of _expired participation accounts_ in block header    | `MaxProposedExpiredOnlineAccounts` |
-|       \\( \PayoutMaxMarkAbsent \\)        |      \\( 32 \\)       |         | Maximum number of _suspended participation accounts_ in block header  | `Payout.MaxMarkAbsent`             |
+|       \\( \PayoutsMaxMarkAbsent \\)        |      \\( 32 \\)       |         | Maximum number of _suspended participation accounts_ in block header  | `Payouts.MaxMarkAbsent`             |
 
 ## Block Rewards
 
