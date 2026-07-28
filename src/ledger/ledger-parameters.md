@@ -110,7 +110,7 @@ The Algorand _Ledger_ is parameterized by the values in the following tables.
 |      \\( \MaxTimestampIncrement \\)       |      \\( 25 \\)       | seconds | Maximum difference between successive timestamps                      | `MaxTimestampIncrement`            |
 |       \\( \MaxVersionStringLen \\)        |      \\( 128 \\)      |  bytes  | Maximum length of protocol version strings                            | `MaxVersionStringLen`              |
 | \\( \MaxProposedExpiredOnlineAccounts \\) |      \\( 32 \\)       |         | Maximum number of _expired participation accounts_ in block header    | `MaxProposedExpiredOnlineAccounts` |
-|       \\( \PayoutsMaxMarkAbsent \\)        |      \\( 32 \\)       |         | Maximum number of _suspended participation accounts_ in block header  | `Payouts.MaxMarkAbsent`             |
+|       \\( \PayoutsMaxMarkAbsent \\)       |      \\( 32 \\)       |         | Maximum number of _suspended participation accounts_ in block header  | `Payouts.MaxMarkAbsent`            |
 
 ## Block Rewards
 
