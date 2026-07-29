@@ -107,6 +107,10 @@ since that challenge.
 > Further explanation of this rule is found in [Heartbeat transaction semantics](./ledger-txn-semantics-heartbeat.md)
 > section.
 
+Additionally, each transaction authorized with a [post-quantum signature](./ledger-txn-authorization.md#post-quantum-signature),
+directly or through a delegated logic signature, raises the minimum fee requirement
+of its group by the scheme _fee contribution_ (see [Fee Surcharge](./ledger-txn-authorization.md#fee-surcharge)).
+
 If the sum of the lengths of the boxes denoted by the box references in a transaction
 group exceeds \\( \BytesPerBoxReference \\) times the total number of box references
 in the transaction group, then the block is invalid. Call this limit the _I/O Budget_
