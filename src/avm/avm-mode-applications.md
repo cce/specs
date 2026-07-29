@@ -155,7 +155,9 @@ than the _foreign arrays_. Listed resources become _available_ to other (post-Ve
 the Holding or Local **MUST** be _available_ in a top-level transaction based on
 pre-Version 9 rules.
 
-{{#include ../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > If account `A` is made available in one transaction, and asset `X` is made available
 > in another, _group resource sharing_ does _not_ make `A`'s `X` Holding available.
 

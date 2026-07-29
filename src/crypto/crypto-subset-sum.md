@@ -1,6 +1,6 @@
 # SUBSET-SUM
 
-Algorand uses [SUBSET-SUM algorithm](../../_archive/dev/cryptographic-specs/sumhash-spec.pdf),
+Algorand uses [SUBSET-SUM algorithm](https://github.com/algorandfoundation/specs/blob/master/_archive/dev/cryptographic-specs/sumhash-spec.pdf),
 which is a _quantum-resilient_ hash function.
 
 This algorithm is used:
@@ -10,5 +10,6 @@ This algorithm is used:
 - To commit on ephemeral public keys in the Merkle Keystore structure used in the
 two-level [Ephemeral Signature Scheme](../keys/keys-ephemeral.md).
 
+> [!NOTE]
 > For further details on the Ephemeral Signature Scheme, refer to Algorand Keys
 > [normative specification](../keys/keys-ephemeral.md).

@@ -11,9 +11,12 @@ It is a compact data structure designed to efficiently update all state _Tracker
 after a block is committed. By recording only the parts of the state that were modified,
 it also simplifies block assembly and validation.
 
+> [!NOTE]
 > For a formal definition of this structure, refer to the Algorand Ledger [normative specification](../ledger-apply-data.md#state-deltas).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > State Delta [reference implementation](https://github.com/algorand/go-algorand/blob/a81d54fb36c16c2f2f44cc5d153f358105a63317/ledger/ledgercore/statedelta.go#L92).
 
 In the `go-algorand` reference implementation, a _State Delta_ includes the following

@@ -60,9 +60,11 @@ for \\( H(B) \\) has been observed, then the node \\( \Next \\)-votes \\( H(B) \
 - Otherwise, the node has received a \\( \Next \\)-quorum for \\( v = H(B') \neq \bot \\)
 from period \\( (r, p-1) \\), and the node \\( \Next \\)-votes \\( v \\).
 
+> [!NOTE]
 > The \\( \s \\) of the node _context tuple_ \\( (r, p, s) \\) _is incremented_
 > every time the local node clock triggers a Recovery trial.
 
+> [!NOTE]
 > For further details on the Recovery procedure, see the [non-normative section](./abft-nn-recovery.md).
 
 ### Fast Recovery (Linear Recovery)
@@ -87,9 +89,11 @@ for \\( H(B) \\) then the node \\( \Late \\)-votes \\( H(B) \\) (\\( \s = 253 \\
 - Otherwise, the node has received a \\( \Next \\)-quorum for \\( v = H(B') \neq \bot \\)
 from period \\( (r, p-1) \\), and the node \\( \Redo \\)-votes \\( v \\) (\\( \s = 254 \\)).
 
+> [!NOTE]
 > These three steps are mutually exclusive; therefore, whenever a time event triggers
 > the Fast Recovery procedure, just one of \\( \Late, \Redo, \Down \\) steps is executed.
 
+> [!NOTE]
 > In the Fast Recovery procedure, the \\( \s \\) of the node _context tuple_ \\( (r, p, s) \\)
 > _is not incremented_ every time the local node clock triggers a Fast Recovery
 > trial. In fact, the node _does not_ wait \\( \s \\) to be equal to \\( 253, 254, 255 \\)
@@ -97,4 +101,5 @@ from period \\( (r, p-1) \\), and the node \\( \Redo \\)-votes \\( v \\) (\\( \s
 > local node clock (\\( t_N = k\lambda_f + t \\)) and just one among the three mutually
 > exclusive \\( \Late, \Redo, \Down \\) steps is executed.
 
+> [!NOTE]
 > For further details on the Fast Recovery procedure, see the [non-normative section](./abft-nn-fast-recovery.md).

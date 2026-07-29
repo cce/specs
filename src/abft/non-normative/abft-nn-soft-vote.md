@@ -55,14 +55,13 @@ for this round.
 
 \\( \textbf{Algorithm 4} \text{: Soft Vote} \\)
 
-<!-- markdownlint-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \SoftVote() \\\\
 &\text{2: } \quad \loh \gets \infty \\\\
 &\text{3: } \quad v \gets \bot \\\\
 &\text{4: } \quad \PSfor \vt_p \in V^\ast \PSdo \PScomment{The subset of votes corresponding to proposals} \\\\
-&\text{5: } \quad \quad \ph \gets \Priority(\vt_p)  \\\\
+&\text{5: } \quad \quad \ph \gets \Priority(\vt_p) \\\\
 &\text{6: } \quad \quad \PSif \ph < \loh \PSthen \\\\
 &\text{7: } \quad \quad \quad \loh \gets \ph \\\\
 &\text{8: } \quad \quad \quad v \gets \vt_p \\\\
@@ -82,11 +81,12 @@ $$
 &\text{22: } \PSendfunction
 \end{aligned}
 $$
-<!-- markdownlint-enable MD013 -->
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Soft vote filtering [reference implementation](https://github.com/algoradam/go-algorand/blob/master/data/committee/credential.go#L160C1-L187C2).
 >
 > Soft vote issuance [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/agreement/player.go#L170-L206).
@@ -119,6 +119,7 @@ node’s general cryptographic hashing function.
 
 <!-- TODO: VRF normative: See the cryptography [normative section]() for details on \\( VRF \\). -->
 
+> [!NOTE]
 > See the cryptography [normative section](../../crypto/crypto.md) for details
 > on the \\( \Hash \\) function.
 

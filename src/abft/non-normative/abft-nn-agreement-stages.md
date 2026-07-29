@@ -62,7 +62,6 @@ We may model the state machine’s main algorithm in the following way:
 
 \\( \textbf{Algorithm 2} \text{: Main State Machine} \\)
 
-<!-- markdownlint-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \EventHandler(ev) \\\\
@@ -97,7 +96,6 @@ $$
 &\text{31: } \PSendfunction
 \end{aligned}
 $$
-<!-- markdownlint-enable MD013 -->
 
 ---
 
@@ -111,6 +109,7 @@ Note that in the case of \\( \Propose \\), if a block is not assembled and final
 in time for the \\( \BlockAssembly() \\) timeout, this might trigger advancement
 to the next step.
 
+> [!NOTE]
 > For more information on this process, refer to the Algorand Ledger
 > [non-normative section](../../ledger/non-normative/ledger-nn-txpool-block-assembly.md).
 
@@ -138,7 +137,9 @@ and
 Events are _the only way_ for the node state machine to transition internally and
 produce output.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Events [reference implementation](https://github.com/algorand/go-algorand/blob/c60db8dbc4b0dd164f0bb764e1464d4ebef38bb4/agreement/events.go#L76).
 
 If an event is not identified as _misconstrued_ or _malicious_, it will produce
@@ -188,7 +189,9 @@ since the start of the _current period_ reaches \\( \DeadlineTimeout(p) + 2^{s_t
 for some \\( 4 \le s_t \le 252 \\). The algorithm run is the same as in the \\( \Next_0 \\)
 step.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Next vote ranges [to reference implementation](https://github.com/algorand/go-algorand/blob/55011f93fddb181c643f8e3f3d3391b62832e7cd/agreement/types.go#L103C15-L103C29).
 
 - (\\( \Late, \Redo, \Down \\)) fast recovery timeouts: on observing a timeout of
@@ -197,6 +200,7 @@ and \\( k \\) a positive integer, the fast recovery algorithm is executed. It wo
 very similarly to \\( \Next_k \\) timeouts, with some subtle differences (besides
 trigger time).
 
+> [!NOTE]
 > For a detailed description, refer to its [subsection](./abft-nn-fast-recovery.md).
 
 ### Message Events

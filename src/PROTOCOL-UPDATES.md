@@ -46,4 +46,5 @@ the updated protocol rules.
 
 ---
 
+> [!NOTE]
 > The values of the upgrade parameters are defined in the [Ledger Parameters Specification](./ledger/ledger-parameters.md#protocol-upgrade).

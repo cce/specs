@@ -21,10 +21,12 @@ In regular conditions, the _filtering timeout_ \\( \Timeout \\) tends to the min
 Whenever network conditions force the round advancement to stall, \\( \Timeout \\)
 will diverge towards the maximum of \\( \lambdaMax \\).
 
+> [!NOTE]
 > See the formal definition of the filtering timeout parameters in the [ABFT
 > normative section](../abft-parameters.md).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
 >
 > Dynamic filter timeout [to reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/agreement/player.go#L318).
 
@@ -35,6 +37,7 @@ whose elements are rounds' _minimum credential arrival time_, defined as the tim
 (elapsed since the start of \\( r \\)) at which the highest priority _proposal vote_
 was observed for that round.
 
+> [!NOTE]
 > See the formal definition of the lowest credential priority function in the
 > [ABFT normative section](../abft-player-state.md#special-values).
 
@@ -59,7 +62,9 @@ are considered and relevant for \\( \CredentialHistory \\). If the round is comp
 in later periods (\\( p > 0 \\)), that round is skipped and \\( \CredentialHistory \\)
 remains unchanged.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Update credential arrival history [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/agreement/player.go#L293).
 
 When computing the dynamic filter timeout, if a sufficient history of credentials
@@ -78,7 +83,9 @@ $$
 Note that the filter timeout \\( \lambdaMin \leq \Timeout \leq \lambdaMax \\) is
 clamped on the minimum and maximum bounds defined in the [ABFT normative section](../abft-parameters.md).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > \\( \CredentialIdx \\)-th element selection [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/agreement/credentialArrivalHistory.go#L69).
 
 ## Parameters
@@ -91,7 +98,7 @@ clamped on the minimum and maximum bounds defined in the [ABFT normative section
 
 ---
 
-[^1]: With current values for \\( \lambda  \\) and \\( \lambdaMin \\),
+[^1]: With current values for \\( \lambda \\) and \\( \lambdaMin \\),
 \\( \deltaL = 2 \\).
 
 [^2]: A round is “successfully” completed if a _certification bundle_ is observed

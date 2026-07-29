@@ -32,10 +32,13 @@ node operations.
 The `daemon/algod/api` directory within `go-algorand` contains an [OpenAPI v2](https://swagger.io/specification/v2/)
 specification.
 
+> [!NOTE]
 > Due to limited tool support for OpenAPI v3, both v2 and v3 specifications are
 > maintained.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > The endpoints’ code is automatically generated from this specification using
 > [`oapi-codegen`](https://github.com/deepmap/oapi-codegen).
 >

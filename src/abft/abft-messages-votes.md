@@ -53,7 +53,9 @@ $$
 \Vote(I, r, p, s, v)
 $$
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Vote [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/vote.go#L152).
 
 Moreover, let \\( L \\) be a ledger where \\( \abs{L} \geq \delta_b \\).
@@ -68,12 +70,15 @@ Let
 We say that this vote is _valid with respect to_ \\( L \\) (or simply _valid_ if
 \\( L \\) is unambiguous) if the following conditions are true:
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > The reference implementation builds an [asynchronous vote verifier](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/asyncVoteVerifier.go#L52),
 > which builds a verification pool and under the hood uses two different verifying
 > routines: one for [regular unauthenticated votes](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/vote.go#L97),
 > and one for [unauthenticated equivocation votes](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/vote.go#L193).
 
+> [!NOTE]
 > See the [Algorand ABFT non-normative section](./non-normative/abft-nn.md) for further
 > details.
 

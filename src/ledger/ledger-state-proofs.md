@@ -112,7 +112,9 @@ stake (with limited precision as described below).
 Given these two quantities, the normalized balance of an online account \\( I \\)
 is \\( \frac{a_I}{(1+a^\prime_I)} \\).
 
-{{#include ../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > For example, if the total amount of rewards distributed up to round \\( r^\ast_I \\)
 > is \\( 20\\% \\) of the total stake, then the normalized balance is \\( \frac{a_I}{1.2} \\).
 
@@ -133,12 +135,12 @@ $$
 ## Parameters
 
 - To limit the resources allocated for creating State Proofs, State Proof parameters
-are set to \\( \StateProofTopVoters = 1024 \\),  \\( \StateProofInterval = 256 \\),
+are set to \\( \StateProofTopVoters = 1024 \\), \\( \StateProofInterval = 256 \\),
 and \\( \StateProofVotersLookback = 16 \\).
 
 - Setting \\( \StateProofStrengthTarget = \mathrm{target_{PQ}} \\) to achieve _post-quantum
 security_ for State Proofs. For further details, refer to the State Proofs [normative
-- specification](../crypto/crypto-state-proofs.md).
+specification](../crypto/crypto-state-proofs.md).
 
 - Algorand assumes that at least \\( 70\\% \\) of the participating stake is honest.
 Under this assumption, there can’t be a malicious State Proof that the _verifier_

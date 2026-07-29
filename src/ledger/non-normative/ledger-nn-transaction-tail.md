@@ -22,7 +22,9 @@ and recent history lookups. It can be considered a rolling window of _recent_ tr
 and block headers observed in a reduced history of rounds, optimized for lookup
 and retrieval.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Transaction tail [reference implementation](https://github.com/algorand/go-algorand/blob/55011f93fddb181c643f8e3f3d3391b62832e7cd/ledger/txtail.go#L46).
 
 It provides the following fields:
@@ -57,7 +59,6 @@ A duplication check is the core functionality of \\( \TxTail \\).
 
 \\( \textbf{Algorithm 1} \text{: Check Duplicate} \\)
 
-<!-- markdownlint-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \CheckDuplicate(\Tx_r, \FirstValid, \LastValid, \Tx_{\ID}, \Tx_{\Lease}) \\\\
@@ -80,7 +81,6 @@ $$
 &\text{18: } \PSendfunction
 \end{aligned}
 $$
-<!-- markdownlint-enable MD013 -->
 
 ---
 

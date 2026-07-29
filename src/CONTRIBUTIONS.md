@@ -26,10 +26,8 @@ The Algorand Specifications book is built with [mdBook](https://rust-lang.github
 The source code is structured as follows:
 
 ```text
-.github/                  -> GitHub actions and CI/CD workflows
-_archive/                 -> Legacy specification archive
 src/                      -> mdBook source code
-└── _include/             -> Code snippets, templates, TeX-macros, and examples
+└── _include/             -> Code snippets, templates, TeX-macros, auto-generated files, and examples
 └── _excalidraw/          -> Excalidraw diagrams source code
 └── _images/              -> SVG files
 └── Part_A/               -> Part A normative files
@@ -44,13 +42,14 @@ src/                      -> mdBook source code
 The book is written in [CommonMark](https://commonmark.org/).
 
 The CI pipeline enforces Markdown linting, formatting, and style checking with
-[`markdownlint`](https://github.com/DavidAnson/markdownlint).
+[`rumdl`](https://github.com/rvben/rumdl).
 
 ### Numbered Lists
 
 Numbered lists **MUST** be defined with `1`-only style.
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
 >
 > ```text
 > 1. First item
@@ -68,9 +67,10 @@ Numbered lists **MUST** be defined with `1`-only style.
 
 Table rows **MUST** use the same column widths.
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
 >
-> ✅ Correct table format
+> **Correct table format:**
 >
 > ```text
 > | Month    | Savings |
@@ -80,7 +80,7 @@ Table rows **MUST** use the same column widths.
 > | March    | €420    |
 > ```
 >
-> ❌ Wrong table format
+> **Incorrect table format:**
 >
 > ```text
 > | Month | Savings |
@@ -102,7 +102,8 @@ Consider aligning text in the columns to the left, right, or center by adding a
 colon `:` to the left, right, or on both sides of the dashes `---` within the header
 row.
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
 >
 > ```text
 > | Name   | Quantity | Size |
@@ -124,23 +125,30 @@ row.
 
 Mathematical formulas are defined with [MathJax](https://www.mathjax.org/).
 
+> [!NOTE]
 > mdBook MathJax [documentation](https://rust-lang.github.io/mdBook/format/mathjax.html).
+
+> [!IMPORTANT]
+> When you use double backslashes in MathJax blocks (for example in commands such
+> as `\begin{cases} \frac 1 2 \\ \frac 3 4 \end{cases}`) you need to add two extra
+> backslashes (e.g., `\begin{cases} \frac 1 2 \\\\ \frac 3 4 \end{cases}`).
 
 ### Inline Equations
 
 Inline equations **MUST** include extra spaces in the MathJax delimiters.
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
 >
 > Equation: \\( \int x dx = \frac{x^2}{2} + C \\)
 >
-> ✅ Correct inline delimiter
+> **Correct inline delimiter:**
 >
 > ```text
 > \\( \int x dx = \frac{x^2}{2} + C \\)
 > ```
 >
-> ❌ Wrong inline delimiter
+> **Incorrect inline delimiter:**
 >
 > ```text
 > \\(\int x dx = \frac{x^2}{2} + C\\)
@@ -150,7 +158,8 @@ Inline equations **MUST** include extra spaces in the MathJax delimiters.
 
 Block equations **MUST** use the `$$` delimiter (instead of `\\[ ... \\]`).
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
 >
 > Equation:
 >
@@ -158,7 +167,7 @@ Block equations **MUST** use the `$$` delimiter (instead of `\\[ ... \\]`).
 > \mu = \frac{1}{N} \sum_{i=0} x_i
 > $$
 >
-> ✅ Correct block delimiter
+> **Correct block delimiter:**
 >
 > ```text
 > $$
@@ -166,7 +175,7 @@ Block equations **MUST** use the `$$` delimiter (instead of `\\[ ... \\]`).
 > $$
 > ```
 >
-> ❌ Wrong inline delimiter
+> **Incorrect block delimiter:**
 >
 > ```text
 > \\[
@@ -174,11 +183,8 @@ Block equations **MUST** use the `$$` delimiter (instead of `\\[ ... \\]`).
 > \\]
 > ```
 
-The 120-character line-length limit is **not** waived inside `$$ ... $$` blocks
-(unlike fenced code blocks and tables), so long equations **MUST** be wrapped
-across multiple lines. Whitespace is insignificant in MathJax, so a line may be
-broken at any token; within a `cases` or array environment, break before a
-column separator (`&`) or after a row terminator (`\\`).
+For readability, long equations **SHOULD** be wrapped at natural operators with
+continuation lines indented.
 
 ### TeX-Macros
 
@@ -191,7 +197,8 @@ TeX-macros **MUST** be imported at the top of the consumer files using the mdBoo
 
 TeX macros can be imported entirely or partially (e.g., just a functional block).
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
 >
 > Import all TeX-macros:
 >
@@ -205,22 +212,30 @@ TeX macros can be imported entirely or partially (e.g., just a functional block)
 > \{{#include ./_include/tex-macros.md:pseudocode}}
 > ```
 
-## Block Styles
+## Admonitions
 
-Block styles are defined in the `./src/_include/styles.md` file using the mdBook
-[include feature](https://rust-lang.github.io/mdBook/format/mdbook.html#including-files).
+Admonitions **MUST** use mdBook's native Markdown syntax. Use `NOTE` for non-normative
+comments, `TIP` with an `EXAMPLE` label for examples, and `IMPORTANT` with an `IMPLEMENTATION`
+label for reference implementation details.
 
-Block styles (e.g., examples, implementation notes, etc.) are “styled quote” blocks
-included in the book.
+```text
+> [!NOTE]
+> This is a non-normative comment.
+```
 
-{{#include ./_include/styles.md:example}}
+```text
+> [!TIP]
+> **EXAMPLE:**
 >
-> This example block has been included with the following syntax:
+> This is an example.
+```
+
+```text
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
 >
-> ```text
-> \{{#include ./_include/styles.md:example}}
-> > This example block has been included with the following syntax:
-> ```
+> This describes the reference implementation.
+```
 
 ## GitHub Links
 
@@ -244,122 +259,12 @@ saved in the `./src/_images/` folder.
 Excalidraw images source code **MUST** be committed in the `./src/_excalidraw/`
 folder.
 
-## Installation
+## Prepare and Submit a Change
 
-Clone the Algorand Specifications repository and install the git submodules:
+Repository setup, local preview, validation commands, and pull-request preview
+behavior are maintained in the [repository README](https://github.com/algorandfoundation/specs#repository-setup).
+Follow those instructions before submitting a pull request.
 
-**SSH** clone:
-
-```shell
-git clone --recurse-submodules git@github.com:algorandfoundation/specs.git
-cd specs
-```
-
-or
-
-**HTTPS** clone:
-
-```shell
-git clone --recurse-submodules https://github.com/algorandfoundation/specs.git
-cd specs
-```
-
-### Sync git submodules
-
-If the Algorand Specifications repository is already cloned, sync the git submodules
-in the `specs` folder:
-
-```shell
-git submodule update --init --recursive
-```
-
-## Build and Serve
-
-Use the `make` command to build and serve the Algorand Specifications book locally
-or in a Docker container.
-
-> Use the `make doctor` command to check your environment for build dependencies.
-
-### In Container
-
-To build and serve the book in a Docker container, the following dependencies are
-required:
-
-- **Docker** and **Docker Compose**.
-
-Build the Docker image:
-
-```shell
-make docker-setup
-```
-
-Build and serve (hot reload) the book on [localhost:3000](http://localhost:3000):
-
-```shell
-make docker-serve
-```
-
-### Locally
-
-This section is for contributors who **cannot / do not want to** use Docker.
-
-> The PDF Book and release toolchain (Pandoc, mdbook-pandoc, LaTeX, etc.) are intentionally
-> **out of scope** here.
-
-To build and serve the book locally, the following dependencies are required:
-
-- **Rust toolchain** (`cargo`): install Rust with [rustup](https://rust-lang.org/tools/install/).
-
-Install the mdBook tools:
-
-```shell
-make setup
-```
-
-> Ensure Cargo’s bin dir (usually `~/.cargo/bin`) is on your `PATH`.
-
-Build and serve the book (HTML) locally (hot reload) on [localhost:3000](http://localhost:3000):
-
-```shell
-make serve
-```
-
-## Linting and Formatting
-
-Linting and formatting are enforced with [pre-commit](https://pre-commit.com/).
-
-To run pre-commit hooks locally, the following dependencies are required:
-
-- **Python** (`python3 + pip`): install [pip](https://pip.pypa.io/en/stable/installation/).
-
-Install pre-commit hooks:
-
-```shell
-make lint-setup
-```
-
-Run pre-commit hooks:
-
-```shell
-make lint
-```
-
-> Link checker (`lychee`) requires Docker, it can be run optionally (outside `make
-lint`) with: `pre-commit run lychee --all-files --verbose`.
-
-## CI/CD and Release
-
-The CI/CD and Release pipeline is defined in the `.github/workflows/` files.
-
-The CI runs on a Pull Request to:
-
-- Enforce linting and formatting;
-- Test the HTML book build;
-- Provide warnings for broken links;
-- Deploy the book preview to a temporary URL for review.
-
-The CD pipeline deploys the book to <https://specs.algorand.co> on every push to
-the `master` branch.
-
-The Release pipeline creates the release tag, builds the PDF Book, and publishes
-it as a release artifact.
+Keep each pull request focused and explain the scope and motivation in its description.
+When a change affects rendering, inspect its deployment preview. External-contribution
+previews are triggered by maintainers on request.

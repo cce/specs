@@ -19,5 +19,6 @@ the player becomes an _active participant_ in the agreement protocol. From that 
 the account may be selected to propose blocks or to vote during the agreement protocol
 stages, until the expiration of the _participation keys_ registration.
 
+> [!NOTE]
 > For further details about the structure of a _participation keys_ registration
 > (`keyreg`) transaction, refer to the Ledger [specification](../ledger/ledger-overview.md).

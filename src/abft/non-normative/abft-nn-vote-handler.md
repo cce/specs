@@ -41,7 +41,7 @@ dependent on each other, are performed by separate processes.
 Note that an _equivocation vote_ is a pair of votes that differ only in their _proposal
 values_ \\( v \\). In other words, given a player \\( I \\) and a node’s context
 tuple \\((r, p, s)\\), \\( \Equivocation(I, r, p, s) = (\Vote(I, r, p, s, v_1), \Vote(I, r, p, s, v_2)) \\)
-for some \\( v_1  \neq v_2 \\).
+for some \\( v_1 \neq v_2 \\).
 
 ## Algorithm
 
@@ -49,7 +49,6 @@ for some \\( v_1  \neq v_2 \\).
 
 \\( \textbf{Algorithm 5} \text{: Handle Vote} \\)
 
-<!-- markdownlint-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \ValidateVote(\vt): \\\\
@@ -123,11 +122,12 @@ $$
 &\text{61: } \PSendfunction \\\\
 \end{aligned}
 $$
-<!-- markdownlint-enable MD013 -->
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Relevant parts of the reference implementation related to vote handling:
 >
 > - [Vote verification](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/vote.go#L97).
@@ -150,6 +150,7 @@ this is considered adversarial behavior. Therefore, a node may disconnect from t
 vote sender node (Line 3), retrieving the network ID of the original message sender
 with the \\( SenderPeer \\ helper network module function.
 
+> [!NOTE]
 > For more details on disconnection actions and the definition of a _peer_, refer
 > to the Algorand Network Layer [non-normative section](../../network/network-overview.md).
 

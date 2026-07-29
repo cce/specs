@@ -38,6 +38,7 @@ The state machine _receives_ two types of events as inputs.
    event \\( \lambda \\) seconds after a period \\( p \\) begins is denoted
    \\( t(\lambda, p) \\).
 
+> [!NOTE]
 > For more details on the way these events may be constructed from an implementation
 > point of view, refer to the [Algorand ABFT non-normative section](./non-normative/abft-nn.md).
 
@@ -56,5 +57,6 @@ transmitted. A relay action is written as the same message except
 with an asterisk. For instance, an action to relay a vote is written
 as \\( \Vote^\ast(r, p, s, v) \\).
 
+> [!NOTE]
 > For implementation details on relay and broadcasting actions, refer to the
 > [Algorand Network non-normative section](../network/network-overview.md).

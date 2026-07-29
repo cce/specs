@@ -1,4 +1,4 @@
-# 🔄 Transaction Pool & Sync
+# Transaction Pool & Sync
 
 ---
 
@@ -13,6 +13,7 @@ fee threshold. When the transaction pool is full, the priority of a new transact
 must be at least `TxPoolExponentialIncreaseFactor` times greater than the minimum-priority
 of a transaction already in the pool; otherwise, the new transaction is discarded.
 
+> [!NOTE]
 > Should be set to `2` on MainNet.
 
 ---

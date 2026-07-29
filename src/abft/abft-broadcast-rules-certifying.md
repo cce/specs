@@ -15,6 +15,7 @@ if \\( s \leq \Cert \\), then the player broadcasts*
 after a proposal is received or a soft-vote, which can be part of a
 bundle, is received.)
 
+> [!NOTE]
 > For a detailed overview of how the certification step may be implemented, refer
 > to the Algorand ABFT [non-normative section](./non-normative/abft-nn.md).
 

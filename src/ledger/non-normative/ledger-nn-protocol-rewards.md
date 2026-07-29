@@ -8,6 +8,7 @@ The Algorand protocol has two reward systems:
 
 Rewards are distributed during the final stage of block assembly (in both systems).
 
+> [!NOTE]
 > The rewards systems are not mutually exclusive.
 
 ## Distribution Rewards (Legacy)
@@ -20,10 +21,13 @@ accounts’ ALGO balance.
 Rewards distributed through this system are claimed and added to the account’s balance
 on each account state change (e.g., sending or receiving a transaction).
 
+> [!NOTE]
 > This system is disabled on MainNet and is kept for legacy and retro-compatibility
 > reasons.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Distribution rewards [reference implementation](https://github.com/algorand/go-algorand/blob/a81d54fb36c16c2f2f44cc5d153f358105a63317/data/bookkeeping/block.go#L337).
 
 ## Staking Rewards
@@ -37,4 +41,5 @@ and an exponentially decaying bonus.
 Rewards distributed through this system are instantly added to the block proposer
 balance, in the proposed block.
 
+> [!NOTE]
 > Staking rewards [reference implementation](https://github.com/algorand/go-algorand/blame/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/ledger/eval/eval.go#L1511-L1612).

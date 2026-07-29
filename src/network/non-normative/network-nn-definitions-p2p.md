@@ -9,6 +9,7 @@ $$
 
 # P2P Network Definition
 
+> [!NOTE]
 > The Peer-to-Peer Network is currently in experimental mode!
 
 Let’s define \\( \PtoPNet \\) as an object that models a working Peer-to-Peer Network \\( \PtoP \\).
@@ -43,14 +44,18 @@ nd discover peers for specific capabilities (see [section below](#node-capabilit
 A \\( \PtoP \\) network implements the `GossipNode` interface to manage peer-to-peer
 communication.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > \\( \PtoP \\) network [reference implementation](https://github.com/algorand/go-algorand/blob/8c5fd6301ff57b69c5e2709aa1bf76e48def7566/network/p2pNetwork.go#L52).
 
+> [!NOTE]
 > Currently, transactions are distributed using the `GossipSub` protocol (`/meshsub/1.1.0`).
 > All other messages are forwarded over a stream `/algorand-ws/1.0.0` that uses the
 > same message serialization as the existing [Relay Network](./network-nn-definitions-ws.md)
 > implementation. These two streams are multiplexed over a single connection.
 
+> [!NOTE]
 > For more information on `GossipSub`, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/overview/).
 
 ## P2P Network Topology
@@ -76,6 +81,7 @@ Functionally, topics can be thought of as generators of _sub-networks_: peers _s
 to a topic are _discoverable_ and _addressable_ by other peers capable of serving
 data about that topic.
 
+> [!NOTE]
 > For more information on `pubsub` protocol, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/overview/).
 
 The _topic_ used to subscribe to transaction gossiping is `algotx01`.
@@ -84,7 +90,9 @@ The naming convention used for the _topics_ is: the word `algo`, followed by a 2
 protocol \\( \Tag \\) (`TX` in this case) followed by the 2-byte version identifier
 (`01` in this case).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Pubsub protocol [reference implementation](https://github.com/algorand/go-algorand/blob/8c5fd6301ff57b69c5e2709aa1bf76e48def7566/network/p2p/pubsub.go).
 
 The `makePubSub(.)` function initializes the `pubsub` protocol with a list of options
@@ -127,7 +135,9 @@ the message should be penalized by peer-scoring routers.
 - `ValidationIgnore(2)` and `validationThrottled(-1)` are `libp2p` internals that
 should not be exposed.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Pubsub protocol message validation `libp2p` [extrenal implementation](https://github.com/libp2p/go-libp2p-pubsub/blob/c06df2f9a38e9382e644b241adf0e96e5ca00955/validation.go#L38C1-L52C2).
 
 ## Node Capabilities
@@ -147,7 +157,9 @@ validation of messages and efficiently route them to peers.
 
 Each node advertises its capabilities and keeps track of peers in a [distributed hash table](#distributed-hash-table-dht).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > \\( \PtoP \\) node capabilities [reference implementation](https://github.com/algorand/go-algorand/blob/ce9b2b0870043ef9d89be9ccf5cda0c42e3af70c/network/p2p/capabilities.go).
 
 ### Distributed Hash Table (DHT)
@@ -156,6 +168,7 @@ Peer-to-Peer networks, such as IPFS, use _distributed hash tables_ (DHT) to look
 up files in the network. A DHT is a distributed system for mapping keys to values,
 storing resource locations throughout the network.
 
+> [!NOTE]
 > IPFS DHT is based on the [Kadmelia algorithm](https://docs.ipfs.tech/concepts/dht/#kademlia),
 > as a fundamental component for the content routing system, and acts like a cross
 > between a catalog and a navigation system. It maps what users want to the peers
@@ -164,7 +177,9 @@ storing resource locations throughout the network.
 The Algorand node reference implementation (`go-algorand`) uses [Kadmelia DHT](https://github.com/libp2p/go-libp2p-kad-dht),
 to keep track of the peers’ capabilities.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > DHT [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/network/p2p/dht/dht.go).
 
 ---

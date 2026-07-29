@@ -39,7 +39,9 @@ $$
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Bundle verification [reference implementation](https://github.com/algorand/go-algorand/blob/1f5c06b559ffe6485a47b623997684430bc18337/agreement/bundle.go#L147).
 >
 > Bundle handling in [general message handler](https://github.com/algorand/go-algorand/blob/55011f93fddb181c643f8e3f3d3391b62832e7cd/agreement/player.go#L753-L770).

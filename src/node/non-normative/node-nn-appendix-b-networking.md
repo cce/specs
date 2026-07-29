@@ -1,4 +1,4 @@
-# 🌐 Networking
+# Networking
 
 ---
 
@@ -13,6 +13,7 @@ with. The node will connect to fewer peers if the available peer list is smaller
 than this value. The node does not create multiple outgoing connections to the same
 peer.
 
+> [!NOTE]
 > For further details, refer to the Network [non-normative specification](../../network/network-overview.md).
 
 ---
@@ -28,7 +29,9 @@ Leaving this field blank disables incoming connections. The value can be an `IP`
 `IP:port` pair, or just a `:port`. The node defaults to port `4160` if no port is specified.
 Setting the port to `:0` allows the system to assign an available port automatically.
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > `127.0.0.1:0` binds the node to _any available port_ on `localhost`.
 
 ---
@@ -77,6 +80,7 @@ if provided.
 Specifies the names of a set of DNS `SRV` records that identify the set of nodes
 available to connect to.
 
+> [!NOTE]
 > For further information on the specifics of this value’s syntax, refer to DNS
 > bootstrap [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/config/dnsbootstrap.go).
 
@@ -259,6 +263,7 @@ is set.
 Enables the _Distributed Hash Table_ (DHT). This feature allows the node to participate
 in a DHT-based network that advertises its available capabilities to other nodes.
 
+> [!NOTE]
 > For further details, refer to the Algorand P2P Network capabilities
 > [non-normative specification](../../network/non-normative/network-nn-definitions-p2p.md).
 

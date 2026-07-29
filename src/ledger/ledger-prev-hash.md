@@ -17,4 +17,5 @@ be some cryptographic hash function.
 Then the previous hash \\( \Prev_{r+1} \\) in the block for round \\( r+1 \\) is
 \\( \Prev_{r+1} = \Hash(B_r) \\).
 
+> [!NOTE]
 > In the reference implementation, \\( \Hash \\) is the [SHA512/256 hash function](../crypto/crypto-sha512-256.md).

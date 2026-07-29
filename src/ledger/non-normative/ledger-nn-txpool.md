@@ -25,10 +25,14 @@ The _pending queue_ \\( \TP_{pq} \\) is the main structure used to supply transa
 to the active _pending_ \\( \BlockEval \\), which evaluates transactions for the
 next block.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Pending block evaluator [reference implementation](https://github.com/algorand/go-algorand/blob/34deef26be34aebbdd7221dd2c55181e6f584bd2/data/pools/transactionPool.go#L557).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Here we provide some implementation details about the _remembered_ queue \\( \TP_{rq} \\)
 > and the _pending_ queue \\( \TP_{pq} \\) structures used in the \\( \TP \\).
 >

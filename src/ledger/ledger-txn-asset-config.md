@@ -21,6 +21,7 @@ An _asset configuration_ transaction additionally has the following fields:
 
 The _asset ID_ \\( \Asset_\mathrm{cfg,ID} \\) identifies the asset being configured.
 
+> [!NOTE]
 > If the _asset ID_ is omitted (zero), this transaction is _creating_ an asset.
 
 ### Asset Parameters
@@ -51,6 +52,7 @@ These _asset parameters_ is structure containing:
 
 - The _URL_ byte length **MUST NOT** exceed \\( \MaxAssetURLBytes \\).
 
+> [!NOTE]
 > If the _asset parameters_ are omitted (struct of zero values), this transaction
 > is _deleting_ the asset.
 

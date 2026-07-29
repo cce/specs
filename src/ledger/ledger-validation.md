@@ -38,11 +38,9 @@ valid at the block’s round \\( r \\) and for the block’s genesis identifier 
 
 For a transaction
 
-<!-- markdownlint-disable MD013 -->
 $$
 \Tx = (\GenesisID, \TxType, \FirstValidRound, \LastValidRound, I, I^\prime, I_0, f, a, x, N, \pk, \sppk, \nonpart, \ldots)
 $$
-<!-- markdownlint-enable MD013 -->
 
 (where \\( \ldots \\) represents fields specific to [_transaction types_](./ledger-transactions.md#transaction-type)
 besides `pay`and `keyreg`) to be valid at the intermediate state \\( \rho \\) in
@@ -106,7 +104,7 @@ for intermediate state \\( \rho+1 \\):
 
   - otherwise,
     - \\( a_{\rho+1, I} = \Stake(\rho+1, I) - a - f \\) if \\( I^\prime \neq I \\)
-        and \\( a_{\rho+1, I} = \Stake(\rho+1, I) - f \\) otherwise.
+      and \\( a_{\rho+1, I} = \Stake(\rho+1, I) - f \\) otherwise.
     - \\( a^\prime_{\rho+1, I} = T_{r+1} \\).
     - \\( a^\ast_{\rho+1, I} = a^\ast_{\rho, I} + (T_{r+1} - a^\prime_{\rho, I}) \floor{\frac{a_{\rho, I}}{A}} \\).
     - If \\( \TxType \\) is `pay`, then \\( \pk_{\rho+1, I} = \pk_{\rho, I} \\) and \\( p_{\rho+1, I} = p_{\rho, I} \\)
@@ -124,7 +122,7 @@ or \\( a \neq 0 \\):
 
   - \\( a^\prime_{\rho+1, I^\prime} = T_{r+1} \\).
 
-  - \\( a^\ast_{\rho+1, I^\prime} = a^\ast_{\rho, I^\prime} + (T_{r+1} - a^\prime_{\rho, I^\prime}) \floor{\frac{a_{\rho, I^\prime}}{A}} \\).  <!-- markdownlint-disable-line MD013 -->
+  - \\( a^\ast_{\rho+1, I^\prime} = a^\ast_{\rho, I^\prime} + (T_{r+1} - a^\prime_{\rho, I^\prime}) \floor{\frac{a_{\rho, I^\prime}}{A}} \\). <!-- rumdl-disable-line MD013 -->
 
 - For \\( I_0 \\) if \\( I_0 \neq 0 \\):
 
@@ -145,6 +143,7 @@ then the transaction sender account’s spending key is set to the _rekey to_ ad
 If the _rekey to_ address of the transaction does match the transaction sender address,
 then the transaction sender account’s spending key is set to zero.
 
+> [!NOTE]
 > The rest of this section describes the legacy Distribution Rewards system. If
 > the \\( R_r \\) rewards rate parameter is \\( 0 \\), all computations keep values
 > constant and no legacy reward distribution is carried out.

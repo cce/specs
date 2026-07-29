@@ -1,5 +1,6 @@
 # Genesis Block
 
+> [!NOTE]
 > This section is directly derived from the `go-algorand` reference implementation.
 
 The _genesis block_ defines the Algorand “universe”, which is initialized with:
@@ -13,10 +14,14 @@ and the initial consensus participation state (and keys),
 
 - The schema of the Ledger.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > `Genesis` type definition in the [reference implementation](https://github.com/algorand/go-algorand/blame/18990e06116efa0ad29008d5879c8e4dcfa51653/data/bookkeeping/genesis.go#L45).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > `GenesisBalances` type definition in the [reference implementation](https://github.com/algorand/go-algorand/blame/18990e06116efa0ad29008d5879c8e4dcfa51653/data/bookkeeping/genesis.go#L155).
 > It contains the information needed to generate a new Ledger:
 >

@@ -48,7 +48,6 @@ _Full Node_:
 
 \\( \textbf{Algorithm 1} \text{: Full Node Initialization} \\)
 
-<!-- markdownlint-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \FullNode.\mathrm{Start}(\RootDir, \Config, \Phonebook, \Genesis) \\\\
@@ -90,11 +89,12 @@ $$
 &\text{37: } \PSendfunction
 \end{aligned}
 $$
-<!-- markdownlint-enable MD013 -->
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Full Node initialization [reference implementation](https://github.com/algorand/go-algorand/blob/e60d3ddd1d63e60f32bda6935554b34fdb0e1515/node/node.go#L184-L347).
 
 ### Network
@@ -116,6 +116,7 @@ The network layer manages:
 
 - Message routing.
 
+> [!NOTE]
 > For further details on the network layer, refer to Algorand Network [non-normative specification](../../network/network-overview.md).
 
 ### Cryptography Resource Pools
@@ -128,8 +129,10 @@ queues:
 - \\( \CryptoPool.\mathrm{lowPriority} \\) and \\( \CryptoPool.\mathrm{highPriority} \\)
 handle transaction verification, grouped by priority.
 
+> [!NOTE]
 > For further details on the transaction validation, see the Ledger [specification](../../ledger/ledger-overview.md).
 
+> [!NOTE]
 > For further details on the cryptographic primitives and algorithms, see the Crypto [specification](../../crypto/crypto.md).
 
 ### Ledger
@@ -145,6 +148,7 @@ It also validates:
 
 - Ledger integrity.
 
+> [!NOTE]
 > For further details on the Ledger entities, see the Ledger [specification](../../ledger/ledger-overview.md).
 
 ### Account Management (Agreement)
@@ -157,8 +161,10 @@ The node prepares for consensus participation and registered account tracking by
 
 - Setting up participation key rotation.
 
+> [!NOTE]
 > For further details on the Algorand keys, see the Keys [specification](../../keys/keys-overview.md).
 
+> [!NOTE]
 > For further details on the key registration transactions, see the Ledger [specification](../../ledger/ledger-overview.md).
 
 ### Transaction Pool
@@ -174,6 +180,7 @@ The node creates the _Transaction Pool_ (\\( \TP \\)), which:
 - Creates Block Listeners reacting to new blocks to prune already committed transactions
 and update pending transactions.
 
+> [!NOTE]
 > For further details on the Transaction Pool, see the Ledger [non-normative specification](../../ledger/non-normative/ledger-nn-txpool.md).
 
 ### Services

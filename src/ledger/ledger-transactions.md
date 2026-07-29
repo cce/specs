@@ -126,6 +126,7 @@ will set the _sender_ account’s _authorization address_ field to this value. I
 \\( \RekeyTo \\) address matches the _sender_ address, then the _authorization address_
 is instead set to zero, and the original _spending keys_ are re-established.
 
+> [!NOTE]
 > The _rekey_ functionally works as if the _account_ replaces its private
 > [_spending keys_](../keys/keys-root.md), while its address remains the same. The
 > account is now controlled by the _authorization address_ (i.e., transaction signatures

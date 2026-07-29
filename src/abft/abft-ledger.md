@@ -60,5 +60,6 @@ $$
 
 which produces an object \\( o \\) for which \\( \ValidEntry(L, o) = 1 \\).
 
+> [!NOTE]
 > For implementation details on this procedure, see the _block assembly_ section
 > in the [Algorand Ledger non-normative specification](../ledger/non-normative/ledger-nn-txpool-block-assembly.md).

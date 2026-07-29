@@ -36,7 +36,9 @@ which is a VRF proof.
 
 - _Signature_ (\\( \Sig \\)), one-time signature of the vote.
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Unauthenticated vote [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/vote.go#L42).
 
 Once receiving an unverified vote (\\( \UnauthenticatedVote \\)) from the network,
@@ -63,5 +65,7 @@ And this verified credential is wrapped in a \\( \Vote \\) struct with _Raw Vote
 (\\( \mathrm{R} \\)), _Verified Credential_ (\\( \Credential \\)), and _Signature_
 (\\( \Sig \\)).
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Vote struct [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/vote.go#L50).

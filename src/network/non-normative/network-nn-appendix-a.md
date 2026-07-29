@@ -21,6 +21,7 @@ Relevant changes:
 
 - Tests and benchmark over additions.
 
+> [!NOTE]
 > Further details refer to the [fork](https://github.com/gorilla/websocket/compare/main...algorand:websocket:master).
 
 ## `libp2p`
@@ -28,5 +29,6 @@ Relevant changes:
 Algorand uses [go-libp2p library](https://github.com/libp2p/go-libp2p) (building
 from the `latest` release), to implement the Peer-to-Peer network.
 
+> [!NOTE]
 > See `libp2p` [specifications](https://github.com/libp2p/specs) for detailed documentation
 > on this external package.

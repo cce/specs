@@ -42,6 +42,7 @@ key of an account's participation keys (\\( \PartKey \\)).
 The _state proof public key_ \\( \StateProofKey \\) is the public commitment to
 the account’s State Proof keys \\( \StateProofKey \\).
 
+> [!NOTE]
 > If \\( \VoteKey \\), \\( \SelectionKey \\), and \\( \StateProofKey \\) are all
 > omitted, the transaction deregisters the account’s participation key set, and as
 > a result marks the account as _offline_ (that is, non-participating in the agreement).
@@ -62,6 +63,7 @@ The _vote key dilution_ defines the number of rounds for generating a new (secon
 ephemeral participation key. The higher the number, the more “dilution” is added
 to the authentication key’s security.
 
+> [!NOTE]
 > For further details on the two-level ephemeral key scheme used for consensus participation
 > authentication, refer to the Algorand [Participation Key Specification](../keys/keys-participation.md).
 
@@ -71,6 +73,7 @@ The _non-participation_ \\( \NonPart \\) (**OPTIONAL**) is flag which, when dere
 keys, specifies whether to mark the account just as _offline_ (if \\( \NonPart \\)
 is `false`) or as _non-participatory_ (if \\( \NonPart \\) is `true`).
 
+> [!NOTE]
 > The _non-participatory_ status is set to _true_ the account is irreversibly excluded
 > from consensus participation (i.e., can no longer be marked as _online_) and from
 > the legacy distribution rewards mechanism.
@@ -87,6 +90,7 @@ apply:
 - The elements of the set \\( (\VoteKey, \SelectionKey, \StateProofKey, \KeyDilution) \\)
 are **REQUIRED** to be _all present_, or _all omitted_ (clear).
 
+> [!NOTE]
 > Providing the _default value_ or the _empty value_, for any of the set members,
 > would be interpreted as if these values were omitted.
 
@@ -108,5 +112,6 @@ _not clear_, the following **MUST** apply:
 
 - \\( \VoteLastValid - \VoteFirstValid < \MaxKeyregValidPeriod \\).
 
+> [!NOTE]
 > It is **RECOMMENDED** that \\( \VoteLastValid - \VoteFirstValid \leq 3{,}000{,}000 \\)
 > rounds for security reasons, to ensure safe rotation of participation keys.

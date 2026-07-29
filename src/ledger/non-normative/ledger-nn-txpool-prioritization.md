@@ -43,7 +43,9 @@ $$
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Compute fee per byte [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/data/pools/transactionPool.go#L328).
 
 The `computeFeePerByte` function begins by setting \\( \FeePB \\) equal to the \\( \FeeMul \\).

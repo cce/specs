@@ -1,0 +1,20 @@
+[global]
+disable = ["MD028", "MD077"]
+exclude = ["src/SUMMARY.md"]
+
+[per-file-ignores]
+# Remove when jsonspec.md link is fixed
+"src/_include/auto/opcodes/byte-array-manipulation.md" = ["MD057"]
+"src/avm/avm-appendix-a.md" = ["MD057"]
+
+[MD013]
+code-blocks = false
+line-length = 120
+math-blocks = false
+tables = false
+
+[MD033]
+allowed-elements = ["a", "img"]
+
+[MD041]
+allow-preamble = true

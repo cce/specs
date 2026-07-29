@@ -48,6 +48,7 @@ _foreign assets_ (`apas`), and _box references_ (`apbx`) **MUST NOT** exceed \\(
 
 The _application ID_ identifies the application being called.
 
+> [!NOTE]
 > If the _application ID_ is omitted (zero), this transaction is _creating_ an application.
 
 ### On Completion Action
@@ -70,6 +71,7 @@ The `apan` field values are enumerated as follows:
 
 The _approval program_ (**OPTIONAL**) contains the approval program bytecode.
 
+> [!NOTE]
 > This field is used for _application creation_ and _updates_, and sets the corresponding
 > application’s Approval Program.
 
@@ -77,6 +79,7 @@ The _approval program_ (**OPTIONAL**) contains the approval program bytecode.
 
 The _clear state program_ (**OPTIONAL**) contains the clear state program bytecode.
 
+> [!NOTE]
 > This field is used for _application creation_ and _updates_, and sets the corresponding
 > application’s Clear State Program.
 
@@ -89,6 +92,7 @@ The _reject version_ (**OPTIONAL**), if set to a positive number, specifies that
 the application call **MUST** fail unless the reject version value exceeds the Application
 Version.
 
+> [!NOTE]
 > For further details on Application Versions, refer to the [Applications Specifications](./ledger-applications.md).
 
 ### Extra Program Pages
@@ -96,6 +100,7 @@ Version.
 A _program page_ (**OPTIONAL**) is a chunk of application program bytecode. The
 _extra program pages_ define the number of _program pages_ besides the first one.
 
+> [!NOTE]
 > This field requests an increased maximum size for the Approval Program or Clear
 > State Program. It is used during _application creation_ and during an _update_ that
 > changes the application’s size (see [Global State Schema](#global-state-schema)).
@@ -118,6 +123,7 @@ The _global state schema_ is a structure containing:
 | Number of Uints | `nui` | `uint64` | The number of _global_ 64-bit unsigned integer variables for the application. |
 | Number of Bytes | `nbs` | `uint64` | The number of _global_ byte-array variables for the application.              |
 
+> [!NOTE]
 > This field sets bounds on the size of the _global state_ associated with this
 > application. It is used during _application creation_ and during an _update_ that
 > changes the application’s size.
@@ -147,6 +153,7 @@ The _local state schema_ is a structure containing:
 | Number of Uints | `nui` | `uint64` | The number of _local_ 64-bit unsigned integer variables for the application. |
 | Number of Bytes | `nbs` | `uint64` | The number of _local_ byte-array variables for the application.              |
 
+> [!NOTE]
 > This field is only used during _application creation_, and sets bounds on the size
 > of the _local state_ for accounts that opt in to this application.
 
@@ -199,6 +206,7 @@ Approval Program (with AVM Version 9 or later), or any other Approval Program in
 the same group, **MAY** access for reading or writing when the _box reference_ matches
 the running program _application IDs_.
 
+> [!NOTE]
 > For further details on AVM resource availability, refer to the [AVM Specifications](../avm/avm-mode-applications.md#resource-availability).
 
 Each element of the _box reference_ encodes a structure containing:
@@ -222,6 +230,7 @@ IDs_, _asset IDs_, and _box references_) that the executing Approval Program (wi
 AVM Version 9 or later), or any other Approval Program in the same group, **MAY**
 access for reading or writing.
 
+> [!NOTE]
 > For further details on AVM resource availability, refer to the [AVM Specifications](../avm/avm-mode-applications.md#resource-availability).
 
 Each element of the _access list_ encodes one of the following resources:

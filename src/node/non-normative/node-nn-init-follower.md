@@ -57,7 +57,6 @@ _Follower Node_:
 
 \\( \textbf{Algorithm 2} \text{: Follower Node Initialization} \\)
 
-<!-- markdownlint-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \FollowerNode.\mathrm{Start}(\RootDir, \Config, \Phonebook, \Genesis) \\\\
@@ -94,11 +93,12 @@ $$
 &\text{31:} \PSendfunction
 \end{aligned}
 $$
-<!-- markdownlint-enable MD013 -->
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Follower Node initialization [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/node/follower_node.go#L79-L158).
 
 Compared to a [_Full Node_](node-nn-init-full.md), a _Follower Node_ is significantly

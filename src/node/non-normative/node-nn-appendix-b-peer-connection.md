@@ -1,4 +1,4 @@
-# 📡 Peer & Connection Management
+# Peer & Connection Management
 
 ---
 
@@ -21,6 +21,7 @@ Defines the maximum number of connections allowed per `IP` address.
 A non-negative number that specifies the maximum incoming connections for the gossip
 protocol configured in `NetAddress`. A value of `0` means no connections allowed.
 
+> [!NOTE]
 > Estimating 1.5 MB per incoming connection.
 
 ---
@@ -58,6 +59,7 @@ to peers in the following order:
   - `0`: Disables all outgoing broadcast messages, including transaction broadcasts to peers.
   - `-1`: No limit on the number of connections receiving broadcasts (default setting).
 
+> [!NOTE]
 > For further details, refer to the Algorand Network [non-normative specification](../../network/network-overview.md).
 
 ---

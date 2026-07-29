@@ -12,7 +12,9 @@ src/
 docker-compose.yaml
 Dockerfile
 
-# README
+# DOCUMENTATION
+AGENTS.md
+CONTRIBUTING.md
 LICENSE
 README.md
 

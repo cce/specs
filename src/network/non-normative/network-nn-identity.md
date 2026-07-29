@@ -14,12 +14,15 @@ $$
 To avoid duplicated connections between peers, the node keeps track of the \\( \Identity \\)
 of each connected \\( \Peer \\). The method is different for each _network layer_.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Network identity [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/network/netidentity.go).
 > Additional parts are in each network’s implementation.
 
 ## WebSocket Network Identity Challenge
 
+> [!NOTE]
 > This method is optional, and is enabled by setting the configuration value `PublicAddress`
 > to the node’s public endpoint address stored in other peers’ phonebooks (e.g.,
 > `r-aa.algorand-mainnet.network:4160`).
@@ -65,10 +68,14 @@ with:
 In steps 2 and 3, the \\( \Peer \\) that verified the identity tries to add the
 other one to its \\( \IdT \\), referencing the \\( \Peer \\) with their \\( \Identity(\pk) \\).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > The \\( \Identity \\) challenge is derived from a [random seed](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/network/netidentity.go#L156-L196).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Identity challenge reference implementation in:
 >
 > - `tryConnect` [function](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/network/wsNetwork.go#L2021-L2206),
@@ -82,7 +89,9 @@ extracted from the `libp2p`'s `PeerID` as unique identifier for the \\( \Peer \\
 
 In this case, there is no \\( \IdT \\), as `libp2p` handles it internally.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > \\( \PtoP \\) network identity [reference implementation](https://github.com/algorand/go-algorand/blob/5bffa0ee8c6d3039955da7bd6ed6764a1294d815/network/p2pNetwork.go#L783-L792).
 
 ## Hybrid Network Identity Challenge
@@ -94,5 +103,7 @@ but using the `libp2p` private key as the \\( \Identity \\) challenge signer.
 In this case, there is an \\( \IdT \\) as the \\( \Peer \\) needs to keep track
 of the identities for the \\( \WS \\) network.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > \\( \HYB \\) network identity [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/network/hybridNetwork.go#L42-L69).

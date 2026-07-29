@@ -9,6 +9,7 @@ $$
 \newcommand \ExpiredHistory {\mathrm{expiredHistory}}
 $$
 
+> [!NOTE]
 > In the context of this section, the phrase _“giving up”_ refers to finalizing
 > the current block under assembly; this includes completing the `payset` and calculating
 > all associated metadata that depends on it.
@@ -28,7 +29,9 @@ the maximum number of transactions the transaction pool queue can hold. When thi
 limit is reached, any new incoming transactions, even if valid, are not enqueued
 and are instead dropped.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > In the `go-algorand` reference implementation, this limit is set to \\( 75{,}000 \\)
 > transactions.
 
@@ -39,6 +42,7 @@ conditions, when the \\( \TP \\) is not congested, its value is \\( 0 \\). Howev
 if the queues become congested, this parameter increases. As it grows, it raises
 the _minimum fee_ threshold required for transactions to be accepted into \\( \TP \\).
 
+> [!NOTE]
 > For more details, see the [update](./ledger-nn-txpool-update.md) and
 > [fee prioritization](./ledger-nn-txpool-prioritization.md) sections.
 
@@ -64,7 +68,9 @@ A [consensus parameter](../../node/non-normative/node-nn-appendix-b.md) that set
 a strict deadline for the `BlockAssembly` process to stop constructing a `payset`.
 This ensures block assembly completes within the required time frame.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > In the `go-algorand` reference implementation, \\( \delta_{\AD} = \mathrm{ProposalAssemblyTime} = 0.5 \\)
 seconds.
 
@@ -74,7 +80,9 @@ An additional time buffer that the `BlockAssembly` algorithm waits after the off
 deadline before _“giving up”_. This grace period allows slightly delayed transactions
 to be included if possible.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > In the `go-algorand` reference implementation, \\( \epsilon_{\AW} = 150 \\) milliseconds.
 
 ## \\( \ExpiredHistory \\)
@@ -85,7 +93,9 @@ rounds of history. Maintaining this history helps dynamically adjust transaction
 prioritization based on fee structures, as it provides insight into network congestion
 (e.g., if many transactions are expiring without being included in a block).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > In the `go-algorand` reference implementation, `expiredHistory` is set to \\( 10 \\),
 > therefore, the node keeps \\( 10 \times 1000 = 10{,}000 \\) rounds of history.
 
@@ -95,11 +105,13 @@ A time constant that defines how long the system should wait when processing a n
 block that appears to be committed to the Ledger. This timeout is used within the
 `Ingestion` function to ensure timely handling of new blocks.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > In the `go-algorand` reference implementation, this limit is set to \\( 1 \\)
 > second.
 
-# Constants
+## Constants
 
 The following two time constants are used to estimate how long it would take to
 properly complete a block after the system has _“given up”_ on assembling the `payset`.

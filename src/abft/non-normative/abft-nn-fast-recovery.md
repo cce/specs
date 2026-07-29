@@ -42,6 +42,7 @@ _different_ from \\( \bot \\),
 - Finally, as a fallback, a \\( \Down \\)-vote is attempted if none of the above
 conditions were met.
 
+> [!NOTE]
 > A \\( \Down \\)-vote is always a vote for the \\( \bot \\) proposal-value, while
 > \\( \Late \\) and \\( \Redo \\) must vote for a proposal-value _different_ from
 > \\( \bot \\).
@@ -52,7 +53,6 @@ conditions were met.
 
 \\( \textbf{Algorithm 10} \text{: Fast Recovery} \\)
 
-<!-- markdownlint-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \FastRecovery() \\\\
@@ -64,7 +64,7 @@ $$
 &\text{7: } \quad \quad \quad \quad \Broadcast(\Vote(r, p, \Late, \bar{v}, \c)) \\\\
 &\text{8: } \quad \quad \quad \PSendif \\\\
 &\text{9: } \quad \quad \PSelseif \nexists s_0 > \Cert \mid \Bundle(r, p - 1, s_0, \bot) \subseteq V \land \\\\
-&\text{   } \quad \quad \quad \quad \quad \quad \exists s_1 > \Cert \mid \Bundle(r, p - 1, s_1, \bar{v}) \subseteq V \PSthen \\\\
+            &\quad \quad \quad \quad \quad \quad \exists s_1 > \Cert \mid \Bundle(r, p - 1, s_1, \bar{v}) \subseteq V \PSthen \\\\
 &\text{10:} \quad \quad \quad \c \gets \Sortition(a_I, r, p, \Redo) \\\\
 &\text{11:} \quad \quad \quad \PSif \c_j > 0 \PSthen \\\\
 &\text{12:} \quad \quad \quad \quad \Broadcast(\Vote(r, p, \Redo, \bar{v}, \c)) \\\\
@@ -82,11 +82,12 @@ $$
 &\text{24: } \PSendfunction
 \end{aligned}
 $$
-<!-- markdownlint-enable MD013 -->
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Fast recovery vote issuance [reference implementation](https://github.com/algorand/go-algorand/blob/d52e3dd8b31a17dfebac3d9158a76e8e62617462/agreement/player.go#L244).
 
 \\( \FastRecovery \\) is functionally very close to the regular \\( \Recovery \\)
@@ -101,4 +102,5 @@ Nodes are forbidden to equivocate for \\( \Late, \Redo, \Down \\) votes.
 Finally, the node broadcasts all fast recovery votes observed. That is, all votes
 \\( \vt \in V \\) for which \\( \vt_s \\) is a fast recovery step (\\( \Late, \Redo, \Down \\)).
 
-> For a formal definition of this functionality, refer to the ABFT [normative section](../abft.md#fast-recovery).
+> [!NOTE]
+> For a formal definition of this functionality, refer to the ABFT [normative section](../abft-broadcast-rules-fast-recovery.md).

@@ -41,7 +41,7 @@ by the transaction is nonzero, continue to [Step 2](#step-2).
 ### Step 2
 
 - If the [_on completion action_](./ledger-txn-application-call.md#on-completion-action)
-is equal to  `ClearStateOC`, then:
+is equal to `ClearStateOC`, then:
 
   - Check if the transaction’s sender is opted in to this [_application ID_](./ledger-txn-application-call.md#application-id).
   If not, **FAIL**.
@@ -182,4 +182,5 @@ of Applications that were previously created in the same group. Across the execu
 of the entire group, the group can access as many of these unnamed boxes as the group
 has empty box references.
 
+> [!NOTE]
 > For further details on AVM Resource Availability, refer to the [AVM Specifications](../avm/avm-mode-applications.md#resource-availability).

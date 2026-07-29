@@ -43,6 +43,7 @@ otherwise.
 
 This consequently defines the matching proposal-value \\( v = (I, p, \Digest(e), \Hash(\Encoding(e))) \\).
 
+> [!NOTE]
 > For an in-depth overview of how proposal generation may be implemented, refer
 > to the Algorand Ledger [non-normative section](../ledger/non-normative/ledger-nn.md).
 
