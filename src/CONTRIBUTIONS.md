@@ -49,7 +49,6 @@ The CI pipeline enforces Markdown linting, formatting, and style checking with
 Numbered lists **MUST** be defined with `1`-only style.
 
 {{#include ./_include/styles.md:example}}
->
 > ```text
 > 1. First item
 > 1. Second item
@@ -67,7 +66,6 @@ Numbered lists **MUST** be defined with `1`-only style.
 Table rows **MUST** use the same column widths.
 
 {{#include ./_include/styles.md:example}}
->
 > **Correct table format:**
 >
 > ```text
@@ -101,7 +99,6 @@ colon `:` to the left, right, or on both sides of the dashes `---` within the he
 row.
 
 {{#include ./_include/styles.md:example}}
->
 > ```text
 > | Name   | Quantity | Size |
 > |:-------|:--------:|-----:|
@@ -124,12 +121,16 @@ Mathematical formulas are defined with [MathJax](https://www.mathjax.org/).
 
 > mdBook MathJax [documentation](https://rust-lang.github.io/mdBook/format/mathjax.html).
 
+> [!IMPORTANT]
+> When you use double backslashes in MathJax blocks (for example in commands such
+> as `\begin{cases} \frac 1 2 \\ \frac 3 4 \end{cases}`) you need to add two extra
+> backslashes (e.g., `\begin{cases} \frac 1 2 \\\\ \frac 3 4 \end{cases}`).
+
 ### Inline Equations
 
 Inline equations **MUST** include extra spaces in the MathJax delimiters.
 
 {{#include ./_include/styles.md:example}}
->
 > Equation: \\( \int x dx = \frac{x^2}{2} + C \\)
 >
 > **Correct inline delimiter:**
@@ -149,7 +150,6 @@ Inline equations **MUST** include extra spaces in the MathJax delimiters.
 Block equations **MUST** use the `$$` delimiter (instead of `\\[ ... \\]`).
 
 {{#include ./_include/styles.md:example}}
->
 > Equation:
 >
 > $$
@@ -184,7 +184,6 @@ TeX-macros **MUST** be imported at the top of the consumer files using the mdBoo
 TeX macros can be imported entirely or partially (e.g., just a functional block).
 
 {{#include ./_include/styles.md:example}}
->
 > Import all TeX-macros:
 >
 > ```text
@@ -206,7 +205,6 @@ Block styles (e.g., examples, implementation notes, etc.) are “styled quote”
 included in the book.
 
 {{#include ./_include/styles.md:example}}
->
 > This example block has been included with the following syntax:
 >
 > ```text
