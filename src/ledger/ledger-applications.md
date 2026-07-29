@@ -55,25 +55,31 @@ This field is encoded with msgpack field `clearp`.
   - For AVM Version 4 or higher programs, the program’s cost during execution **MUST
   NOT** exceed \\( \MaxAppProgramCost \\).
 
-- An immutable “global state schema” (`GlobalStateSchema`), which sets a limit on
+- A “global state schema” (`GlobalStateSchema`), which sets a limit on
 the size of the global [Key/Value Store](#keyvalue-stores) that may be associated
 with this application (see [State Schemas](#state-schemas)). This field is encoded
-with msgpack field `gsch`.
+with msgpack field `gsch`. It is set at creation and **MAY** be changed by an
+[application update](./ledger-txn-semantics-application.md#step-6). It **MUST NOT**
+be reduced below the application’s current global state usage.
 
   - The maximum number of values that this schema may permit is \\( \MaxGlobalSchemaEntries \\).
 
 - An immutable “local state schema” (`LocalStateSchema`), which sets a limit on
 the size of a [Key/Value Store](#keyvalue-stores) that this application will allocate
 in the account data of an account that has opted in (see ["State Schemas"](#state-schemas)).
-This field is encoded with msgpack field `lsch`.
+This field is encoded with msgpack field `lsch`. Unlike the global state schema, it
+**MUST NOT** be changed after creation, because each opted-in account caches a copy
+of it in order to compute its own minimum balance requirement.
 
   - The maximum number of values that this schema may permit is \\( \MaxLocalSchemaEntries \\).
 
-- An immutable “extra pages” value (`ExtraProgramPages`), which limits the total
+- An “extra pages” value (`ExtraProgramPages`), which limits the total
 size of the application programs. The sum of the lengths of `ApprovalProgram`
 and `ClearStateProgram` may not exceed \\( \MaxAppTotalProgramLen \times (1+\ExtraProgramPages) \\)
 bytes. This field is encoded with msgpack field `epp` and may not exceed \\( \MaxExtraAppProgramPages \\).
-This `ExtraProgramPages` field is taken into account on application update as well.
+It is set at creation and **MAY** be changed by an
+[application update](./ledger-txn-semantics-application.md#step-6), provided the
+(possibly new) programs still fit within the (possibly new) page allowance.
 
 - An “application version” (`Version`) value that begins at \\( 0 \\) when an Application
 is created or when the _protocol version_ including this field goes into effect
@@ -82,9 +88,30 @@ whichever is later. This field is encoded with msgpack field `v`.
 - The “global state” (`GlobalState`) associated with this application, stored as
 a [Key/Value Store](#keyvalue-stores). This field is encoded with msgpack field `gs`.
 
+- A “size sponsor” (`SizeSponsor`) account. When non-zero, it identifies the account
+responsible for the minimum balance contributions of this application’s `ExtraProgramPages`
+and `GlobalStateSchema`. When zero, the application’s creator bears those contributions.
+This field is encoded with msgpack field `ss`, and is exposed to the AVM as the
+`AppSizeSponsor` field of `app_params_get` (see [Size Sponsor](#size-sponsor)).
+
+- A mutable “foreign box reads” flag (`ForeignBoxReads`). When true, another
+application may read this application’s boxes, provided the boxes are available
+to the transaction group. It does not permit another application to modify the
+boxes. This field is encoded with msgpack field `fbr`.
+
+- A mutable “family box access” flag (`FamilyBoxAccess`). When true, applications
+with the same creator may read and modify this application’s boxes, provided the
+boxes are available to the transaction group. This field is encoded with msgpack
+field `fba`.
+
+Both box-access flags are initially false and may be changed by the application
+using `app_params_set`.
 Each application created increases the minimum balance requirement of the creator
 by \\( \AppFlatParamsMinBalance \times (1+\ExtraProgramPages) \\) μALGO, plus the
 [`GlobalStateSchema` minimum balance contribution](#app-minimum-balance-changes).
+When a later [application update](./ledger-txn-semantics-application.md#step-6) changes
+these sizes, the portion of the requirement attributable to `ExtraProgramPages` and
+`GlobalStateSchema` moves to the application’s [size sponsor](#size-sponsor).
 
 Each application opted in to increases the minimum balance requirements of the opting-in
 account by \\( \AppFlatOptInMinBalance \\) μALGO plus the [`LocalStateSchema` minimum
@@ -145,6 +172,34 @@ $$
 $$
 <!-- rumdl-enable MD013 -->
 
+## Size Sponsor
+
+The minimum balance contributions for an application’s `ExtraProgramPages` and
+`GlobalStateSchema` are borne by a single account, its _size sponsor_. At creation,
+that account is the creator, and the application’s `SizeSponsor` field is left zero
+to signify this.
+
+An [application update](./ledger-txn-semantics-application.md#step-6) **MAY** change
+`ExtraProgramPages` and `GlobalStateSchema`. Because the account submitting the update
+need not be the creator, the responsibility for these contributions follows the
+account that most recently set the sizes:
+
+- The contributions for the _former_ `ExtraProgramPages` and `GlobalStateSchema` are
+removed from the current size sponsor (the account named by `SizeSponsor`, or the
+creator when `SizeSponsor` is zero).
+
+- The contributions for the _new_ `ExtraProgramPages` and `GlobalStateSchema` are added
+to the account that submitted the update (the transaction’s _sender_), which becomes
+the new size sponsor. `SizeSponsor` is set to that account, except that when the sender
+is the creator, `SizeSponsor` is reset to zero.
+
+As with any transaction, the update **FAILS** unless the resulting balances still
+satisfy every affected account’s minimum balance requirement; in particular the sender
+must be able to cover the contributions it takes on.
+
+When the application is deleted, the contributions for its `ExtraProgramPages` and
+`GlobalStateSchema` are released from the current size sponsor.
+
 ## Boxes
 
 The Box store is an associative array mapping keys of type: `(uint64 x []byte)` to
@@ -166,3 +221,20 @@ of the application ID) is modified.
 When a box with name \\( n \\) and size \\( s \\) is created, the minimum balance
 requirement is raised by \\( \BoxFlatMinBalance + \BoxByteMinBalance \times (\mathrm{len}(n) + s) \\).
 The same amount is decremented from the minimum balance when the box is destroyed.
+
+## Family Reentrancy
+
+The boxes of an application whose `FamilyBoxAccess` is true are mutable state shared
+across every application with the same creator, so they are subject to a family-scoped
+analogue of the reentrancy restriction on applications. Two applications are in the
+same _family_ when their creator addresses are equal.
+
+An application _touches_ family-shared state when it reads or modifies a box of an
+application whose `FamilyBoxAccess` is true — including its own. A touch by \\( c \\)
+is also a touch by each application in the unbroken chain of callers of \\( c \\) that
+are in \\( c \\)’s family, and remains so after \\( c \\) returns.
+
+Modifying such a box **FAILS** if the chain of callers of the modifying application
+\\( c \\) contains an application in \\( c \\)’s family that has already touched
+family-shared state and is separated from \\( c \\) by at least one application outside
+the family. Reads never trigger this rule.
