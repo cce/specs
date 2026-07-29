@@ -6,7 +6,7 @@ repos:
     rev: 9930066c775a2a82838c0b479cd40a83b3788b75  # frozen: v0.2.45
     hooks:
       - id: rumdl
-        files: '^(src/.*\.md|README\.md|CONTRIBUTING\.md)'
+        files: '^(src/.*\.md|README\.md|CONTRIBUTING\.md|AGENTS\.md)'
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
@@ -26,12 +26,12 @@ repos:
         alias: lychee-local
         name: check local links
         args: [ "--offline", "--no-progress" ]
-        files: '^(src/.*\.md|README\.md|CONTRIBUTING\.md)'
+        files: '^(src/.*\.md|README\.md|CONTRIBUTING\.md|AGENTS\.md)'
         exclude: '^src/SUMMARY\.md$' # mdBook permits empty draft links.
       - id: lychee
         alias: lychee-external
         name: check external links
         args: [ "--no-progress", "--max-retries", "3" ]
-        files: '^(src/.*\.md|README\.md|CONTRIBUTING\.md)'
+        files: '^(src/.*\.md|README\.md|CONTRIBUTING\.md|AGENTS\.md)'
         exclude: '^src/SUMMARY\.md$' # mdBook permits empty draft links.
         stages: [ manual ]
