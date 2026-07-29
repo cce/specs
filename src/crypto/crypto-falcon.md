@@ -8,7 +8,9 @@ to sign in State Proofs, and to authorize transactions and delegate logic signat
 from post-quantum accounts (scheme identifier `f1`, see
 [Authorization and Signatures](../ledger/ledger-txn-authorization.md#post-quantum-signature)).
 
-FALCON signatures contain a _salt version_.
+FALCON signatures contain a _salt version_. In State Proofs, every revealed
+signature **MUST** match the salt version declared by the proof. Post-quantum
+account signatures are not constrained by the salt version.
 
 FALCON-1024 signatures **MUST** be in compressed format.
 

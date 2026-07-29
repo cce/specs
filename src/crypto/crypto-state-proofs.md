@@ -211,8 +211,8 @@ array of participants, if:
 - The depth of the vector commitment for the signature and the participant information
 should be less than or equal to \\( 20 \\),
 
-- All FALCON signatures should have the same salt version, and it should be equal
-to the salt version specified in the State Proof,
+- Every revealed FALCON signature **MUST** have a salt version equal to the salt
+version specified in the State Proof,
 
 - The number of reveals in the State Proof should be less than or equal to \\( 640 \\),
 
