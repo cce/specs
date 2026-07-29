@@ -125,12 +125,12 @@ plus a contribution for each resource the account is responsible for:
 <!-- markdownlint-disable MD013 -->
 $$
 \begin{aligned}
-\MBR(\rho, I) = \; & \MinBalance \times (1 + N_A) \\
-                   & + \AppFlatParamsMinBalance \times (N_C + N_P)
-                     + \AppFlatOptInMinBalance \times N_O \\
-                   & + (\SchemaMinBalancePerEntry + \SchemaUintMinBalance) \times \mathrm{NumUint} \\
-                   & + (\SchemaMinBalancePerEntry + \SchemaBytesMinBalance) \times \mathrm{NumByteSlice} \\
-                   & + \BoxFlatMinBalance \times N_B + \BoxByteMinBalance \times S_B
+\MBR(\rho, I) = & \MinBalance \times (1 + N_A) \\\\
+& + \AppFlatParamsMinBalance \times (N_C + N_P) \\\\
+& + \AppFlatOptInMinBalance \times N_O \\\\
+& + (\SchemaMinBalancePerEntry + \SchemaUintMinBalance) \times \mathrm{NumUint} \\\\
+& + (\SchemaMinBalancePerEntry + \SchemaBytesMinBalance) \times \mathrm{NumByteSlice} \\\\
+& + \BoxFlatMinBalance \times N_B + \BoxByteMinBalance \times S_B
 \end{aligned}
 $$
 <!-- markdownlint-enable MD013 -->
