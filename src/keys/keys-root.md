@@ -24,13 +24,12 @@ salt, and the public key.
 {{#include ../_include/styles.md:note}}
 > Application accounts are the exception: their address is the hash of the Application
 > ID (prefixed by `appID`), which binds no authorization material. No root key exists
-> for these accounts: they cannot authorize top-level transactions and, unless rekeyed,
-> are controlled exclusively by their Application through [inner transactions](../avm/avm-ops-inner-transactions.md).
+> for these accounts: unless rekeyed, they are controlled exclusively by their
+> Application through [inner transactions](../avm/avm-ops-inner-transactions.md).
 
-Regardless of the authorization method, root keys are used to authorize transaction
-messages as well as delegating the voting authentication using _voting keys_, unless
-that specific account was rekeyed. A rekeyed account would use the rekeyed key in
-lieu of the root key.
+An account's root authorization method authorizes its transaction messages. If the
+account is rekeyed, the authorization method associated with its authorization address
+is used instead.
 
 A relationship between a _root key_ and _voting keys_ is established when accounts
 _register_ their participation in the agreement protocol.
