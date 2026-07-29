@@ -75,14 +75,10 @@ if the holding is frozen or unfrozen.
 
 An account that holds any asset cannot be closed.
 
-## Asset Minimum Balance Changes
+## Asset Minimum Balance Contribution
 
-When an account opts in to an asset or creates an asset, the minimum balance requirements
-for that account increases. The minimum balance requirement is decreased equivalently
-when an account closes out or deletes an asset.
-
-When opting in to an asset, there is a base minimum balance increase of
-\\( \MinBalance \\) μALGO.
-
-When creating an asset, there is a base minimum balance increase of
-\\( \MinBalance \\) μALGO.
+Each asset holding of an account, whether allocated by creating the asset or by opting
+in to it, contributes \\( \MinBalance \\) μALGO to that account’s [minimum balance
+requirement](./ledger-account-state.md#minimum-balance-requirement). The contribution is
+released when the holding is deallocated, whether by closing out the holding or by
+destroying the asset.

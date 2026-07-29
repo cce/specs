@@ -106,16 +106,12 @@ field `fba`.
 
 Both box-access flags are initially false and may be changed by the application
 using `app_params_set`.
-Each application created increases the minimum balance requirement of the creator
-by \\( \AppFlatParamsMinBalance \times (1+\ExtraProgramPages) \\) μALGO, plus the
-[`GlobalStateSchema` minimum balance contribution](#app-minimum-balance-changes).
-When a later [application update](./ledger-txn-semantics-application.md#step-6) changes
-these sizes, the portion of the requirement attributable to `ExtraProgramPages` and
-`GlobalStateSchema` moves to the application’s [size sponsor](#size-sponsor).
 
-Each application opted in to increases the minimum balance requirements of the opting-in
-account by \\( \AppFlatOptInMinBalance \\) μALGO plus the [`LocalStateSchema` minimum
-balance contribution](#app-minimum-balance-changes).
+Creating an application, [sponsoring](#size-sponsor) its size, opting in to one, and
+storing data in boxes all contribute to the [minimum balance
+requirement](./ledger-account-state.md#minimum-balance-requirement) of an account. The
+amounts are given in [App Minimum Balance
+Contributions](#app-minimum-balance-contributions) and [Boxes](#boxes).
 
 ## Key/Value Stores
 
@@ -143,34 +139,34 @@ some KV.
 - `NumByteSlice` represents the maximum number of _byte-array values_ that may appear
 in some KV.
 
-## App Minimum Balance Changes
+## App Minimum Balance Contributions
 
-When an account opts in to an application or creates an application, the minimum
-balance requirements for that account increases. The minimum balance requirement
-is decreased equivalently when an account closes out or deletes an app.
+An application contributes to the [minimum balance
+requirement](./ledger-account-state.md#minimum-balance-requirement) of the accounts that
+are responsible for its state, in μALGO, as follows:
 
-When opting in to an application, there is a base minimum balance increase of
-\\( \AppFlatOptInMinBalance \\) μALGO. There is an additional minimum balance increase,
-in μALGO, based on the `LocalStateSchema` for that application, described by the
-following formula:
+- Its creator contributes \\( \AppFlatParamsMinBalance \\) for the application itself.
+This contribution always remains with the creator.
 
-<!-- rumdl-disable MD013 -->
-$$
-(\SchemaMinBalancePerEntry + \SchemaUintMinBalance) \times \mathrm{NumUint} + (\SchemaMinBalancePerEntry + \SchemaBytesMinBalance) \times \mathrm{NumByteSlice}
-$$
-<!-- rumdl-enable MD013 -->
+- Its [size sponsor](#size-sponsor), which is its creator until an update moves that
+responsibility, contributes \\( \AppFlatParamsMinBalance \times \ExtraProgramPages \\)
+for the application’s extra program pages, plus the schema contribution below for its
+`GlobalStateSchema`.
 
-When creating an application, there is a base minimum balance increase of
-\\( \AppFlatParamsMinBalance \\) μALGO. There is an additional minimum balance increase
-of \\( \AppFlatParamsMinBalance \times \ExtraProgramPages \\) μALGO. Finally,
-there is an additional minimum balance increase, in μALGO, based on the `GlobalStateSchema`
-for that application, described by the following formula:
+- Each account opted in contributes \\( \AppFlatOptInMinBalance \\), plus the schema
+contribution below for the application’s `LocalStateSchema`.
+
+The contribution for a [state schema](#state-schemas) is:
 
 <!-- rumdl-disable MD013 -->
 $$
 (\SchemaMinBalancePerEntry + \SchemaUintMinBalance) \times \mathrm{NumUint} + (\SchemaMinBalancePerEntry + \SchemaBytesMinBalance) \times \mathrm{NumByteSlice}
 $$
 <!-- rumdl-enable MD013 -->
+
+Each contribution is released when the state it accounts for is released: deleting the
+application releases the creator’s and the size sponsor’s contributions, and closing out
+or clearing local state releases the contributions of the account that was opted in.
 
 ## Size Sponsor
 
@@ -193,10 +189,6 @@ to the account that submitted the update (the transaction’s _sender_), which b
 the new size sponsor. `SizeSponsor` is set to that account, except that when the sender
 is the creator, `SizeSponsor` is reset to zero.
 
-As with any transaction, the update **FAILS** unless the resulting balances still
-satisfy every affected account’s minimum balance requirement; in particular the sender
-must be able to cover the contributions it takes on.
-
 When the application is deleted, the contributions for its `ExtraProgramPages` and
 `GlobalStateSchema` are released from the current size sponsor.
 
@@ -214,13 +206,13 @@ of Boxes whose Application ID is not known at transaction group construction tim
 
 - The _value_ is a byte-array of length not greater than \\( \MaxBoxSize \\).
 
-When an application executes an opcode that creates, resizes, or destroys a box,
-the minimum balance of the associated application account (whose address is the hash
-of the application ID) is modified.
-
-When a box with name \\( n \\) and size \\( s \\) is created, the minimum balance
-requirement is raised by \\( \BoxFlatMinBalance + \BoxByteMinBalance \times (\mathrm{len}(n) + s) \\).
-The same amount is decremented from the minimum balance when the box is destroyed.
+Boxes are held by the application’s account, whose address is the hash of the application
+ID. A box with name \\( n \\) and size \\( s \\) contributes
+\\( \BoxFlatMinBalance + \BoxByteMinBalance \times (\mathrm{len}(n) + s) \\) μALGO to
+that account’s [minimum balance
+requirement](./ledger-account-state.md#minimum-balance-requirement) for as long as the
+box exists. An opcode that creates, resizes, or destroys a box changes the contribution
+immediately.
 
 ## Family Reentrancy
 

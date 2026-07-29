@@ -18,11 +18,13 @@
 
 ## Box Access
 
-Box opcodes that create, delete, or resize boxes affect the minimum
-balance requirement of the calling application's account. The change
-is immediate, and can be observed after exection by using
-`min_balance`. If the account does not possess the new minimum
-balance, the opcode fails.
+Box opcodes that create, delete, or resize boxes affect the [minimum
+balance requirement](../ledger/ledger-account-state.md#minimum-balance-requirement)
+of the calling application's account.  The change is immediate, and can
+be observed after execution by using `min_balance`.  The requirement
+itself is enforced for the transaction as a whole, as described in the
+Ledger's [account state validity
+conditions](../ledger/ledger-validation.md).
 
 All box related opcodes fail immediately if used in a
 ClearStateProgram. This behavior is meant to discourage Smart Contract

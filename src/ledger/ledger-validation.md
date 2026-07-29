@@ -24,7 +24,8 @@ $$
 \newcommand \PayoutsGoOnlineFee {B_{p,\Fee}}
 \newcommand \Eligibility {\mathrm{A_e}}
 \newcommand \Units {\mathrm{Units}}
-\newcommand \MinBalance {b_{\min}}
+\newcommand \MBR {\mathrm{MBR}}
+\newcommand \MaximumMinimumBalance {\mathrm{MBR}_{\max}}
 $$
 
 # Validity and State Changes
@@ -159,7 +160,28 @@ An account state in the intermediate state \\( \rho+1 \\) and at round \\( r \\)
 is valid if all following conditions hold:
 
 - For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f\\} \\), either \\( \Stake(\rho+1, I) = 0 \\)
-or \\( \Stake(\rho+1, I) \geq \MinBalance \times (1 + N_A) \\), where \\( N_A \\)
-is the number of assets held by that account.
+or \\( \Stake(\rho+1, I) \geq \MBR(\rho+1, I) \\), where \\( \MBR(\rho+1, I) \\) is the
+account’s [minimum balance requirement](./ledger-account-state.md#minimum-balance-requirement).
+
+- For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f\\} \\), if
+\\( \MaximumMinimumBalance \neq 0 \\), then \\( \MBR(\rho+1, I) \leq \MaximumMinimumBalance \\).
 
 - \\( \sum_I \Stake(\rho+1, I) = \sum_I \Stake(\rho, I) \\).
+
+These two minimum balance conditions are the only requirements the Ledger places on an
+account’s balance relative to its minimum balance requirement, and they apply to every
+transaction type. A transaction whose effects would leave any account in an invalid
+account state **FAILS**, and its effects are discarded.
+
+Because the conditions hold over all addresses, they constrain every account a transaction
+affects, not only its sender: for example, the receiver of a payment, an application
+account that creates a [box](./ledger-applications.md#boxes), and the account that becomes
+an application’s [size sponsor](./ledger-applications.md#size-sponsor) by taking on the
+contributions for that application’s size.
+
+Because the conditions constrain the intermediate state produced by each transaction,
+contributions incurred and released while a single transaction is evaluated — including by
+its inner transactions and by AVM box operations — are netted before the conditions are
+checked. Conversely, an account **MUST** satisfy its requirement at every intermediate
+state, so a [group](./ledger-txn-groups.md) may not leave an account below its requirement
+after one transaction even if a later transaction in the same group would restore it.

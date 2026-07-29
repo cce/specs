@@ -1,7 +1,3 @@
-$$
-\newcommand \MinBalance {b_{\min}}
-$$
-
 # Asset Transaction Semantics
 
 ## Asset Configuration
@@ -108,9 +104,6 @@ flag value from the freeze transaction.
 
 ## Asset Allocation
 
-When an asset transaction allocates space in an account for an asset, whether by
-creation or opt-in, the sender’s minimum balance requirement is incremented by
-\\( \MinBalance \\).
-
-When the space is deallocated, whether by asset destruction or asset close-to, the
-minimum balance requirement of the sender is decremented by \\( \MinBalance \\).
+Allocating and deallocating space for an asset holding changes the account’s minimum
+balance requirement, as described in [Asset Minimum Balance
+Contribution](./ledger-assets.md#asset-minimum-balance-contribution).
