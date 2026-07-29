@@ -20,8 +20,8 @@
 
 Box opcodes that create, delete, or resize boxes affect the [minimum
 balance requirement](../ledger/ledger-account-state.md#minimum-balance-requirement)
-of the calling application's account.  The change is immediate, and can
-be observed after execution by using `min_balance`.  The requirement
+of the calling application's account. The change is immediate, and can
+be observed after execution by using `min_balance`. The requirement
 itself is enforced for the transaction as a whole, as described in the
 Ledger's [account state validity
 conditions](../ledger/ledger-validation.md).
