@@ -3,7 +3,9 @@
 The AVM _Stack_ is the core structure for the interpreter’s execution. It is constructed
 and used as a regular stack data structure.
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Stack [reference implementation](https://github.com/algorand/go-algorand/blob/b7b3e5e3c9a83cbd6bd038f4f1856039d941b958/data/transactions/logic/eval.go#L675).
 
 On a new AVM program execution, the Stack starts empty. After opcode execution the
@@ -28,7 +30,9 @@ byte-array element exceeds \\( 4096 \\) bytes, the program fails.
 If an opcode is documented to access a position in the Stack that does not exist,
 the operation fails.
 
-{{#include ../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > This is often an attempt to access an element below the Stack. A simple example
 > is an operation like `concat` that expects two arguments on the Stack: if the
 > Stack has fewer than two elements, the operation fails.

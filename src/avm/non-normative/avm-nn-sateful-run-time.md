@@ -8,7 +8,8 @@
 
 ![Application Calls](../../_images/avm-application-txn.svg "AVM Stateful Mode - Application Calls")
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
 >
 > - Application Call NoOp [reference implementation](https://github.com/algorand/go-algorand/blob/13e66ff9ba5073637f69f9dd4e5572f19b77e38c/ledger/apply/application.go#L340),
 >

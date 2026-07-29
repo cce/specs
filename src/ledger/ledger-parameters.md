@@ -99,6 +99,7 @@ $$
 
 The Algorand _Ledger_ is parameterized by the values in the following tables.
 
+> [!NOTE]
 > For each parameter, the tables provide the reference implementation name, to
 > facilitate the match of the specifications and the implementation.
 

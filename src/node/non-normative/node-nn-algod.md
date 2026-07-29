@@ -33,6 +33,7 @@ The `algod` REST API is used to **POST**:
 
 - Other ancillary dev commands.
 
+> [!NOTE]
 > Tasks involving the management and the usage of private keys are handled by a
 > separate daemon, called _Key Management Daemon_ (`kmd`).
 
@@ -57,7 +58,9 @@ Each `algod` endpoint path has two _tags_ to separate endpoints into groups:
 
 - Tag 2: `participating`, `nonparticipating`, `data`, or `experimental`.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Each endpoint implements a [`Handler`](https://github.com/algorand/go-algorand/blob/cec401cc6127c6af742685e4c39e71389586c595/daemon/algod/api/server/v2/handlers.go)
 > and a [`Client`](https://github.com/algorand/go-algorand/blob/cec401cc6127c6af742685e4c39e71389586c595/daemon/algod/api/client/restClient.go).
 

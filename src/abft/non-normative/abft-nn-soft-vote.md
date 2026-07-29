@@ -86,7 +86,9 @@ $$
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Soft vote filtering [reference implementation](https://github.com/algoradam/go-algorand/blob/master/data/committee/credential.go#L160C1-L187C2).
 >
 > Soft vote issuance [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/agreement/player.go#L170-L206).
@@ -119,6 +121,7 @@ node’s general cryptographic hashing function.
 
 <!-- TODO: VRF normative: See the cryptography [normative section]() for details on \\( VRF \\). -->
 
+> [!NOTE]
 > See the cryptography [normative section](../../crypto/crypto.md) for details
 > on the \\( \Hash \\) function.
 

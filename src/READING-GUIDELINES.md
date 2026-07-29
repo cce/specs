@@ -48,13 +48,16 @@ icon (**>**), next to the level name.
 
 ## Formatting
 
+> [!NOTE]
 > Notes like this are non-normative comments in the normative sections.
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
 >
 > Sections like this are examples aiming to clarify the formal specifications.
 
-{{#include ./_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
 >
 > Sections like this contain links to the `go-algorand` reference implementation.
 

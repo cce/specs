@@ -24,11 +24,15 @@ Priority-wise, bundles' freshness is defined as follows:
 - Bundles for \\( \Next \\) step for the \\( \bot \\) _proposal-value_ are fresher
 than bundles for a \\( \Next \\) step for some other value.
 
+> [!NOTE]
 > For a formal definition of this property, refer to the ABFT [normative section](../abft-player-state.md#special-values).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Bundle freshness [reference implementation](https://github.com/algorand/go-algorand/blob/55011f93fddb181c643f8e3f3d3391b62832e7cd/agreement/player.go#L518).
 
+> [!NOTE]
 > In the reference implementation, a resynchronization attempt is handled by the `partitionPolicy`
 > function, as the network is assumed to be in a “partitioned state” due to the
 > temporary inability to reach consensus. In this case, the function is only invoked

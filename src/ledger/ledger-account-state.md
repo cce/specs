@@ -36,6 +36,7 @@ A _balance record_ contains the following fields:
 - The account _spending key_,
 - The account [participation keys](../keys/keys-participation.md).
 
+> [!NOTE]
 > In the rest of this section, all references to _Reward calculation_ are with respect
 > to the legacy distribution rewards system. They are kept here for completeness
 > and for backward compatibility.

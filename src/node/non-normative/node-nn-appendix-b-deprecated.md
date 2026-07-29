@@ -60,6 +60,7 @@ Deprecated and unused.
 
 Deprecated and unused.
 
+> [!NOTE]
 > Represents the duration between two consecutive checks to see if new [participation keys](../../keys/keys-participation.md)
 > have been placed in the genesis directory.
 

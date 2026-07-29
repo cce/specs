@@ -87,6 +87,7 @@ Tests are organized in the accompanying `data/transactions/logic/eval_test.go` f
 Let's test the new OpCode locally by generating a [netgoal template](https://github.com/algorand/go-algorand/tree/13e66ff9ba5073637f69f9dd4e5572f19b77e38c/cmd/netgoal)
 and running a new Local Network.
 
+> [!NOTE]
 > Be sure to set the network’s Consensus Version to `future` if you’re adding an
 > OpCode to a future AVM version.
 

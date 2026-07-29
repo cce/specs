@@ -15,7 +15,9 @@ The timestamp \\( t_{r+1} \\) of a block in round \\( r \\) is valid if:
 - \\( t_{r} = 0 \\) or
 - \\( t_{r+1} > t_{r} \\) and \\( t_{r+1} < t_{r} + \MaxTimestampIncrement \\).
 
-{{#include ../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > Suppose the block production stalls on round \\( r \\) for a prolonged time. When
 > correct operations resume, a certain number \\( n \\) of blocks has to be committed
 > until the timestamp catches up to external time references. If \\( t^{\ast} \\)

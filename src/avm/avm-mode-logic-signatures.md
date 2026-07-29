@@ -48,7 +48,9 @@ evaluated. If the program exceeds its opcode budget, it fails.
 The total program cost of all Logic Signatures in a group **MUST NOT** exceed
 \\( \LogicSigMaxCost \\) times the number of transactions in the group[^1].
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Opcode budget tracker [reference implementation](https://github.com/algorand/go-algorand/blob/7e562c35b02289ca95114b4b3a20a7dc2df79018/data/transactions/logic/eval.go#L1491).
 
 ## Modes

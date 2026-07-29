@@ -58,6 +58,7 @@ $$
 
 ---
 
+> [!NOTE]
 > Transaction ingestion [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/data/pools/transactionPool.go#L440).
 
 This algorithm requires a pending \\( \BlockEval \\) to be already initialized and

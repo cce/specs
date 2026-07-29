@@ -6,12 +6,15 @@ positions.
 Like Stack values, scratch locations may hold `stackValues` (of either `uint64`
 or `bytes` types) and are initialized as zeroed-out `uint64` values.
 
+> [!NOTE]
 > The _Scratch Space_ is an additional area of volatile memory used at runtime. It’s
 > useful for storing values needed multiple times during program execution, or that
 > stay the same for long periods. It provides a convenient place to keep such persistent
 > or reusable data during the program execution.
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Scratch Space [reference implementation.](https://github.com/algorand/go-algorand/blob/b7b3e5e3c9a83cbd6bd038f4f1856039d941b958/data/transactions/logic/eval.go#L650)
 
 ## Indexing

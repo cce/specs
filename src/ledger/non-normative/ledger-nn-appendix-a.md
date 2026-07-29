@@ -28,5 +28,7 @@ It ensures that state copies are only created when modifications are necessary,
 enabling efficient memory usage and optimized performance during state transitions
 across blockchain rounds.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Copy on write [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/ledger/eval/cow.go).

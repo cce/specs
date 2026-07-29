@@ -10,7 +10,9 @@ Transactions consist of:
 
 - A _body_ (type-specific).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Transaction [package](https://github.com/algorand/go-algorand/tree/18990e06116efa0ad29008d5879c8e4dcfa51653/data/transactions).
 
 ## Transaction Levels
@@ -36,14 +38,19 @@ The transaction type is identified with a short string of at most [7 characters]
 |  `stpf`  | Algorand State Proof                                           |
 |   `hb`   | Consensus heartbeat challenge                                  |
 
+> [!NOTE]
 > For a formal definition of all transaction fields, refer to the [normative section](../ledger-transactions.md).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > The reference implementation also defines the `unknown` transaction type.
 >
 > Transaction types [definition](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/protocol/txntype.go#L28-L55).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Transaction types [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/data/transactions/transaction.go#L87-L109).
 
 ## Transaction Header
@@ -83,6 +90,7 @@ If this field is set, it acquires a `Lease`(`Sender`, `Lease`), valid until the
 `LastValidRound` \\( r_L \\) expires. While the transaction maintains the `Lease`,
 no other transaction with the same `Lease` can be committed.
 
+> [!NOTE]
 > A typical use case of the `Lease` is a batch of signed transactions, with the
 > same `Lease`, sent to the network to ensure only one is executed.
 

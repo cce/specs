@@ -10,6 +10,7 @@ Programs carrying old versions are executed with their original semantics.
 In the AVM bytecode, the Version is an incrementing integer, denoted in the program
 as `vX` (where `X` is the version number, see [Pragma directive section](./avm-assembler.md#pragma)).
 
+> [!NOTE]
 > For further details about the available opcodes per version, refer to the
 > [AVM Opcodes Specification](./avm-appendix-a.md).
 
@@ -18,6 +19,7 @@ compiled code.
 
 Any addition, removal, or change of opcode behavior increments the Version.
 
+> [!NOTE]
 > Existing opcode behavior **SHOULD NOT** change. Opcode additions will be infrequent,
 > and opcode removals **SHOULD** be very rare.
 
@@ -33,7 +35,9 @@ If one of the transactions in a group executes a program whose Version predates 
 transaction type or field that can violate expectations, that transaction type or
 field **MUST NOT** be used anywhere in the transaction group.
 
-{{#include ../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > A Version \\( 1 \\) program included in a transaction group that includes an
 > [application call transaction](../ledger/ledger-txn-application-call.md) or a
 > non-zero [rekey-to field](../ledger/ledger-transactions.md#rekey-to) will fail

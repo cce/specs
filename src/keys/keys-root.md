@@ -21,7 +21,7 @@ by hashing the program bytecode;
 key pair. The account address is derived by hashing the scheme identifier, an address
 salt, and the public key.
 
-{{#include ../_include/styles.md:note}}
+> [!NOTE]
 > Application accounts are the exception: their address is the hash of the Application
 > ID (prefixed by `appID`), which binds no authorization material. No root key exists
 > for these accounts: unless rekeyed, they are controlled exclusively by their
@@ -34,5 +34,6 @@ is used instead.
 A relationship between a _root key_ and _voting keys_ is established when accounts
 _register_ their participation in the agreement protocol.
 
+> [!NOTE]
 > For further details on the key registration (`keyreg`) process, refer to Ledger
 > [specification](../ledger/ledger-transactions.md).

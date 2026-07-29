@@ -47,8 +47,11 @@ under \\( \PKTwo \\).
 - _Public Key 2 Signature_ (\\( \PKTwoSig \\)), a signature of \\( \OTSSBatchID \\)
 under the _voting keys_.
 
+> [!NOTE]
 > The _Old Style Signature_ (\\( \PKSigOld \\)) is **deprecated**, still included
 > in the message only for compatibility reasons.
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > One-Time Signature [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/crypto/onetimesig.go#L36).

@@ -43,5 +43,7 @@ $$
 
 for some \\( i > 0 \\) (where \\( S = (r, p-i, s, \bar{s}, V, P, \bar{v}) \\)).
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > New period [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/player.go#L411).

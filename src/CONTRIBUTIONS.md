@@ -48,7 +48,8 @@ The CI pipeline enforces Markdown linting, formatting, and style checking with
 
 Numbered lists **MUST** be defined with `1`-only style.
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
 >
 > ```text
 > 1. First item
@@ -66,7 +67,9 @@ Numbered lists **MUST** be defined with `1`-only style.
 
 Table rows **MUST** use the same column widths.
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > **Correct table format:**
 >
 > ```text
@@ -99,7 +102,8 @@ Consider aligning text in the columns to the left, right, or center by adding a
 colon `:` to the left, right, or on both sides of the dashes `---` within the header
 row.
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
 >
 > ```text
 > | Name   | Quantity | Size |
@@ -121,6 +125,7 @@ row.
 
 Mathematical formulas are defined with [MathJax](https://www.mathjax.org/).
 
+> [!NOTE]
 > mdBook MathJax [documentation](https://rust-lang.github.io/mdBook/format/mathjax.html).
 
 > [!IMPORTANT]
@@ -132,7 +137,9 @@ Mathematical formulas are defined with [MathJax](https://www.mathjax.org/).
 
 Inline equations **MUST** include extra spaces in the MathJax delimiters.
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > Equation: \\( \int x dx = \frac{x^2}{2} + C \\)
 >
 > **Correct inline delimiter:**
@@ -151,7 +158,9 @@ Inline equations **MUST** include extra spaces in the MathJax delimiters.
 
 Block equations **MUST** use the `$$` delimiter (instead of `\\[ ... \\]`).
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > Equation:
 >
 > $$
@@ -191,7 +200,9 @@ TeX-macros **MUST** be imported at the top of the consumer files using the mdBoo
 
 TeX macros can be imported entirely or partially (e.g., just a functional block).
 
-{{#include ./_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > Import all TeX-macros:
 >
 > ```text
@@ -204,21 +215,30 @@ TeX macros can be imported entirely or partially (e.g., just a functional block)
 > \{{#include ./_include/tex-macros.md:pseudocode}}
 > ```
 
-## Block Styles
+## Admonitions
 
-Block styles are defined in the `./src/_include/styles.md` file using the mdBook
-[include feature](https://rust-lang.github.io/mdBook/format/mdbook.html#including-files).
+Admonitions **MUST** use mdBook's native Markdown syntax. Use `NOTE` for non-normative
+comments, `TIP` with an `EXAMPLE` label for examples, and `IMPORTANT` with an `IMPLEMENTATION`
+label for reference implementation details.
 
-Block styles (e.g., examples, implementation notes, etc.) are “styled quote” blocks
-included in the book.
+```text
+> [!NOTE]
+> This is a non-normative comment.
+```
 
-{{#include ./_include/styles.md:example}}
-> This example block has been included with the following syntax:
+```text
+> [!TIP]
+> **EXAMPLE:**
 >
-> ```text
-> \{{#include ./_include/styles.md:example}}
-> > This example block has been included with the following syntax:
-> ```
+> This is an example.
+```
+
+```text
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
+> This describes the reference implementation.
+```
 
 ## GitHub Links
 

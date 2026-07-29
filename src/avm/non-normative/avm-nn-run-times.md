@@ -6,6 +6,7 @@ The Algorand Virtual Machine has two _run-time_ (execution) modes:
 
 - _Application_ (or Stateful) mode: executes Smart Contracts.
 
+> [!NOTE]
 > For further details about the execution modes, refer to the AVM [normative specification](../avm.md).
 
 Each _mode_ differs in opcode availability, Ledger resources accessibility, program
@@ -42,6 +43,7 @@ to an Application. Note that code execution is done in a different pipeline; app
 being stateful, a full block context is needed to evaluate their correctness, and
 so code execution happens at block evaluation time.
 
+> [!NOTE]
 > For further details on the block evaluation stage, see the [Ledger non-normative
 > specifications](../../ledger/non-normative/ledger-nn-block-commitment.md).
 

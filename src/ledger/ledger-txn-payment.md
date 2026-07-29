@@ -15,6 +15,7 @@ A _payment_ transaction additionally has the following fields:
 The _amount_ \\( a \\) indicates the number of μALGO being transferred by the payment
 transaction.
 
+> [!NOTE]
 > If the _amount_ is omitted (\\( a = 0 \\)), the number of μALGO transferred is
 > zero.
 
@@ -23,6 +24,7 @@ transaction.
 The _receiver_ \\( I^\prime \\) specifies the receiver of the _amount_ in the payment
 transaction.
 
+> [!NOTE]
 > If the _receiver_ is omitted (\\( I^\prime = 0 \\)), the _amount_ is transferred
 > to the _zero address_.
 
@@ -31,6 +33,7 @@ transaction.
 The _close to_ address \\( I_0 \\) (**OPTIONAL**) collects all remaining μALGO in
 the _sender_ account _after_ the payment transfer.
 
+> [!NOTE]
 > If the _close to_ address is omitted (\\( I_0 = 0 \\)), the field has no effect.
 
 ## Semantic

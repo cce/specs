@@ -3,13 +3,16 @@
 A TEAL program is compiled using the `POST /v2/teal/compile` endpoint of `algod`
 node (`go-algorand` reference implementation).
 
+> [!NOTE]
 > See the `algod` node API [non-normative section](../../node/non-normative/node-nn-algod.md) for
 > further details.
 
 The node begins by decoding the TEAL source code and converting it into AVM bytecode
 using the internal `assemble` function.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Assembler [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/data/transactions/logic/assembler.go#L2039-L2158).
 
 The following diagram outlines the steps involved in TEAL assembly:
@@ -44,6 +47,7 @@ The assembly process begins with two initial checks:
 
 - Ensuring the TEAL source is _not empty_ (empty programs are invalid).
 
+> [!NOTE]
 > For a complete list of all available `opcodes` by versions, refer to the TEAL
 > [normative section](../avm-appendix-a.md)
 

@@ -12,6 +12,7 @@ Tracks the current version of the default configuration values, allowing migrati
 from older versions to newer ones. It is crucial when modifying default values for
 existing parameters.
 
+> [!NOTE]
 > This field must be updated accordingly whenever a new version is introduced.
 
 ---

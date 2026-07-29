@@ -74,10 +74,13 @@ Internally, \\( \MessageHandler_t(\InMsg) \\) routes data to the corresponding c
 of the node (e.g., "Agreement" for protocol messages, "Transaction Pool" for transactions,
 etc.).
 
+> [!NOTE]
 > Refer to the normative section of each node component to see how these messages
 > are processed and their impact on the node’s overarching state.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > In the reference implementation, a single entry point callback `Notify()` is used
 > to monitor an outgoing connection whenever a message is received. This function
 > then sends the message metadata to the appropriate processing stage of the `PerformanceMonitor`.

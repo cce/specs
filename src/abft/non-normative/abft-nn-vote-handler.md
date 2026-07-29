@@ -127,7 +127,9 @@ $$
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Relevant parts of the reference implementation related to vote handling:
 >
 > - [Vote verification](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/vote.go#L97).
@@ -150,6 +152,7 @@ this is considered adversarial behavior. Therefore, a node may disconnect from t
 vote sender node (Line 3), retrieving the network ID of the original message sender
 with the \\( SenderPeer \\ helper network module function.
 
+> [!NOTE]
 > For more details on disconnection actions and the definition of a _peer_, refer
 > to the Algorand Network Layer [non-normative section](../../network/network-overview.md).
 

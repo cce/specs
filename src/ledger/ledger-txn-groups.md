@@ -27,7 +27,9 @@ an ordered list of the hashes of all transactions in the group. When computing e
 transaction’s hash for this purpose, its own _group_ field is omitted to avoid circular
 dependency.
 
-{{#include ../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > A user wants to require transaction \\( A \\) to confirm _if and only if_ transactions
 > \\( B \\) and \\( C \\) confirm in a certain order. The user performs the following
 > procedure:
@@ -108,6 +110,7 @@ flag require \\( \MinTxnFee \\) less, provided the _heartbeat address_ was chall
 between \\( 100 \\) and \\( 200 \\) rounds ago, and has not proposed or heartbeat
 since that challenge.
 
+> [!NOTE]
 > Further explanation of this rule is found in [Heartbeat transaction semantics](./ledger-txn-semantics-heartbeat.md)
 > section.
 
@@ -139,7 +142,9 @@ size checks, each transaction in a group is evaluated separately and **MUST** be
 valid on its own, as described in the [Validity and State Changes](./ledger-validation.md)
 section.
 
-{{#include ../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > An account with balance \\( 50 \\) ALGO could not spend \\( 100 \\) ALGO in transaction
 > \\( A \\) and afterward receive \\( 500 \\) in transaction \\( B \\), even if
 > transactions \\( A \\) and \\( B \\) are in the same group, because transaction

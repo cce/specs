@@ -37,7 +37,9 @@ $$
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Commit block proposal [reference implementation](https://github.com/algorand/go-algorand/blob/55011f93fddb181c643f8e3f3d3391b62832e7cd/agreement/player.go#L366-L374).
 
 The function commits to the Ledger the block corresponding to the received
@@ -52,8 +54,10 @@ and appends it to the Ledger \\( L \\) (Line 3).
 Then, the node updates the Ledger state (and trackers) with all state changes (deltas)
 produced by the new committed block.
 
+> [!NOTE]
 > For further details, refer to the Ledger [normative section](../../ledger/ledger-apply-data.md#state-deltas).
 
 The \\( \TP \\) is then purged of all transactions in the committed block.
 
+> [!NOTE]
 > For further details on this process, see the Ledger [non-normative section](../../ledger/non-normative/ledger-nn.md).

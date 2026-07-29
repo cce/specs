@@ -42,6 +42,7 @@ _different_ from \\( \bot \\),
 - Finally, as a fallback, a \\( \Down \\)-vote is attempted if none of the above
 conditions were met.
 
+> [!NOTE]
 > A \\( \Down \\)-vote is always a vote for the \\( \bot \\) proposal-value, while
 > \\( \Late \\) and \\( \Redo \\) must vote for a proposal-value _different_ from
 > \\( \bot \\).
@@ -86,7 +87,9 @@ $$
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Fast recovery vote issuance [reference implementation](https://github.com/algorand/go-algorand/blob/d52e3dd8b31a17dfebac3d9158a76e8e62617462/agreement/player.go#L244).
 
 \\( \FastRecovery \\) is functionally very close to the regular \\( \Recovery \\)
@@ -101,4 +104,5 @@ Nodes are forbidden to equivocate for \\( \Late, \Redo, \Down \\) votes.
 Finally, the node broadcasts all fast recovery votes observed. That is, all votes
 \\( \vt \in V \\) for which \\( \vt_s \\) is a fast recovery step (\\( \Late, \Redo, \Down \\)).
 
+> [!NOTE]
 > For a formal definition of this functionality, refer to the ABFT [normative section](../abft-broadcast-rules-fast-recovery.md).

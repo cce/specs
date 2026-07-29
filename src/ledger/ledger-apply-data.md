@@ -64,6 +64,7 @@ It contains the following fields:
 
 ## Distribution Rewards
 
+> [!NOTE]
 > The following \\( ApplyData \\) item refers to the legacy Distribution Reward
 > system.
 
@@ -81,7 +82,9 @@ If any of the addresses are the same (e.g., the _sender_ and _receiver_ are the 
 then that account received the sum of the respective reward distributions (i.e.,
 `rs` plus `rr`).
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > In the reference implementation, one of these two fields will be zero in that case.
 
 ## Inner Transactions

@@ -25,6 +25,7 @@ The _asset ID_ \\( \Asset_\mathrm{xfer,ID} \\) identifies the asset being transf
 The _asset amount_ \\( \Asset_a \\) (**OPTIONAL**) indicates the number of _asset
 units_ being transferred.
 
+> [!NOTE]
 > If the _asset amount_ is omitted (\\( \Asset_a = 0 \\)), the number of _asset units_
 > transferred is zero.
 
@@ -33,6 +34,7 @@ units_ being transferred.
 The _asset sender_ \\( \Asset_I \\) (**OPTIONAL**) identifies the source address
 for the asset transfer (non-zero if the transaction is a _clawback_).
 
+> [!NOTE]
 > If the _asset sender_ is omitted (\\( \Asset_I = 0 \\)), the source address of
 > the asset transfer is the _sender_ of the transaction.
 
@@ -46,6 +48,7 @@ for the asset transfer.
 The _asset close to_ address \\( \Asset_{I_0}\\) (**OPTIONAL**) collects all remaining
 _asset units_ in the _sender_ account _after_ the asset transfer.
 
+> [!NOTE]
 > If the _asset close to_ address is omitted (\\( \Asset_{I_0}\\)), the field has
 > no effect.
 

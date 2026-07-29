@@ -17,6 +17,7 @@ Before Version 4, most opcodes required using an _offset_, except for reading ac
 local values of assets or applications, which accepted the IDs directly and did not
 require the ID to be present in the corresponding _foreign_ array.
 
+> [!NOTE]
 > Beginning with Version 4, those IDs _are_ required to be present in their corresponding
 > _foreign_ array. See individual opcodes for details.
 

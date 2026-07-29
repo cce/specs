@@ -54,7 +54,9 @@ Q = \left\\{
 \right.
 $$
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Seed computation [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/proposal.go#L155).
 
 The seed is valid if the following verification procedure succeeds:
@@ -72,11 +74,14 @@ and continue to step 4.
 \\( Q = \Hash(q_1||\DigestLookup(L, r-\delta_s\delta_r)) \\). Otherwise,
 check \\( Q = q_1 \\).
 
+> [!NOTE]
 > Round \\( r \\) leader selection and committee selection both use the seed from
 > \\( r-\delta_s \\) and the balances / public keys from \\( r-\delta_b \\).
 
+> [!NOTE]
 > For re-proposals, the period \\( p \\) used in this section is the _original_
 > period, not the reproposal period.
 
+> [!NOTE]
 > For a detailed overview of the seed computation algorithm and some explanatory
 > examples, refer to the Algorand ABFT [non-normative specification](./non-normative/abft-nn.md).

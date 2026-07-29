@@ -18,6 +18,7 @@ The _context tuple_ supplies the necessary information to determine the exact ph
 of the Agreement Protocol being executed, or, in simpler terms, “where we are” in
 the broader process.
 
+> [!NOTE]
 > For details on the formal implications of these values in the overall protocol,
 > refer to the Algorand Byzantine Fault Tolerance [normative section](../abft-parameters.md).
 

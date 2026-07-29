@@ -28,17 +28,21 @@ to generate commitment to those keys.
 The private key **MUST** be deleted after the round passes to achieve complete forward
 secrecy.
 
+> [!NOTE]
 > This is analogous to the scheme discussed in the [voting keys section](./keys-participation.md).
 
 The Merkle scheme uses [FALCON](https://falcon-sign.info/) scheme as the underlying
 digital signature algorithm.
 
+> [!NOTE]
 > For further details on FALCON scheme, refer to the Cryptography primitives [specification](../crypto/crypto-falcon.md).
 
 The tree’s depth is bound to \\( 16 \\) to bound verification paths on the tree.
 Hence, the maximum number of keys which can be created is at most \\( 2^{16} \\).
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Merkle signature scheme [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/crypto/merklesignature/merkleSignatureScheme.go).
 
 ### Public Commitment

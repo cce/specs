@@ -18,18 +18,23 @@ present itself to and address other peers.
 
 This schema is defined in the `NetAddress` parameter of the _node configuration_.
 
+> [!NOTE]
 > See details in the node configuration [non-normative section](../../node/non-normative/node-nn-appendix-b.md).
 
 The `PublicAddress` also can be set in the _node configuration_ to let a \\( \Peer \\)
 differentiate itself from other peers, and to be used in the [identity challenges](./network-nn-identity.md).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > The reference implementation checks the scheme of network addresses against this
 > _regex_:
 >
 > `^[-a-zA-Z0-9.]+:\\d+$`
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Websocket network address [reference implementation](https://github.com/algorand/go-algorand/blob/df0613a04432494d0f437433dd1efd02481db838/network/wsNetwork.go#L332).
 
 ## P2P Addressing Scheme
@@ -37,6 +42,7 @@ differentiate itself from other peers, and to be used in the [identity challenge
 The Peer-to-Peer Network \\( \PtoP \\) makes use of the underlying [`libp2p`](network-nn-appendix-a.md)
 library primitives for \\( \Peer \\) addressing, identification and connection.
 
+> [!NOTE]
 > This section relies on the `libp2p` [specifications](https://github.com/libp2p/specs)
 > and [developer documentation](https://docs.libp2p.io/concepts/fundamentals/).
 
@@ -49,6 +55,7 @@ within the \\( \PtoP \\) network, serving as a unique identifier for each \\( \P
 It is linked to the public key of the participant, as it is derived as hash of said
 key, encoded in `base58`.
 
+> [!NOTE]
 > See `libp2p` [PeerID specification](https://github.com/libp2p/specs/blob/master/peer-ids/peer-ids.md)
 > for details on how these are constructed and encoded.
 
@@ -58,11 +65,15 @@ to route messages.
 \\( \Peer \\) private keys are used to sign all messages and are kept as secrets
 by the node.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > `PeerID` are cast-able to `str` type and are used as plain strings in packages
 > where importing `libp2p` packages may not be needed.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > A `GetPrivKey` [function](https://github.com/algorand/go-algorand/blob/eff5fb40deb279ba8b2d7f25fbfa5bfe8002d422/network/p2p/peerID.go#L56)
 > manages loading and creation of private keys in the \\( \PtoP \\) network. It
 > prioritizes, in this order:
@@ -71,7 +82,9 @@ by the node.
 > 1. The default path to `privKey`,
 > 1. Generating a new `privKey`.
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > If a new private key is generated, and should be persisted, its default path is
 > `"peerIDPrivKey.key"` (inside the root directory). The behavior of this lookup
 > is governed by _node configuration_ values `P2PPersistPeerID` and `P2PPrivateKeyLocation`
@@ -92,10 +105,13 @@ may be easily converted into a `libp2p` formatted listen multiaddress.
 Given a network address `[a]:[b]` (where `[a]` is the IP address and `[b]` is the
 open port), the conversion scheme is `/ip4/[a]/tcp/[b]`.
 
+> [!NOTE]
 > Refer to the `libp2p` [specifications](https://github.com/libp2p/specs/blob/master/addressing/README.md#the-p2p-multiaddr)
 > for further detail on this structure.
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > Here are some examples of syntactically valid _multiaddresses_:
 >
 > - `/ip4/127.0.0.1/tcp/8080`, for a multiaddress composed only of a network address
@@ -121,5 +137,6 @@ private key and the \\( \WS \\) identity challenge is put in place. This is to c
 both \\( \Peer \\) definitions and prevent it from existing in both \\( \Peer \\)
 lists.
 
+> [!NOTE]
 > See the hybrid network [identity challenge](./network-nn-identity.md#hybrid-network-identity-challenge)
 > for further details on this process.

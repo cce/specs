@@ -43,6 +43,7 @@ targeting a specific AVM version,
    - TEAL supports the _Reverse Polish notation_ ([RPN](https://en.wikipedia.org/wiki/Reverse_Polish_notation)),
    - TEAL lines may end with a newline `\n` or `;`.
 
+> [!NOTE]
 > For a complete description of the AVM instruction set, refer to the TEAL [normative specification](../avm-appendix-a.md).
 
 ## A Simple TEAL Execution
@@ -56,6 +57,7 @@ $$
 1 + 2 = 3
 $$
 
+> [!NOTE]
 > This would be an _insecure_ program, since its approval condition is a tautology,
 > which would approve any transaction regardless of the execution context.
 

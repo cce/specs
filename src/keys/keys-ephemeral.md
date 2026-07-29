@@ -13,6 +13,7 @@ An _ephemeral sub-key_ is a key pair that produces one-time signature
 for messages. It **MUST** be deleted after use to ensure forward security.
 Algorand's ephemeral subkeys use [Ed25519 public-key signature system](https://ed25519.cr.yp.to/).
 
+> [!NOTE]
 > For further details, refer to the Cryptography primitives [specification](../crypto/crypto.md).
 
 Algorand uses a two-level ephemeral signature scheme.
@@ -33,6 +34,7 @@ Voting Keys Root Key
         └── Agreement Voting Message
 ```
 
+> [!NOTE]
 > Further details on this process in the [One-time Signature subsection](./keys-one-time.md).
 
 Each leaf-level ephemeral sub-key is used for voting on a single agreement round,
@@ -40,11 +42,13 @@ and will be deleted afterward. Once a batch of leaf-level ephemeral sub-keys run
 a new batch is generated. Algorand allows users to set the number of leaf-level ephemeral
 sub-key per batch, \\( \KeyDilution \\).
 
+> [!NOTE]
 > The default \\( \KeyDilution \\) value is \\( 10{,}000 \\).
 
 An Algorand account can change its \\( \KeyDilution \\) in the _participation keys
 registration_.
 
+> [!NOTE]
 > For further details about the structure of a _participation keys_ registration
 > (`keyreg`) transaction, refer to the Ledger [specification](../ledger/ledger-overview.md).
 

@@ -28,6 +28,7 @@ A _state proof_ transaction additionally has the following fields:
 
 The _state proof type_ identifies the type of the State Proof.
 
+> [!NOTE]
 > Currently, always \\( 0 \\).
 
 ### State Proof
@@ -98,6 +99,7 @@ Where \\( \Proven\W = \frac{\Total\W \times \StateProofWeightThreshold}{2^{32}} 
 When a _state proof_ transaction is applied to the state, the next expected State
 Proof round for that type of State Proof is incremented by \\( \StateProofInterval \\).
 
+> [!NOTE]
 > A node should be able to verify a _state proof_ transaction at any time, even if
 > the transaction _first valid round_ is greater than the next expected State Proof
 > round in the _block header_.

@@ -12,6 +12,7 @@ Enables saving a full copy of the blockchain history. Non-Archival nodes will on
 maintain the necessary state to validate blockchain messages and participate in
 the consensus protocol. Non-Archival nodes use significantly less storage space.
 
+> [!NOTE]
 > The `Archival` parameter enables the node to save the complete history of the
 > blockchain starting from the moment this setting is activated. Therefore, this
 > setting must be enabled **before** you start the node for the first time. If the
@@ -146,6 +147,7 @@ is safely written to the disk surface before continuing.
 - `3`: In addition to what is being done in `2`, it provides some guarantee of durability
 if the commit is followed closely by a power loss.
 
+> [!NOTE]
 > For further information, see the description of [`SynchronousMode`](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/util/db/dbutil.go#L435).
 
 ---
@@ -172,7 +174,9 @@ are identical to the ones in `LedgerSynchronousMode`.
 
 Sets the maximum lookback range for Account states.
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > The Ledger can answer Account state questions for the range `[Latest - MaxAcctLookback, Latest]`.
 
 ---
@@ -185,7 +189,9 @@ Sets the maximum lookback range for Account states.
 
 Sets the maximum lookback range for Block information.
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > The Block DB can return transaction IDs for questions for the range `[Latest - MaxBlockHistoryLookback, Latest]`
 
 ---

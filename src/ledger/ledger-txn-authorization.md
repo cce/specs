@@ -115,6 +115,7 @@ $$
 One address **MAY** be specified multiple times in multisignature address creation.
 In this case, every occurrence is counted independently in validation.
 
+> [!NOTE]
 > The repetition of the same address in the multisignature defines the "weight" of
 > the address.
 
@@ -155,6 +156,7 @@ $$
 \mathrm{PQAddr} = \Hash(\PQAPrefix, \mathtt{sch}, \mathtt{slt}, \pk)
 $$
 
+> [!NOTE]
 > The salt takes part in the address derivation, so one public key derives up to
 > \\( 256 \\) distinct addresses. This allows clients to select, by rejection sampling
 > over the salt, an address which is not a valid Ed25519 public key, so that no
@@ -208,6 +210,7 @@ the bytes of the authorizer address and the bytes in `l`.
 where the signed message is the string `PQProgram` concatenated with the bytes of
 the authorizer address and the bytes in `l`, in place of the transaction.
 
+> [!NOTE]
 > The `lmsig` and `pqsig` messages bind the delegating account address: a delegation
 > produced for one account is not valid for any other account (in particular, for a
 > different salted address derived from the same post-quantum public key).

@@ -19,4 +19,5 @@ Here are some important rules used by the codec:
 output. If this name is omitted (e.g., `codec:","` or `codec:",..."`), the field
 will be encoded using its original Go field name.
 
+> [!NOTE]
 > For a broader understanding of the `msgpack` format in Go, refer to this [primer](https://ugorji.net/blog/go-codec-primer).

@@ -182,4 +182,5 @@ of Applications that were previously created in the same group. Across the execu
 of the entire group, the group can access as many of these unnamed boxes as the group
 has empty box references.
 
+> [!NOTE]
 > For further details on AVM Resource Availability, refer to the [AVM Specifications](../avm/avm-mode-applications.md#resource-availability).

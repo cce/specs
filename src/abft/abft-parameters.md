@@ -42,6 +42,7 @@ lower 95th percentile of the observed lowest credentials per round arrival time:
 
   - \\( 2\lambda_{0min} \leq \FilterTimeout(p) \leq 2\lambda_{0max} \\)
 
+> [!NOTE]
 > Refer to the [non-normative](./non-normative/abft-nn-dynamic-filter-timeout.md) section
 > for details about the implementation of the dynamic filtering mechanism.
 
@@ -59,5 +60,7 @@ We define \\( \DeadlineTimeout(p) \\) on _period_ \\( p \\) as follows:
 
   - \\( \DeadlineTimeout(p) = \Lambda \\)
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > \\( \DeadlineTimeout \\) [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/types.go#L67).

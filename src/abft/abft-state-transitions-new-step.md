@@ -19,7 +19,9 @@ On observing a timeout event of \\( \DeadlineTimeout(p) + 2^{s_t}\lambda + u \\)
 where \\( u \in [0, 2^{s_t}\lambda) \\) sampled uniformly at random, the player sets
 \\( s := s_t \\).
 
-{{#include ../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > New step [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/player.go#L94).
 
 In other words,

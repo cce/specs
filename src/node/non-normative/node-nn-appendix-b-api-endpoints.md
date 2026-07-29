@@ -116,6 +116,7 @@ Defines the maximum number of boxes per application that will be returned in `Ge
 
 Enables [experimental API endpoint](./node-nn-algod.md#endpoints).
 
+> [!NOTE]
 > These endpoints have no guarantees in terms of functionality or future support.
 
 ---

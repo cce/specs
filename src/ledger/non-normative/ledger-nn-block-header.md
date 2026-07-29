@@ -21,7 +21,9 @@ A string and a 32-byte array, respectively.
 They ensure the block belongs to the correct blockchain. These match the genesis
 information about the chain’s state.
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > For the MainNet:
 >
 > - Genesis ID: `mainnet-v1.0`
@@ -58,7 +60,9 @@ defines implicitly a sequence of seeds, whose values alternate according to:
 refresh interval \\( \delta_r \\), the period \\( p \\) during which the block was
 assembled, and on the \\( \VRF \\) value obtained by the block proposer.
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > Example a valid [seed chain computation](../../abft/non-normative/abft-nn-seed-calculation.md#example).
 
 ## Timestamp
@@ -72,13 +76,17 @@ Thursday, 1 January 1970, at UTC).
 The difference between consecutive timestamps cannot be greater than \\( t_{\delta} = 25 \\)
 seconds
 
+> [!NOTE]
 > See the formal definition in the Ledger [normative specification](../../ledger/ledger-parameters.md).
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > In the reference implementation, checks on the timestamp are performed during
 > block assembly. See the [`MakeBlock`](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/data/bookkeeping/block.go#L543)
 > function.
 
+> [!NOTE]
 > Consensus protocol does not guarantee the accuracy of the timestamp!
 
 ## Transaction Commitment
@@ -91,7 +99,9 @@ Two different hashes are provided:
 - [SHA512/256](../../crypto/crypto-sha512-256.md),
 - [SHA256](../../crypto/crypto-sha256.md).
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Transactions (`payset`) commit [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/data/bookkeeping/block.go#L591).
 
 ## Proposer Payout
@@ -99,6 +109,7 @@ Two different hashes are provided:
 The amount in μALGO paid to the proposer is the sum of a fee component and a bonus
 component. The payout is subject to eligibility criteria and protocol limits.
 
+> [!NOTE]
 > For further details, refer to the rewards [non-normative specification](../../ledger/non-normative/ledger-nn-staking-rewards.md).
 
 - `FeeCollected`\
@@ -121,9 +132,12 @@ A structure representing the reward state. It contains the following fields:
 A 32-byte array holding a constant address. This address collects transaction fees
 and pays block rewards.
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > MainNet `FeeSink` address: `Y76M3MSY6DKBRHBL7C3NNDXGS5IIMQVQVUAB6MP4XEMMGVF2QWNPL226CA`.
 
+> [!NOTE]
 > This legacy rewards distribution mechanism is currently inactive. See the [non-normative
 > section](./ledger-nn-protocol-rewards.md) for further details on the active reward
 > mechanism.
@@ -132,7 +146,9 @@ and pays block rewards.
 A 32-byte array holding a constant address. This address pays distribution rewards
 (legacy system, currently inactive).
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > MainNet `RewardsPool` address: `737777777777777777777777777777777777777777777777777UFEJ2CI`.
 
 - `RewardsLevel` (**legacy**)\

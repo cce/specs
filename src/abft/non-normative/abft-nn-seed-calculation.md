@@ -18,6 +18,7 @@ A formal definition of the _seed_ can be found in the [normative specification](
 This section provides an engineering and implementation-oriented way of conceptualizing
 the seed computation, to ease its understanding.
 
+> [!NOTE]
 > The following algorithm makes heavy use of \\( \VRF \\) specific functions. For
 > more information on their definition and internal work, refer to the
 > [Algorand Cryptographic Primitive Specification](../../crypto/crypto.md).
@@ -74,7 +75,9 @@ $$
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Seed computation [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/proposal.go#L155).
 
 The function takes as input the _address_ \\( I \\) of an _online player_ who will
@@ -84,6 +87,7 @@ Note that the player needs to have registered participation keys on the node com
 the seed, so as for the \\( \Secrets(I) \\) call (**Algorithm 1**, line 3) to retrieve
 available \\( \VRF \\) secrets generated during that registration process.
 
+> [!NOTE]
 > For more information on the types of keys a player has to use, refer to the
 > [Algorand Participation Key Specification](../../keys/keys-vrf.md#vrf-selection-keys).
 
@@ -114,7 +118,9 @@ We define \\( \Rerand(r) = r \bmod \delta_s\delta_r \\).
 When \\( \Rerand(r) < \delta_s \\) we say we are _re-randomizing_ the seed \\( Q \\)
 for the round \\( r \\).
 
-{{#include ../../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > Take the process for a player with _address_ \\( I \\) at the first consensus
 > attempt of the round (\\( p = 0 \\)).
 >

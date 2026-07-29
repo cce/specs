@@ -55,7 +55,9 @@ $$
 
 ---
 
-{{#include ../../_include/styles.md:impl}}
+> [!IMPORTANT]
+> **IMPLEMENTATION:**
+>
 > Next vote issuance [reference implementation](https://github.com/algorand/go-algorand/blob/d52e3dd8b31a17dfebac3d9158a76e8e62617462/agreement/player.go#L214).
 
 The node starts by making a resynchronization attempt (Line 2).
@@ -84,6 +86,7 @@ A player is forbidden from equivocating in \\( \Next_k \\) votes.
 
 Lastly (Line 15), the node’s current \\( \s \\) is updated.
 
+> [!NOTE]
 > For a formal definition of this functionality, refer to the ABFT [normative section](../abft-broadcast-rules-recovery.md).
 
 ---

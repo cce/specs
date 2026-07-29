@@ -136,5 +136,6 @@ def verify(elems, proof, root):
   return verify(nextelems, proof, root)
 ```
 
+> [!NOTE]
 > The pseudocode might raise an exception due to accessing the proof past the end;
 > this is equivalent to returning `False`.

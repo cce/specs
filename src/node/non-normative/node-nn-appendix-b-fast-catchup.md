@@ -126,6 +126,7 @@ of a Catchpoint download request open for processing before shutting it down. In
 Networks with large Catchpoint files, slow connections, or slow storage could be
 a good reason to increase this value.
 
+> [!NOTE]
 > This is a client-side only configuration value, and it’s independent of the actual
 > Catchpoint file size.
 
@@ -142,6 +143,7 @@ the Catchpoint file fetcher, measured in bytes per second. The connection would
 be recycled if the provided stream speed drops below this threshold. If this field
 is `0`, the default value would be used instead.
 
+> [!NOTE]
 > The download speed is evaluated per Catchpoint “chunk”.
 
 ---
@@ -175,6 +177,7 @@ The value of each bit is interpreted as follows:
   - `0`: Skip verifying that the recomputed payset hash matches the payset committed hash in the block header.
   - `1`: Perform verification as described above.
 
+> [!NOTE]
 > Not all permutations of the above bitmask are currently functional. In particular,
 > the functional ones are:
 >

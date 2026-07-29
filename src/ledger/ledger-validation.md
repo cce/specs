@@ -145,6 +145,7 @@ then the transaction sender account’s spending key is set to the _rekey to_ ad
 If the _rekey to_ address of the transaction does match the transaction sender address,
 then the transaction sender account’s spending key is set to zero.
 
+> [!NOTE]
 > The rest of this section describes the legacy Distribution Rewards system. If
 > the \\( R_r \\) rewards rate parameter is \\( 0 \\), all computations keep values
 > constant and no legacy reward distribution is carried out.

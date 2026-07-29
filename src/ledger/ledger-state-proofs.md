@@ -112,7 +112,9 @@ stake (with limited precision as described below).
 Given these two quantities, the normalized balance of an online account \\( I \\)
 is \\( \frac{a_I}{(1+a^\prime_I)} \\).
 
-{{#include ../_include/styles.md:example}}
+> [!TIP]
+> **EXAMPLE:**
+>
 > For example, if the total amount of rewards distributed up to round \\( r^\ast_I \\)
 > is \\( 20\\% \\) of the total stake, then the normalized balance is \\( \frac{a_I}{1.2} \\).
 

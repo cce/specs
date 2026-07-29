@@ -40,6 +40,7 @@ $$
 N(S, L, \Proposal(v)) = (S, L, (\Proposal^\ast(v))).
 $$
 
+> [!NOTE]
 > An implementation may _buffer_ a proposal in this case. Specifically, an implementation
 > which relays a proposal without checking that it is valid, may optionally choose
 > to replay this event when it observes that a new round has begun (see [State Transition section](./abft-state-transitions.md)).
