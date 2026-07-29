@@ -183,11 +183,8 @@ Block equations **MUST** use the `$$` delimiter (instead of `\\[ ... \\]`).
 > \\]
 > ```
 
-The 120-character line-length limit is **not** waived inside `$$ ... $$` blocks
-(unlike fenced code blocks and tables), so long equations **MUST** be wrapped
-across multiple lines. Whitespace is insignificant in MathJax, so a line may be
-broken at any token; within a `cases` or array environment, break before a
-column separator (`&`) or after a row terminator (`\\`).
+For readability, long equations **SHOULD** be wrapped at natural operators with
+continuation lines indented.
 
 ### TeX-Macros
 

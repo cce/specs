@@ -62,7 +62,6 @@ We may model the state machine’s main algorithm in the following way:
 
 \\( \textbf{Algorithm 2} \text{: Main State Machine} \\)
 
-<!-- rumdl-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \EventHandler(ev) \\\\
@@ -97,7 +96,6 @@ $$
 &\text{31: } \PSendfunction
 \end{aligned}
 $$
-<!-- rumdl-enable MD013 -->
 
 ---
 

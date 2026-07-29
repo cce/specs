@@ -55,7 +55,6 @@ for this round.
 
 \\( \textbf{Algorithm 4} \text{: Soft Vote} \\)
 
-<!-- rumdl-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \SoftVote() \\\\
@@ -82,7 +81,6 @@ $$
 &\text{22: } \PSendfunction
 \end{aligned}
 $$
-<!-- rumdl-enable MD013 -->
 
 ---
 

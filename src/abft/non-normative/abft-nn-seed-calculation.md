@@ -51,7 +51,6 @@ For the seed calculation algorithm, consider the following pseudocode:
 
 \\( \textbf{Algorithm 1} \text{: Compute Seed and Proof} \\)
 
-<!-- rumdl-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \mathrm{ComputeSeedAndProof}(I) \\\\
@@ -71,7 +70,6 @@ $$
 &\text{15: } \PSendfunction
 \end{aligned}
 $$
-<!-- rumdl-enable MD013 -->
 
 ---
 

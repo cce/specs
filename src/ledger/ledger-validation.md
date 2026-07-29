@@ -38,11 +38,9 @@ valid at the block’s round \\( r \\) and for the block’s genesis identifier 
 
 For a transaction
 
-<!-- rumdl-disable MD013 -->
 $$
 \Tx = (\GenesisID, \TxType, \FirstValidRound, \LastValidRound, I, I^\prime, I_0, f, a, x, N, \pk, \sppk, \nonpart, \ldots)
 $$
-<!-- rumdl-enable MD013 -->
 
 (where \\( \ldots \\) represents fields specific to [_transaction types_](./ledger-transactions.md#transaction-type)
 besides `pay`and `keyreg`) to be valid at the intermediate state \\( \rho \\) in

@@ -158,11 +158,9 @@ contribution below for the application’s `LocalStateSchema`.
 
 The contribution for a [state schema](#state-schemas) is:
 
-<!-- rumdl-disable MD013 -->
 $$
 (\SchemaMinBalancePerEntry + \SchemaUintMinBalance) \times \mathrm{NumUint} + (\SchemaMinBalancePerEntry + \SchemaBytesMinBalance) \times \mathrm{NumByteSlice}
 $$
-<!-- rumdl-enable MD013 -->
 
 Each contribution is released when the state it accounts for is released: deleting the
 application releases the creator’s and the size sponsor’s contributions, and closing out

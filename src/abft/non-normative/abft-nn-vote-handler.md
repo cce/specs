@@ -49,7 +49,6 @@ for some \\( v_1 \neq v_2 \\).
 
 \\( \textbf{Algorithm 5} \text{: Handle Vote} \\)
 
-<!-- rumdl-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \ValidateVote(\vt): \\\\
@@ -123,7 +122,6 @@ $$
 &\text{61: } \PSendfunction \\\\
 \end{aligned}
 $$
-<!-- rumdl-enable MD013 -->
 
 ---
 

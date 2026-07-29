@@ -123,7 +123,6 @@ hold in order to occupy the space it uses in the Ledger. The MBR of an account \
 in the intermediate state \\( \rho \\), \\( \MBR(\rho, I) \\), is \\( \MinBalance \\)
 plus a contribution for each resource the account is responsible for:
 
-<!-- markdownlint-disable MD013 -->
 $$
 \begin{aligned}
 \MBR(\rho, I) = & \MinBalance \times (1 + N_A) \\\\
@@ -134,7 +133,6 @@ $$
 & + \BoxFlatMinBalance \times N_B + \BoxByteMinBalance \times S_B
 \end{aligned}
 $$
-<!-- markdownlint-enable MD013 -->
 
 where, for the account \\( I \\) in the intermediate state \\( \rho \\):
 

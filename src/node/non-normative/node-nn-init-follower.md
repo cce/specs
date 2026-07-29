@@ -57,7 +57,6 @@ _Follower Node_:
 
 \\( \textbf{Algorithm 2} \text{: Follower Node Initialization} \\)
 
-<!-- rumdl-disable MD013 -->
 $$
 \begin{aligned}
 &\text{1: } \PSfunction \FollowerNode.\mathrm{Start}(\RootDir, \Config, \Phonebook, \Genesis) \\\\
@@ -94,7 +93,6 @@ $$
 &\text{31:} \PSendfunction
 \end{aligned}
 $$
-<!-- rumdl-enable MD013 -->
 
 ---
 
