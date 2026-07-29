@@ -127,7 +127,7 @@ as a fixed-point value in millionths (six digits of precision), so that
 \\( 1{,}000{,}000 \\) denotes a completely full block. The _load_ **MUST** equal
 
 $$
-\min\left( \left\lfloor \frac{1{,}000{,}000 \cdot s}{\MaxTxnBytesPerBlock} \right\rfloor, \; 1{,}000{,}000 \right)
+\min\left( \left\lfloor \frac{1{,}000{,}000 \cdot s}{\MaxTxnBytesPerBlock} \right\rfloor, 1{,}000{,}000 \right)
 $$
 
 where \\( s \\) is the sum of the byte lengths of the canonical msgpack encoding
@@ -149,25 +149,24 @@ Let \\( L \\) and \\( C \\) be the _load_ and _congestion tax_ of the previous b
 and let
 
 $$
-d = \left\lfloor \frac{100{,}000 \, (500{,}000 - L)}{500{,}000} \right\rfloor, \qquad
-u = \left\lfloor \frac{100{,}000 \, (L - 500{,}000)}{500{,}000} \right\rfloor.
+d = \left\lfloor \frac{100{,}000 \cdot (500{,}000 - L)}{500{,}000} \right\rfloor, \qquad
+u = \left\lfloor \frac{100{,}000 \cdot (L - 500{,}000)}{500{,}000} \right\rfloor.
 $$
 
 The _congestion tax_ of this block **MUST** equal
 
 $$
 \begin{cases}
-\max\!\left( \left\lfloor \dfrac{C \, (1{,}000{,}000 - d)}{1{,}000{,}000} \right\rfloor - d, \; 0 \right),
-& L \le 500{,}000, \\[2.5ex]
-\left\lfloor \dfrac{C \, (1{,}000{,}000 + u)}{1{,}000{,}000} \right\rfloor + u, & L > 500{,}000.
+\max\left( \left\lfloor \dfrac{C \cdot (1{,}000{,}000 - d)}{1{,}000{,}000} \right\rfloor - d, 0 \right),
+& L \le 500{,}000, \\\\
+\left\lfloor \dfrac{C \cdot (1{,}000{,}000 + u)}{1{,}000{,}000} \right\rfloor + u, & L > 500{,}000.
 \end{cases}
 $$
 
-The subtraction is floored at \\( 0 \\) and the addition saturates at the maximum
-representable value. The target _load_ is half full (\\( 500{,}000 \\)); the
-multiplicative factor changes the tax by at most \\( 10\% \\) per block, while the
-additive term (also at most \\( 100{,}000 \\)) lets the tax grow away from and return
-to \\( 0 \\).
+In the second case, the result saturates at the maximum representable value. The
+target _load_ is half full (\\( 500{,}000 \\)); the multiplicative factor changes the
+tax by at most \\( 10\\% \\) per block, while the additive term (at most
+\\( 100{,}000 \\)) lets the tax grow away from, and return to, \\( 0 \\).
 
 ### Expired Participation Accounts
 
