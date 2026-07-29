@@ -144,7 +144,8 @@ it holds, whether created by it or opted in to,
 it created and \\( N_O \\) is the number of applications it is opted in to,
 
 - \\( N_P \\) is the total `ExtraProgramPages` of the applications whose sizes it
-[sponsors](./ledger-applications.md#size-sponsor),
+[sponsors](./ledger-applications.md#size-sponsor) — an application’s creator sponsors its
+size until another account sets it,
 
 - \\( \mathrm{NumUint} \\) and \\( \mathrm{NumByteSlice} \\) are the summed
 [state schema](./ledger-applications.md#state-schemas) entry counts of the

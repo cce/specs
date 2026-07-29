@@ -107,9 +107,10 @@ field `fba`.
 Both box-access flags are initially false and may be changed by the application
 using `app_params_set`.
 
-Creating an application, opting in to one, and storing data in boxes all contribute to
-the [minimum balance requirement](./ledger-account-state.md#minimum-balance-requirement)
-of an account. The amounts are given in [App Minimum Balance
+Creating an application, [sponsoring](#size-sponsor) its size, opting in to one, and
+storing data in boxes all contribute to the [minimum balance
+requirement](./ledger-account-state.md#minimum-balance-requirement) of an account. The
+amounts are given in [App Minimum Balance
 Contributions](#app-minimum-balance-contributions) and [Boxes](#boxes).
 
 ## Key/Value Stores
@@ -145,10 +146,12 @@ requirement](./ledger-account-state.md#minimum-balance-requirement) of the accou
 are responsible for its state, in μALGO, as follows:
 
 - Its creator contributes \\( \AppFlatParamsMinBalance \\) for the application itself.
+This contribution always remains with the creator.
 
-- Its [size sponsor](#size-sponsor) contributes
-\\( \AppFlatParamsMinBalance \times \ExtraProgramPages \\) for the application’s extra
-program pages, plus the schema contribution below for its `GlobalStateSchema`.
+- Its [size sponsor](#size-sponsor), which is its creator until an update moves that
+responsibility, contributes \\( \AppFlatParamsMinBalance \times \ExtraProgramPages \\)
+for the application’s extra program pages, plus the schema contribution below for its
+`GlobalStateSchema`.
 
 - Each account opted in contributes \\( \AppFlatOptInMinBalance \\), plus the schema
 contribution below for the application’s `LocalStateSchema`.
