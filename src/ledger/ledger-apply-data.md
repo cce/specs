@@ -53,11 +53,11 @@ It contains the following fields:
 
     - The recursive depth of inner transactions is **MUST NOT** exceed \\( 8 \\);
     - In Program Version 5, the _inner transactions_ **MUST NOT** exceed \\( 16 \\).
-  From Program Version 6, the count of all _inner transactions_ across the transaction
-  group **MUST NOT** exceed \\( 256 \\).
+    From Program Version 6, the count of all _inner transactions_ across the transaction
+    group **MUST NOT** exceed \\( 256 \\).
     - Before Program Version 6, the _inner transaction_ types (`type`) are limited
-  to `pay`, `axfer`, `acfg`, and `afrz`. From Program Version 6, `keyreg` and
-  `appl` are allowed.
+    to `pay`, `axfer`, `acfg`, and `afrz`. From Program Version 6, `keyreg` and
+    `appl` are allowed.
     - A Clear State Program execution **MUST NOT** have any _inner transaction_.
 
 <!-- Remove hardcoded values for Inner Transactions recursive depth and count -->

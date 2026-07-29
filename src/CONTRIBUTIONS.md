@@ -49,6 +49,7 @@ The CI pipeline enforces Markdown linting, formatting, and style checking with
 Numbered lists **MUST** be defined with `1`-only style.
 
 {{#include ./_include/styles.md:example}}
+>
 > ```text
 > 1. First item
 > 1. Second item
@@ -99,6 +100,7 @@ colon `:` to the left, right, or on both sides of the dashes `---` within the he
 row.
 
 {{#include ./_include/styles.md:example}}
+>
 > ```text
 > | Name   | Quantity | Size |
 > |:-------|:--------:|-----:|

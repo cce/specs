@@ -33,7 +33,7 @@ system transaction counter (this is the same ID selection algorithm as used by [
     is left unset, so the creator bears the minimum balance contributions of its
     Global State Schema and Extra Program Pages.
 
-  Continue to [Step 2](#step-2).
+    Continue to [Step 2](#step-2).
 
 - If the [_application ID_](./ledger-txn-application-call.md#application-id) specified
 by the transaction is nonzero, continue to [Step 2](#step-2).
