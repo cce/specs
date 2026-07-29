@@ -6,6 +6,20 @@ $$
 \newcommand \Units {\mathrm{Units}}
 $$
 
+$$
+\newcommand \MBR {\mathrm{MBR}}
+\newcommand \MinBalance {b_{\min}}
+\newcommand \App {\mathrm{App}}
+\newcommand \AppFlatOptInMinBalance {\App_{\mathrm{optin},\MinBalance}}
+\newcommand \AppFlatParamsMinBalance {\App_{\mathrm{create},\MinBalance}}
+\newcommand \SchemaBytesMinBalance {\App_{\mathrm{b},\MinBalance}}
+\newcommand \SchemaMinBalancePerEntry {\App_{\mathrm{s},\MinBalance}}
+\newcommand \SchemaUintMinBalance {\App_{\mathrm{u},\MinBalance}}
+\newcommand \Box {\mathrm{Box}}
+\newcommand \BoxByteMinBalance {\Box_{\mathrm{byte},\MinBalance}}
+\newcommand \BoxFlatMinBalance {\Box_{\mathrm{flat},\MinBalance}}
+$$
+
 # Account State
 
 The _balances_ are a set of mappings from _addresses_, 256-bit integers, to _balance
@@ -100,3 +114,52 @@ There exist two special addresses:
 - \\( I_f \\), the address of the _fee sink_.
 
 For both of these accounts, \\( p_I = 2 \\).
+
+## Minimum Balance Requirement
+
+Every account has a _minimum balance requirement_ (MBR), the amount of μALGO it must
+hold in order to occupy the space it uses in the Ledger. The MBR of an account \\( I \\)
+in the intermediate state \\( \rho \\), \\( \MBR(\rho, I) \\), is \\( \MinBalance \\)
+plus a contribution for each resource the account is responsible for:
+
+<!-- markdownlint-disable MD013 -->
+$$
+\begin{aligned}
+\MBR(\rho, I) = \; & \MinBalance \times (1 + N_A) \\
+                   & + \AppFlatParamsMinBalance \times (N_C + N_P)
+                     + \AppFlatOptInMinBalance \times N_O \\
+                   & + (\SchemaMinBalancePerEntry + \SchemaUintMinBalance) \times \mathrm{NumUint} \\
+                   & + (\SchemaMinBalancePerEntry + \SchemaBytesMinBalance) \times \mathrm{NumByteSlice} \\
+                   & + \BoxFlatMinBalance \times N_B + \BoxByteMinBalance \times S_B
+\end{aligned}
+$$
+<!-- markdownlint-enable MD013 -->
+
+where, for the account \\( I \\) in the intermediate state \\( \rho \\):
+
+- \\( N_A \\) is the number of [assets](./ledger-assets.md#asset-minimum-balance-contribution)
+it holds, whether created by it or opted in to,
+
+- \\( N_C \\) is the number of [applications](./ledger-applications.md#app-minimum-balance-contributions)
+it created and \\( N_O \\) is the number of applications it is opted in to,
+
+- \\( N_P \\) is the total `ExtraProgramPages` of the applications whose sizes it
+[sponsors](./ledger-applications.md#size-sponsor),
+
+- \\( \mathrm{NumUint} \\) and \\( \mathrm{NumByteSlice} \\) are the summed
+[state schema](./ledger-applications.md#state-schemas) entry counts of the
+`LocalStateSchema` of each application it is opted in to and of the `GlobalStateSchema`
+of each application whose size it sponsors,
+
+- \\( N_B \\) is the number of [boxes](./ledger-applications.md#boxes) held by the
+application whose account address is \\( I \\), and \\( S_B \\) is their total size in
+bytes, counting each box’s name and contents.
+
+The sections describing those resources specify when each contribution is incurred and
+released. A contribution takes effect as soon as the state it accounts for is allocated,
+so an MBR increase is visible to a program that allocates state (through the AVM
+`min_balance` opcode) before that program completes.
+
+The requirement itself is enforced after each transaction, for every account, as one of
+the [account state validity conditions](./ledger-validation.md). No transaction type
+imposes an MBR check of its own.
