@@ -111,8 +111,10 @@ make check
 
 `make ci` requires Docker and runs the exact environment used by GitHub. `make check`
 does not require Docker and runs the same validation gates and HTML build with native
-tools. `make test-auto` and `make serve-auto` remain available when automatic
-native-to-Docker fallback is useful.
+tools. Both commands also check local links and anchors in the generated HTML. To build
+and run only that generated-output check, use `make docker-html-links-check` with
+Docker or `make html-links-check` with the native toolchain. `make test-auto` and
+`make serve-auto` remain available when automatic native-to-Docker fallback is useful.
 
 External links are deliberately checked separately because remote services can be
 transiently unavailable:

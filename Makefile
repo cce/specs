@@ -32,9 +32,9 @@ MERMAID_CMD_DOCKER = $(DOCKER_COMPOSE) run --rm mdbook mdbook-mermaid
 PRE_COMMIT_DOCKER  = $(DOCKER_COMPOSE) run --rm mdbook $(PRE_COMMIT)
 
 .PHONY: help doctor \
-        setup test serve build-html check \
+        setup test serve build-html html-links-check check \
         docker-image docker-setup docker-test docker-serve docker-build-html \
-        docker-lint docker-links-check docker-check docker-ci docker-release \
+        docker-lint docker-links-check docker-html-links-check docker-check docker-ci docker-release \
         ci ci-start ci-info submodules-check \
         test-auto serve-auto local-ready \
         clean toolchain-check versions-check toolchain-updates \
@@ -46,6 +46,7 @@ help:
 	@echo "  make test              Test the book locally"
 	@echo "  make serve             Build and serve the book locally"
 	@echo "  make check             Run native CI-equivalent checks and HTML build; warn on version drift"
+	@echo "  make html-links-check  Build and check generated HTML links locally"
 	@echo ""
 	@echo "Docker:"
 	@echo "  make ci                Run the authoritative GitHub-equivalent checks and HTML build"
@@ -54,6 +55,7 @@ help:
 	@echo "  make docker-lint       Run all gating pre-commit hooks via ci-cd image"
 	@echo "  make docker-check      Run fast Docker-backed lint and mdBook tests (no HTML build)"
 	@echo "  make docker-links-check  Check external links via ci-cd image"
+	@echo "  make docker-html-links-check  Build and check generated HTML links via ci-cd image"
 	@echo "  make docker-serve      Build and serve the book via ci-cd image"
 	@echo "  make docker-release    Build mdBook full release image and build the book (HTML and PDF)"
 	@echo ""
@@ -146,10 +148,13 @@ setup:
 serve:
 	$(MDBOOK_CMD_LOCAL) serve --hostname $(HOST) --port $(PORT) $(BOOK_DIR)
 
-check: versions-check submodules-check lint test build-html
+check: versions-check submodules-check lint test html-links-check
 
 build-html: versions-check
 	@bash scripts/build-html.sh $(BOOK_DIR)
+
+html-links-check: build-html
+	@$(PRE_COMMIT) run lychee-html --hook-stage manual --all-files
 
 versions-check: toolchain-check
 	@if command -v rustc >/dev/null 2>&1; then \
@@ -233,6 +238,9 @@ docker-check: docker-setup docker-lint docker-test
 docker-build-html: docker-image
 	@$(DOCKER_COMPOSE) run --rm mdbook bash scripts/build-html.sh $(BOOK_DIR)
 
+docker-html-links-check: docker-build-html
+	@$(PRE_COMMIT_DOCKER) run lychee-html --hook-stage manual --all-files
+
 ci-start:
 	@echo "== CI environment =="
 	@echo "source: $$(git rev-parse HEAD)"
@@ -252,7 +260,7 @@ ci-info: ci-start submodules-check docker-image
 		uvx --managed-python --python "$$PYTHON_VERSION" "pre-commit@$$PRE_COMMIT_VERSION" --version; \
 		echo "python $$PYTHON_VERSION (pinned)"'
 
-ci: ci-start ci-info docker-check docker-build-html
+ci: ci-start ci-info docker-check docker-html-links-check
 
 # Backward-compatible alias. GitHub and contributors should use 'make ci'.
 docker-ci: ci

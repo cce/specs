@@ -35,3 +35,17 @@ repos:
         files: '^(src/.*\.md|README\.md|CONTRIBUTING\.md|AGENTS\.md)'
         exclude: '^src/SUMMARY\.md$' # mdBook permits empty draft links.
         stages: [ manual ]
+      - id: lychee
+        alias: lychee-html
+        name: check generated HTML links
+        args:
+          - "--offline"
+          - "--no-progress"
+          - "--root-dir=book/html"
+          - "--fallback-extensions=html"
+          - "--index-files=index.html"
+          - "--include-fragments=anchor-only"
+          - "book/html"
+        always_run: true
+        pass_filenames: false
+        stages: [ manual ]
