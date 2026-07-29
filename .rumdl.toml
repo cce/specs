@@ -1,6 +1,5 @@
 [global]
-# Lift MD041 exclusion when allow_preamble is available
-disable = ["MD028", "MD041", "MD077"]
+disable = ["MD028", "MD077"]
 exclude = ["src/SUMMARY.md"]
 
 [per-file-ignores]
@@ -15,3 +14,6 @@ tables = false
 
 [MD033]
 allowed-elements = ["a", "img"]
+
+[MD041]
+allow-preamble = true
