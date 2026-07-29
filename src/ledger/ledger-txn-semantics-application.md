@@ -1,6 +1,10 @@
 $$
 \newcommand \Box {\mathrm{Box}}
 \newcommand \BytesPerBoxReference {\Box_{\mathrm{IO}}}
+\newcommand \App {\mathrm{App}}
+\newcommand \MaxAppKeyLen {\App_{\mathrm{k},\max}}
+\newcommand \MaxAppBytesValueLen {\App_{\mathrm{v},\max}}
+\newcommand \MaxAppSumKeyValueLens {\App_{\mathrm{kv},\max}}
 $$
 
 # Application Call Transaction Semantics
@@ -25,7 +29,9 @@ system transaction counter (this is the same ID selection algorithm as used by [
     When creating an application, the application parameters specified by the transaction
     (Approval Program, Clear State Program, Global State Schema, Local State Schema,
     and Extra Program Pages) are allocated into the sender’s account data, keyed
-    by the new application ID.
+    by the new application ID. The application’s [size sponsor](./ledger-applications.md#size-sponsor)
+    is left unset, so the creator bears the minimum balance contributions of its
+    Global State Schema and Extra Program Pages.
 
     Continue to [Step 2](#step-2).
 
@@ -122,7 +128,27 @@ is equal to `UpdateApplicationOC`
   - Update the Approval Program and Clear State Program for this application according
   to the programs specified in this _application call_ transaction and increment
   the Application Version. The new programs are not executed in this transaction.
-  **SUCCEED**.
+
+  - This transaction changes the application’s size if it supplies a non-zero
+  [Extra Program Pages](./ledger-txn-application-call.md#extra-program-pages) or a
+  non-empty [Global State Schema](./ledger-txn-application-call.md#global-state-schema).
+  When it does:
+
+    - Install the transaction’s Extra Program Pages and Global State Schema as the
+    application’s new values, replacing the previous ones. If the new Global State
+    Schema is smaller than the application’s current global state usage, **FAIL**.
+
+    - Reassign the [size sponsor](./ledger-applications.md#size-sponsor): remove the
+    minimum balance contributions of the _former_ Extra Program Pages and Global State
+    Schema from the current size sponsor (the creator when unset), and add the
+    contributions of the _new_ values to the transaction’s sender, which becomes the
+    new size sponsor (recorded as unset when the sender is the creator).
+
+    An update that supplies neither field leaves the application’s Extra Program Pages,
+    Global State Schema, and size sponsor unchanged. The Local State Schema is never
+    changed by an update.
+
+  - **SUCCEED**.
 
 ## Application Stateful Execution Semantics
 
@@ -134,10 +160,11 @@ times the total number of box references in the group), or else the group fails.
 - During the execution of an Approval Program or Clear State Program, the application’s
 Local State Schema and Global State Schema **SHALL** never be violated. The program’s
 execution will fail on the first instruction that would cause the relevant schema
-to be violated. Writing a `Bytes` value to a local or global [Key/Value Store](./ledger-applications.md#keyvalue-stores)
-such that the sum of the lengths of the key and value in bytes exceeds \\( \MaxAppBytesValueLen \\),
-or writing any value to a key longer than \\( \MaxAppKeyLen \\) bytes, will likewise
-cause the program to fail on the offending instruction.
+to be violated. Writing any value to a local or global [Key/Value Store](./ledger-applications.md#keyvalue-stores)
+under a key longer than \\( \MaxAppKeyLen \\) bytes will likewise cause the program to
+fail on the offending instruction. Writing a `Bytes` value fails in the same way if
+the length of the value exceeds \\( \MaxAppBytesValueLen \\), or if the sum of the
+lengths of the key and the value exceeds \\( \MaxAppSumKeyValueLens \\).
 
 - During the execution of an Approval Program, the total size of all boxes that are
 created or modified in the group **MUST NOT** exceed the I/O budget. The program’s
