@@ -180,7 +180,7 @@ collects the information related \\( r \\)-th round, and sets the round counter 
 
 In other words, the node:
 
-- Broadcast the proposal if \\( \prop \PSnot \in P \\),
+- Broadcast the proposal if \\( \prop \notin P \\),
 
 - Commits \\( v \\), calling \\( \Commit(v) \\),
 

@@ -1,6 +1,10 @@
 $$
 \newcommand \Box {\mathrm{Box}}
 \newcommand \BytesPerBoxReference {\Box_{\mathrm{IO}}}
+\newcommand \App {\mathrm{App}}
+\newcommand \MaxAppKeyLen {\App_{\mathrm{k},\max}}
+\newcommand \MaxAppBytesValueLen {\App_{\mathrm{v},\max}}
+\newcommand \MaxAppSumKeyValueLens {\App_{\mathrm{kv},\max}}
 $$
 
 # Application Call Transaction Semantics
@@ -156,10 +160,11 @@ times the total number of box references in the group), or else the group fails.
 - During the execution of an Approval Program or Clear State Program, the application’s
 Local State Schema and Global State Schema **SHALL** never be violated. The program’s
 execution will fail on the first instruction that would cause the relevant schema
-to be violated. Writing a `Bytes` value to a local or global [Key/Value Store](./ledger-applications.md#keyvalue-stores)
-such that the sum of the lengths of the key and value in bytes exceeds \\( \MaxAppBytesValueLen \\),
-or writing any value to a key longer than \\( \MaxAppKeyLen \\) bytes, will likewise
-cause the program to fail on the offending instruction.
+to be violated. Writing any value to a local or global [Key/Value Store](./ledger-applications.md#keyvalue-stores)
+under a key longer than \\( \MaxAppKeyLen \\) bytes will likewise cause the program to
+fail on the offending instruction. Writing a `Bytes` value fails in the same way if
+the length of the value exceeds \\( \MaxAppBytesValueLen \\), or if the sum of the
+lengths of the key and the value exceeds \\( \MaxAppSumKeyValueLens \\).
 
 - During the execution of an Approval Program, the total size of all boxes that are
 created or modified in the group **MUST NOT** exceed the I/O budget. The program’s

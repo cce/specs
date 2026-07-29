@@ -1,11 +1,14 @@
 $$
 \newcommand \Hash {\mathrm{Hash}}
 \newcommand \MaxTxGroupSize {GT_{\max}}
+\newcommand \Fee {\mathrm{fee}}
 \newcommand \MinTxnFee {T_{\Fee,\min}}
+\newcommand \PerByteTxnSurcharge {T_{\Fee,b}}
+\newcommand \Box {\mathrm{Box}}
 \newcommand \BytesPerBoxReference {\Box_{\mathrm{IO}}}
+\newcommand \LogicSig {\mathrm{LSig}}
 \newcommand \LogicSigMaxSize {\LogicSig_{\max}}
 \newcommand \MaxAbsoluteLogicSigProgramSize {\LogicSig_{\mathrm{abs}}}
-\newcommand \PerByteTxnSurcharge {T_{\Fee,b}}
 $$
 
 # Transaction Groups
@@ -66,7 +69,8 @@ the block is invalid.
 Additionally, if a block contains a transaction group of more than \\( \MaxTxGroupSize \\)
 transactions, the block is invalid.
 
-Each transaction in a group requires a fee of \\( \MinTxnFee \\), plus a _size
+Let \\( n \\) be the number of transactions in the group. Each transaction in a group
+requires a fee of \\( \MinTxnFee \\), plus a _size
 surcharge_ for any field that exceeds its _basic_ size limit while remaining within
 the corresponding _absolute_ limit. Each byte in excess of a basic limit adds a
 surcharge of \\( \frac{\PerByteTxnSurcharge}{1{,}000{,}000} \\) of \\( \MinTxnFee \\).
