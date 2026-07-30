@@ -20,7 +20,13 @@ services:
       UV_PYTHON_INSTALL_DIR: /book/.cache/linux-amd64/uv/python
     ports:
       - 3000:3000
-    command: ["mdbook", "serve", "--hostname", "0.0.0.0", "--port", "3000"]
+    # mdbook 0.5.4 patch to discard missing optional Pandoc renderer's context while serving HTML.
+    command:
+      - /bin/sh
+      - -c
+      - |
+        export MDBOOK_OUTPUT__PANDOC__COMMAND="sh -c 'cat >/dev/null'"
+        exec mdbook serve --hostname 0.0.0.0 --port 3000
     volumes:
       - .:/book
 
