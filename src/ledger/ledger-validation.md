@@ -158,19 +158,31 @@ $$
 An account state in the intermediate state \\( \rho+1 \\) and at round \\( r \\)
 is valid if all following conditions hold:
 
-- For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f\\} \\), either \\( \Stake(\rho+1, I) = 0 \\)
+- For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f, I_\mathrm{sp}\\} \\), either the
+account’s [balance record](./ledger-account-state.md) at \\( \rho+1 \\) is _empty_
 or \\( \Stake(\rho+1, I) \geq \MBR(\rho+1, I) \\), where \\( \MBR(\rho+1, I) \\) is the
 account’s [minimum balance requirement](./ledger-account-state.md#minimum-balance-requirement).
+A balance record is empty when every one of its fields is zero, so the account holds
+no μALGO and is responsible for no resources.
 
-- For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f\\} \\), if
+- For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f, I_\mathrm{sp}\\} \\), if
 \\( \MaximumMinimumBalance \neq 0 \\), then \\( \MBR(\rho+1, I) \leq \MaximumMinimumBalance \\).
 
 - \\( \sum_I \Stake(\rho+1, I) = \sum_I \Stake(\rho, I) \\).
+
+where \\( I_\mathrm{sp} \\) is the special [State Proof sender](./ledger-txn-state-proof.md#validation)
+address. The incentive pool, the fee sink, and the State Proof sender are the only
+accounts exempt from both minimum balance conditions.
 
 These two minimum balance conditions are the only requirements the Ledger places on an
 account’s balance relative to its minimum balance requirement, and they apply to every
 transaction type. A transaction whose effects would leave any account in an invalid
 account state **FAILS**, and its effects are discarded.
+
+Note that the exemption in the first condition is for an account whose balance record
+holds nothing at all; an account that is responsible for any resource - for example an
+application account that holds a [box](./ledger-applications.md#boxes) - **MUST** satisfy
+its minimum balance requirement even when its balance is zero.
 
 Because the conditions hold over all addresses, they constrain every account a transaction
 affects, not only its sender: for example, the receiver of a payment, an application
