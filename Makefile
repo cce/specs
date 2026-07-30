@@ -145,8 +145,11 @@ setup:
 	$(MERMAID_CMD_LOCAL) install $(BOOK_DIR)
 
 # Build and serve the book locally
+# mdBook 0.5.4 invokes the missing optional Pandoc renderer, so discard its context
+# while serving HTML, remove the patch once upstream mdbook fixes it.
 serve:
-	$(MDBOOK_CMD_LOCAL) serve --hostname $(HOST) --port $(PORT) $(BOOK_DIR)
+	MDBOOK_OUTPUT__PANDOC__COMMAND="sh -c 'cat >/dev/null'" \
+		$(MDBOOK_CMD_LOCAL) serve --hostname $(HOST) --port $(PORT) $(BOOK_DIR)
 
 check: versions-check submodules-check lint test html-links-check
 
