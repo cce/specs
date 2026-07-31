@@ -1,4 +1,4 @@
-# Contribution Guidelines
+# Contribution Guidelines {.noexport}
 
 The source of the Algorand Specification is released on the official GitHub Algorand
 Foundation [repository](https://github.com/algorandfoundation/specs).
