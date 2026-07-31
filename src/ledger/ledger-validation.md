@@ -156,16 +156,25 @@ a_{\rho_k, I_\mathrm{pool}} = a_{\rho_{k-1}, I_\mathrm{pool}} - R_r(\Units(r))
 $$
 
 An account state in the intermediate state \\( \rho+1 \\) and at round \\( r \\)
-is valid if all following conditions hold:
+is valid if all following conditions hold, where \\( I_\mathrm{sp} \\) is the special
+[State Proof sender](./ledger-txn-state-proof.md#validation) address:
 
-- For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f\\} \\), either \\( \Stake(\rho+1, I) = 0 \\)
-or \\( \Stake(\rho+1, I) \geq \MBR(\rho+1, I) \\), where \\( \MBR(\rho+1, I) \\) is the
+- For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f, I_\mathrm{sp}\\} \\), either the
+account’s [balance record](./ledger-account-state.md) at \\( \rho+1 \\) is _empty_ - it holds
+no μALGO, every other field is zero, and it is responsible for no resource - or
+\\( \Stake(\rho+1, I) \geq \MBR(\rho+1, I) \\), where \\( \MBR(\rho+1, I) \\) is the
 account’s [minimum balance requirement](./ledger-account-state.md#minimum-balance-requirement).
+An account responsible for any resource - for example an application account that holds a
+[box](./ledger-applications.md#boxes) - is therefore never exempt, and a zero balance leaves
+it in an invalid account state.
 
-- For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f\\} \\), if
+- For all addresses \\( I \notin \\{I_\mathrm{pool}, I_f, I_\mathrm{sp}\\} \\), if
 \\( \MaximumMinimumBalance \neq 0 \\), then \\( \MBR(\rho+1, I) \leq \MaximumMinimumBalance \\).
 
 - \\( \sum_I \Stake(\rho+1, I) = \sum_I \Stake(\rho, I) \\).
+
+The incentive pool, the fee sink, and the State Proof sender are the only accounts exempt
+unconditionally from the two minimum balance conditions.
 
 These two minimum balance conditions are the only requirements the Ledger places on an
 account’s balance relative to its minimum balance requirement, and they apply to every

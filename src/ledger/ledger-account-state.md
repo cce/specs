@@ -57,7 +57,7 @@ $$
 \Stake(r, I) = a_I + (T_r - a^\ast_I) \left\lfloor \frac{a_I}{A} \right\rfloor
 $$
 
-unless \\( p_I = 2 \\) (see below), in which case:
+unless the account is _non-participating_ (i.e. \\( p_I = 2 \\), defined below), in which case:
 
 $$
 \Stake(r, I) = a_I
@@ -108,13 +108,18 @@ balance requirements at the time of block proposal).
 An account's participation keys and voting stake from a recent round is returned
 by the \\( \Record \\) procedure in the [Byzantine Agreement Protocol](../abft/abft.md).
 
-There exist two special addresses:
+There exist three special addresses:
 
 - \\( I_\mathrm{pool} \\), the address of the _incentive pool_,
 
-- \\( I_f \\), the address of the _fee sink_.
+- \\( I_f \\), the address of the _fee sink_,
 
-For both of these accounts, \\( p_I = 2 \\).
+- \\( I_\mathrm{sp} \\), the address of the [State Proof sender](./ledger-txn-state-proof.md#validation).
+
+For the incentive pool and the fee sink, \\( p_I = 2 \\).
+
+All three addresses are exempt from the minimum balance conditions of the [account state
+validity conditions](./ledger-validation.md).
 
 ## Minimum Balance Requirement
 
