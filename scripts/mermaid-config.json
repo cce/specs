@@ -1,5 +1,11 @@
 {
   "htmlLabels": false,
+  "flowchart": {
+    "htmlLabels": false
+  },
+  "class": {
+    "htmlLabels": false
+  },
   "theme": "base",
   "themeCSS": ".eventWrapper { filter: none !important; }",
   "themeVariables": {
