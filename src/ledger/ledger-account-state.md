@@ -57,7 +57,7 @@ $$
 \Stake(r, I) = a_I + (T_r - a^\ast_I) \left\lfloor \frac{a_I}{A} \right\rfloor
 $$
 
-unless \\( p_I = 2 \\) (see below), in which case:
+unless the account is _non-participating_ (i.e. \\( p_I = 2 \\), defined below), in which case:
 
 $$
 \Stake(r, I) = a_I
