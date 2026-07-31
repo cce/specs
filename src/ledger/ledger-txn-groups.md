@@ -1,3 +1,5 @@
+{{#include ../_include/tex-macros/domain-separators.md}}
+
 $$
 \newcommand \Hash {\mathrm{Hash}}
 \newcommand \MaxTxGroupSize {GT_{\max}}
@@ -61,7 +63,7 @@ the _group hash_ as follows:
 - Take the hash of each transaction in the group, but with its _group_ field omitted.
 
 - Hash this ordered list of hashes. More precisely, hash the canonical msgpack encoding
-of a structure with a field `txlist` containing the list of hashes, using `TG` as
+of a structure with a field `txlist` containing the list of hashes, using \\( \\Domain{TG} \\) as
 [domain separation prefix](../crypto/crypto-domain-separators.md).
 
 If the _group hash_ of any transaction group in a block does not match the _group_

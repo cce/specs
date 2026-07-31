@@ -1,8 +1,10 @@
+{{#include ../_include/tex-macros/domain-separators.md}}
+
 $$
 \newcommand \Hash {\mathrm{Hash}}
 \newcommand \pk {\mathrm{pk}}
-\newcommand \MSigPrefix {\texttt{MultisigAddr}}
-\newcommand \PQAPrefix {\texttt{PQA}}
+\newcommand \MSigPrefix {\Domain{MultisigAddr}}
+\newcommand \PQAPrefix {\Domain{PQA}}
 \newcommand \Fee {\mathrm{fee}}
 \newcommand \MinTxnFee {T_{\Fee,\min}}
 $$
@@ -47,7 +49,7 @@ improperly authorized and is invalid.
 
 - A valid _signature_ (`sig`) is a (64-byte) valid [Ed25519 signature](../crypto/crypto-ed25519.md)
 of the transaction (encoded in canonical msgpack and with [domain separation prefix](../crypto/crypto-domain-separators.md)
-`TX`) where the public key is the _authorizer address_ (interpreted as an Ed25519
+\\( \\Domain{TX} \\)) where the public key is the _authorizer address_ (interpreted as an Ed25519
 public key).
 
 - A valid _multisignature_ (`msig`) is an object containing the following fields and
@@ -171,7 +173,7 @@ A post-quantum signature is valid if all the following conditions hold:
 _authorizer address_ of the transaction;
 
 1. The signature `sig` is valid for the transaction (encoded in canonical msgpack
-and with [domain separation prefix](../crypto/crypto-domain-separators.md) `TX`),
+and with [domain separation prefix](../crypto/crypto-domain-separators.md) \\( \\Domain{TX} \\)),
 under the public key `pk`, according to the scheme denoted by `sch`.
 
 ### Fee Surcharge
@@ -198,16 +200,16 @@ The `lsig` object carries the delegation signature in one of the following forms
 according to the delegating account type:
 
 - The single signature `sig` is a valid 64-byte [Ed25519 signature](../crypto/crypto-ed25519.md)
-of the string `Program` concatenated with the bytes in `l`, where the public key
+of the string \\( \\Domain{Program} \\) concatenated with the bytes in `l`, where the public key
 is the _authorizer address_.
 
 - The multisignature `lmsig` is a valid multisignature (an object structured as
 `msig`), which hashes to the _authorizer address_ as described in the [Multisignature](#multisignature)
-section, where the covered message is the string `MsigProgram` concatenated with
+section, where the covered message is the string \\( \\Domain{MsigProgram} \\) concatenated with
 the bytes of the authorizer address and the bytes in `l`.
 
 - The post-quantum signature `pqsig` is a valid [post-quantum signature](#post-quantum-signature),
-where the signed message is the string `PQProgram` concatenated with the bytes of
+where the signed message is the string \\( \\Domain{PQProgram} \\) concatenated with the bytes of
 the authorizer address and the bytes in `l`, in place of the transaction.
 
 > [!NOTE]

@@ -1,3 +1,5 @@
+{{#include ../_include/tex-macros/domain-separators.md}}
+
 $$
 \newcommand \Rfv {\mathrm{FirstValidRound}}
 \newcommand \Rlv {\mathrm{LastValidRound}}
@@ -63,7 +65,7 @@ keys as leaves.
 Leaf hashing is done in the following manner:
 
 $$
-leaf_{i} = \Hash(\texttt{"KP"} || \SchemeID || r || P_{k_{i}}), \text{ for each corresponding round.}
+leaf_{i} = \Hash(\Domain{"KP"} || \SchemeID || r || P_{k_{i}}), \text{ for each corresponding round.}
 $$
 
 Where:
@@ -146,6 +148,6 @@ public key \\( s.\Verify \\)
 at index \\( s.\VectorIdx \\) with respect to the vector commitment root \\( \pk \\)
 where:
 
-  - \\( \Leaf := \texttt{"KP"} || \SchemeID || \Round || s.\Verify \\),
+  - \\( \Leaf := \Domain{"KP"} || \SchemeID || \Round || s.\Verify \\),
 
   - \\( \Round := r - (r \mod \KLT) \\).
