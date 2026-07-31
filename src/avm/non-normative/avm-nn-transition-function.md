@@ -28,23 +28,23 @@ Below is a diagram that visualizes the logic flow of a single `step()` invocatio
 
 ```mermaid
 flowchart TD
-  Start(["Start **step()**"]):::cend
+  Start(["Start step()"]):::cend
 
   %% Decision Nodes
-  CheckNextOpcode{{"Does **nextOpcode()** exist, is allowed, and validated?"}}:::decision
-  CheckBudget{{"Is **EC.Budget** > **MaxBudget**?"}}:::decision
+  CheckNextOpcode{{"Does nextOpcode() exist, is allowed, and validated?"}}:::decision
+  CheckBudget{{"Is EC.Budget > MaxBudget?"}}:::decision
   ValidateStack{{"Validate stack size and element constraints"}}:::decision
 
   %% Action Nodes
-  DispatchNextOpcode["Dispatch **nextOpcode** (observe changes)"]:::action
-  UpdateTxnCost["Update transaction cost with **txnCostUpdate()**"]:::action
-  UpdatePC["Update program counter **EC.PC()** to next instruction"]:::action
+  DispatchNextOpcode["Dispatch nextOpcode (observe changes)"]:::action
+  UpdateTxnCost["Update transaction cost with txnCostUpdate()"]:::action
+  UpdatePC["Update program counter EC.PC() to next instruction"]:::action
 
   %% Reject Node
-  RejectFromValidation["**REJECT()**"]:::reject
+  RejectFromValidation["REJECT()"]:::reject
 
   %% End Node
-  End(["**End Step()**"]):::cend
+  End(["End Step()"]):::cend
 
   %% Connections
   Start --> CheckNextOpcode
