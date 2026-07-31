@@ -26,10 +26,9 @@ has not been observed before \\( \DeadlineTimeout(p) \\) for a given period \\( 
 
 ---
 
-\\( \textbf{Algorithm 9} \text{: Recovery} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 9} \text{: Recovery} \\\\[0.5em]
 &\text{1: } \PSfunction \Recovery() \\\\
 &\text{2: } \quad \ResynchronizationAttempt() \\\\
 &\text{3: } \quad \PSfor a \in A \PSdo \\\\

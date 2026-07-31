@@ -12,7 +12,7 @@ $$
 
 # Habanero Run (Fast Recovery)
 
-Let us now assume a scenario identical to the [Japlapeño run](abft-nn-jalapeno-run.md),
+Let us now assume a scenario identical to the [Jalapeño run](abft-nn-jalapeno-run.md),
 up until the attempt at period \\( p = 1 \\) to form a \\( \Cert \\)-Bundle for
 the _pinned value_.
 
@@ -21,19 +21,29 @@ more than 5 minutes (i.e., \\( \lambda_f \\)).
 
 ```mermaid
 timeline
-    title Habanero Run
+    title Habanero Run: Proposal and Partition
     section (r = i, p = 0, 0 <= s <= 1)
         Proposal (s = 0) time = 0                       : Emits proposals for i-th round from selected accounts registered on the node
         Soft Vote (s = 1) time = DynamicTO(p)           : Filters proposals (lowest hash criteria) : Soft vote on the best proposal for round i
     section (r = i, p = 0, s >= 2) Network partition K begins
-        Certification (s = 2) time = DeadlineTO(p=0)    : Certification vote fails, no Committe Threshold is reached
+        Certification (s = 2) time = DeadlineTO(p=0)    : Certification vote fails, no Committee Threshold is reached
         Recovery (s > 3) time > DeadlineTO(p=0)         : Next and Fast Recovery votes triggered : No Next bundle is observed
+```
+
+```mermaid
+timeline
+    title Habanero Run: Recovery and Fast Recovery
     section (r = i, p = 0, s >= 3) Network partition K ends
         Recovery (s > 3) time > DeadlineTO(p=0)         : Next Bundle observed, new period begins
     section (r = i, p = 1, s = [253, 254, 255])
         Fast Recovery (s = 253) time = lambda_f         : Late step fails
         Fast Recovery (s = 254)                         : Redo step fails
         Fast Recovery (s = 255)                         : Down Bundle observed, new period begins
+```
+
+```mermaid
+timeline
+    title Habanero Run: Reproposal
     section (r = i, p = 2, 0 <= s <= 2)
         Proposal (s = 0) time = 0                       : Emits proposals for i-th round from selected accounts registered on the node
         Soft Vote (s = 1) time = DynamicTO(p=2)         : Filters proposals (lowest hash criteria) : Soft vote on the best proposal for round i

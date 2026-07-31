@@ -31,12 +31,14 @@ optional = true
 [output.pandoc.profile.pdf]
 output-file = "algorand-specs.pdf"
 pdf-engine = "lualatex"
-filters = ["mermaid-filter"]
+filters = ["mermaid-filter", "scripts/pdf-layout.lua"]
+include-in-header = ["scripts/pdf-header.tex"]
 
 [output.pandoc.profile.pdf.variables]
-mainfont = "Noto Serif"
+mainfont = "Latin Modern Roman"
 sansfont = "Noto Sans"
 monofont = "Noto Sans Mono"
-mainfontfallback = ["Noto Sans Symbols:mode=harf", "Noto Sans Symbols2:mode=harf"]
+geometry = ["hmargin=1.45in"]
+mainfontfallback = ["Noto Serif:mode=harf", "Noto Sans Symbols:mode=harf", "Noto Sans Symbols2:mode=harf"]
 sansfontfallback = ["Noto Sans Symbols:mode=harf", "Noto Sans Symbols2:mode=harf"]
 monofontfallback = ["Noto Sans Symbols:mode=harf", "Noto Sans Symbols2:mode=harf"]

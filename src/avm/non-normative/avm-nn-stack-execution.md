@@ -63,4 +63,8 @@ $$
 
 The following illustrations show the program execution step-by-step.
 
-![Stack](../../_images/avm-stack-execution.svg "Stack execution example")
+![Stack execution, steps 1–3](../../_images/avm-stack-execution-1.svg "Stack execution steps 1–3")
+
+![Stack execution, steps 4–6](../../_images/avm-stack-execution-2.svg "Stack execution steps 4–6")
+
+![Stack execution, steps 7–9](../../_images/avm-stack-execution-3.svg "Stack execution steps 7–9")

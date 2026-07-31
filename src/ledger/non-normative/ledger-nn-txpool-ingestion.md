@@ -31,10 +31,9 @@ implemented:
 
 ---
 
-\\( \textbf{Algorithm 4} \text{: Transaction Ingestion} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 4} \text{: Transaction Ingestion} \\\\[0.5em]
 &\text{1: } \PSfunction \Ingest(\TG\ gtx) \\\\
 &\text{2: } \quad \dots \\\\
 &\text{3: } \quad \PSif \lnot \BlockEval \PSthen \\\\

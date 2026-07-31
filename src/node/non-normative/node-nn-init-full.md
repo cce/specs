@@ -46,10 +46,9 @@ _Full Node_:
 
 ---
 
-\\( \textbf{Algorithm 1} \text{: Full Node Initialization} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 1} \text{: Full Node Initialization} \\\\[0.5em]
 &\text{1: } \PSfunction \FullNode.\mathrm{Start}(\RootDir, \Config, \Phonebook, \Genesis) \\\\
 &\text{2: } \quad \Node \gets {\textbf{new }} \FullNode \\\\
 &\text{3: } \quad \Node.\mathrm{log} \gets \Logger(\Config) \\\\

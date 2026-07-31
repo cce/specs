@@ -17,13 +17,18 @@ is fragmented, and no network partition has enough voting power to certify a blo
 
 ```mermaid
 timeline
-    title Jalapeño Run
+    title Jalapeño Run: Proposal and Partition
     section (r = i, p = 0, 0 <= s <= 1)
         Proposal (s = 0) time = 0                       : Emits proposals for i-th round from selected accounts registered on the node
-        Soft Vote (s = 1) time = DynamicTO(p)           : Filters proposals (lowest hash criteria) : Soft vote on the best proposal for round i : A Soft Bundle is observed and a pinned value is enstabilished
+        Soft Vote (s = 1) time = DynamicTO(p)           : Filters proposals (lowest hash criteria) : Soft vote on the best proposal for round i : A Soft Bundle is observed and a pinned value is established
     section (r = i, p = 0, s >= 2) Network partition K begins
-        Certification (s = 2) time = DeadlineTO(p=0)    : Certification vote fails, no Committe Threshold is reached
+        Certification (s = 2) time = DeadlineTO(p=0)    : Certification vote fails, no Committee Threshold is reached
         Recovery (s > 3) time > DeadlineTO(p=0)         : Next and Fast Recovery votes triggered
+```
+
+```mermaid
+timeline
+    title Jalapeño Run: Recovery and Certification
     section (r = i, p = 0, s >= 3) Network partition K ends
         Recovery (s > 3) time > DeadlineTO(p=0)         : Next Bundle observed, new period begins
     section (r = i, p = 1, s = 2)

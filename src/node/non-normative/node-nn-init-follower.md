@@ -55,10 +55,9 @@ _Follower Node_:
 
 ---
 
-\\( \textbf{Algorithm 2} \text{: Follower Node Initialization} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 2} \text{: Follower Node Initialization} \\\\[0.5em]
 &\text{1: } \PSfunction \FollowerNode.\mathrm{Start}(\RootDir, \Config, \Phonebook, \Genesis) \\\\
 &\text{2: } \quad \Node \gets {\textbf{new }} \FollowerNode \\\\
 &\text{3: } \quad \Node.\mathrm{log} \gets \Logger(\Config) \\\\
@@ -66,7 +65,10 @@ $$
 &\text{5: } \quad \Node.\Genesis.\mathrm{ID} \gets \Genesis.\Hash() \\\\
 &\text{6: } \PScomment{Network Initialization - WebSocket Only} \\\\
 &\text{7: } \quad \Node.\Network \gets \Create\WS\Network(\Phonebook) \\\\
-&\text{8: } \quad \Node.\Network.\mathrm{DeregisterMessageInterest}(\texttt{AgreementVoteTag}, \texttt{ProposalPayloadTag}, \texttt{VoteBundleTag}) \\\\
+&\text{8: } \quad \Node.\Network.\mathrm{DeregisterMessageInterest}( \\\\
+&\phantom{\text{8: }} \qquad \texttt{AgreementVoteTag}, \\\\
+&\phantom{\text{8: }} \qquad \texttt{ProposalPayloadTag}, \\\\
+&\phantom{\text{8: }} \qquad \texttt{VoteBundleTag}) \\\\
 &\text{9: } \PScomment{Crypto Resource Pools Initialization - Minimal} \\\\
 &\text{10:} \quad \Node.\CryptoPool \gets \Create\mathrm{ExecutionPool}() \\\\
 &\text{11:} \quad \Node.\CryptoPool.\mathrm{lowPriority} \gets \Create\mathrm{BacklogPool()} \\\\
@@ -84,13 +86,13 @@ $$
 &\text{23:} \quad \disable \AccountManager() \\\\
 &\text{24:} \quad \disable \Agreement() \\\\
 &\text{25:} \quad \disable \StateProof() \\\\
-&\text{25:} \quad \disable \Heartbeat() \\\\
-&\text{26:} \quad \mathrm{SetSyncRound}(\Node.\Ledger.\mathrm{LatestTrackerCommittedRound}() + 1) \\\\
-&\text{27:} \quad \PSif \mathrm{InCatchpointCatchupState}() \PSthen \\\\
-&\text{28:} \quad \quad \mathrm{InitializeCatchpointCatchup}() \\\\
-&\text{29:} \quad \PSendif \\\\
-&\text{30:} \quad \PSreturn \Node \\\\
-&\text{31:} \PSendfunction
+&\text{26:} \quad \disable \Heartbeat() \\\\
+&\text{27:} \quad \mathrm{SetSyncRound}(\Node.\Ledger.\mathrm{LatestTrackerCommittedRound}() + 1) \\\\
+&\text{28:} \quad \PSif \mathrm{InCatchpointCatchupState}() \PSthen \\\\
+&\text{29:} \quad \quad \mathrm{InitializeCatchpointCatchup}() \\\\
+&\text{30:} \quad \PSendif \\\\
+&\text{31:} \quad \PSreturn \Node \\\\
+&\text{32: } \PSendfunction
 \end{aligned}
 $$
 

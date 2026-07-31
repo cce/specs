@@ -51,10 +51,9 @@ conditions were met.
 
 ---
 
-\\( \textbf{Algorithm 10} \text{: Fast Recovery} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 10} \text{: Fast Recovery} \\\\[0.5em]
 &\text{1: } \PSfunction \FastRecovery() \\\\
 &\text{2: } \quad \Resync() \\\\
 &\text{3: } \quad \PSfor a \in A \PSdo \\\\

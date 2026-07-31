@@ -40,7 +40,7 @@ The following timeline diagram illustrates the process:
 
 ```mermaid
 timeline
-    title Vanilla Run
+    title Vanilla Run: Round i
     section (r = i, p = 0, 0 <= s <= 2)
         Proposal (s = 0) time = 0                   : Emits proposals for i-th round from selected accounts registered on the node
         Soft Vote (s = 1) time = DynamicTO(p)       : Filters proposals (lowest hash criteria) : Soft vote on the best proposal for round i
@@ -48,6 +48,11 @@ timeline
                                                     : Appended i-th block to the Ledger
                                                     : State deltas applied
                                                     : Transaction pool purged
+```
+
+```mermaid
+timeline
+    title Vanilla Run: Round i+1
     section (r = i+1, p = 0, 0 <= s <= 2)
         Proposal (s = 0) time = 0                   : Emits proposals for i+1-th round from selected accounts registered on the node
         Soft Vote (s = 1) time = DynamicTO(p)       : Filters proposals (lowest hash criteria) : Soft vote on the best proposal for round i+1

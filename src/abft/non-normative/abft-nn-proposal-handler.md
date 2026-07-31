@@ -109,10 +109,9 @@ steps of the protocol when a \\( \Next \\) vote has been successful.
 
 ---
 
-\\( \textbf{Algorithm 6} \text{: Handle Proposal} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 6} \text{: Handle Proposal} \\\\[0.5em]
 &\text{1: } \PSfunction \HandleProposal(\pr) \\\\
 &\text{2: } \quad v \gets \Proposal_v(\pr, \pr_p, \pr_I) \\\\
 &\text{3: } \quad \PSif \exists \Bundle(r+1, 0, \Soft, v) \in B \PSthen \\\\

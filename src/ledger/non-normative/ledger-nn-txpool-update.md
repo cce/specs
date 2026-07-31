@@ -24,10 +24,9 @@ The state of the \\( \TP \\) is then updated as follows:
 
 ---
 
-\\( \textbf{Algorithm 3} \text{: Update } \TP \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 3} \text{: Update } \TP \\\\[0.5em]
 &\text{1: } \PSfunction \Update(\NB\ b, \SD\ sd) \\\\
 &\text{2: } \quad \PSif \TP_{pq} \text{ is empty or outdated} \PSthen \\\\
 &\text{3: } \quad \quad \PSswitch \TP.\PendingFB \\\\

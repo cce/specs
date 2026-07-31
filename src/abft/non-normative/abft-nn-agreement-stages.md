@@ -60,10 +60,9 @@ We may model the state machine’s main algorithm in the following way:
 
 ---
 
-\\( \textbf{Algorithm 2} \text{: Main State Machine} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 2} \text{: Main State Machine} \\\\[0.5em]
 &\text{1: } \PSfunction \EventHandler(ev) \\\\
 &\text{2: } \qquad \PSif \ev \text{ is a } \TimeoutEvent \PSthen \\\\
 &\text{3: } \qquad \quad \t \gets \ev_\t \\\\

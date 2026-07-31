@@ -75,6 +75,7 @@ RUN . /tmp/toolchain.env \
     && cargo install --locked --root /usr/local mdbook-pandoc --version "${MDBOOK_PANDOC_VERSION}"
 
 COPY scripts/puppeteer-config.json /etc/puppeteer-config.json
+COPY scripts/mermaid-config.json /etc/mermaid-config.json
 
 # Wrap the real mmdc executable to inject the config file option
 RUN mv "${MMD_PATH}/mmdc" "${MMD_PATH}/mmdc-original"
