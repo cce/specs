@@ -1,3 +1,5 @@
+{{#include ../_include/tex-macros/domain-separators.md}}
+
 $$
 \newcommand \BonusDecayInterval {B_{b,\mathrm{decay}}}
 \newcommand \MaxProposedExpiredOnlineAccounts {B_{N_\mathrm{e},\max}}
@@ -10,6 +12,31 @@ $$
 \newcommand \PayoutsChallengeInterval {\Heartbeat_r}
 \newcommand \PayoutMaxMarkAbsent {B_{N_\mathrm{a},\max}}
 \newcommand \MaxTxnBytesPerBlock {B_{\max}}
+\newcommand \Genesis {\mathrm{Genesis}}
+\newcommand \GenesisID {\Genesis{\mathrm{ID}}}
+\newcommand \Hash {\mathrm{Hash}}
+\newcommand \GenesisHash {\Genesis\Hash}
+\newcommand \Prev {\mathrm{Prev}}
+\newcommand \MaxVersionStringLen {V_{\max}}
+\newcommand \DefaultUpgradeWaitRounds {\delta_x}
+\newcommand \MaxUpgradeWaitRounds {\delta_{x_{\max}}}
+\newcommand \MinUpgradeWaitRounds {\delta_{x_{\min}}}
+\newcommand \UpgradeThreshold {\tau}
+\newcommand \UpgradeVoteRounds {\delta_d}
+\newcommand \MaxTimestampIncrement {\Delta t_{\max}}
+\newcommand \Seed {\mathrm{Seed}}
+\newcommand \Tx {\mathrm{Tx}}
+\newcommand \TxID {\Tx\mathrm{ID}}
+\newcommand \TxSeq {\Tx\mathrm{Seq}}
+\newcommand \TxCommit {\Tx\mathrm{Commit}}
+\newcommand \TxTail {\Tx\mathrm{Tail}}
+\newcommand \SHATFS {\mathrm{SHA256}}
+\newcommand \SHAFOT {\mathrm{SHA512}}
+\newcommand \Sig {\mathrm{Sig}}
+\newcommand \STIB {\mathrm{STIB}}
+\newcommand \ApplyData {\mathrm{ApplyData}}
+\newcommand {\abs}[1] {\lvert #1 \rvert}
+\newcommand \MaxTxTail {\mathrm{TxTail}_{\max}}
 $$
 
 # Blocks
@@ -239,7 +266,7 @@ components.
 The rest of this document defines block validity and state transitions by describing
 them for each component.
 
-# Round
+## Round {#round-definition}
 
 The round or _round number_ is a 64-bit unsigned integer that indexes into the
 sequence of states and blocks.
@@ -254,16 +281,9 @@ to some implicit Ledger. Thus, the round exclusively describes some component, a
 we denote the round of a component with a subscript. For instance, the timestamp
 of state/block \\( r \\) is denoted \\( t_r \\).
 
-$$
-\newcommand \Genesis {\mathrm{Genesis}}
-\newcommand \GenesisID {\Genesis{\mathrm{ID}}}
-\newcommand \Hash {\mathrm{Hash}}
-\newcommand \GenesisHash {\Genesis\Hash}
-$$
+## Genesis
 
-# Genesis
-
-## Genesis Identifier
+### Genesis Identifier {#genesis-identifier-definition}
 
 The _genesis identifier_ is a short string that identifies an instance of a Ledger
 \\( L \\).
@@ -271,7 +291,7 @@ The _genesis identifier_ is a short string that identifies an instance of a Ledg
 The genesis identifier of a valid block is the identifier of the block in the previous
 round. In other words, \\( \GenesisID_{r+1} = \GenesisID_{r} \\).
 
-## Genesis Hash
+### Genesis Hash
 
 The _genesis hash_ is a cryptographic hash of the genesis configuration, used to unambiguously
 identify an instance of the Ledger \\( L \\).
@@ -280,12 +300,7 @@ The genesis hash is set in the genesis block (or the block at which an upgrade t
 a protocol supporting \\( \GenesisHash \\) occurs), and **MUST** be preserved identically
 in all subsequent blocks.
 
-$$
-\newcommand \Prev {\mathrm{Prev}}
-\newcommand \Hash {\mathrm{Hash}}
-$$
-
-# Previous Hash
+## Previous Hash {#previous-hash-definition}
 
 The [_previous hash_](./ledger-block.md#previous-hash) is a cryptographic hash of
 the previous block header in the sequence of blocks.
@@ -302,16 +317,7 @@ Then the previous hash \\( \Prev_{r+1} \\) in the block for round \\( r+1 \\) is
 > [!NOTE]
 > In the reference implementation, \\( \Hash \\) is the [SHA512/256 hash function](../crypto/crypto-sha512-256.md).
 
-$$
-\newcommand \MaxVersionStringLen {V_{\max}}
-\newcommand \DefaultUpgradeWaitRounds {\delta_x}
-\newcommand \MaxUpgradeWaitRounds {\delta_{x_{\max}}}
-\newcommand \MinUpgradeWaitRounds {\delta_{x_{\min}}}
-\newcommand \UpgradeThreshold {\tau}
-\newcommand \UpgradeVoteRounds {\delta_d}
-$$
-
-# Protocol Upgrade State
+## Protocol Upgrade State
 
 A protocol version \\( v \\) is a string no more than \\( \MaxVersionStringLen \\)
 bytes long. It corresponds to parameters used to execute some version of the Algorand
@@ -380,11 +386,7 @@ otherwise.
   and \\( \delta = x_r \\) if \\( x_r \neq 0 \\)), and
   - \\( x_r^{\prime} \\) otherwise.
 
-$$
-\newcommand \MaxTimestampIncrement {\Delta t_{\max}}
-$$
-
-# Timestamp
+## Timestamp {#timestamp-definition}
 
 The timestamp \\( t \\) is a 64-bit signed integer.
 
@@ -409,11 +411,7 @@ The timestamp \\( t_{r+1} \\) of a block in round \\( r \\) is valid if:
 > n = \left\lceil \frac{t^{\ast} - t_{r}}{\MaxTimestampIncrement} \right\rceil
 > $$
 
-$$
-\newcommand \Seed {\mathrm{Seed}}
-$$
-
-# Cryptographic Seed
+## Cryptographic Seed
 
 The seed is a 256-bit integer.
 
@@ -422,31 +420,9 @@ Byzantine Fault Tolerance protocol](../abft/abft.md).
 
 The \\( \Seed \\) procedure specified there returns the seed from the desired round.
 
-{{#include ../_include/tex-macros/domain-separators.md}}
+## Transaction Sequences, Sets, and Tails
 
-$$
-\newcommand \Tx {\mathrm{Tx}}
-\newcommand \TxID {\Tx\mathrm{ID}}
-\newcommand \TxSeq {\Tx\mathrm{Seq}}
-\newcommand \TxCommit {\Tx\mathrm{Commit}}
-\newcommand \TxTail {\Tx\mathrm{Tail}}
-\newcommand \Hash {\mathrm{Hash}}
-\newcommand \SHATFS {\mathrm{SHA256}}
-\newcommand \SHAFOT {\mathrm{SHA512}}
-\newcommand \Sig {\mathrm{Sig}}
-\newcommand \STIB {\mathrm{STIB}}
-\newcommand \Genesis {\mathrm{Genesis}}
-\newcommand \GenesisID {\Genesis{\mathrm{ID}}}
-\newcommand \GenesisHash {\Genesis\Hash}
-\newcommand \ApplyData {\mathrm{ApplyData}}
-\newcommand {\abs}[1] {\lvert #1 \rvert}
-\newcommand \MaxTxnBytesPerBlock {B_{\max}}
-\newcommand \MaxTxTail {\mathrm{TxTail}_{\max}}
-$$
-
-# Transaction Sequences, Sets, and Tails
-
-## Transaction Sequence
+### Transaction Sequence
 
 Each block contains a _transaction sequence_, an ordered sequence of transactions
 in that block.
@@ -558,7 +534,7 @@ $$
 \sum_{\Tx \in \TxSeq_r} \abs{\Tx} \leq \MaxTxnBytesPerBlock
 $$
 
-## Transaction Tails
+### Transaction Tails
 
 The _transaction tail_ \\( \TxTail \\) for a given round \\( r \\) is a set produced
 from the union of the transaction identifiers \\( \TxID \\) of each transaction in
