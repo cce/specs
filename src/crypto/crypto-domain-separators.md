@@ -32,6 +32,7 @@ The list below specifies each `prefix`:
   - \\( \\Domain{spm} \\): A _State Proof_ message.
   - \\( \\Domain{STIB} \\): A _SignedTxnInBlock_ that appears as part of the leaf in the Merkle
   tree of transactions.
+  - \\( \\Domain{TG} \\): A [_Transaction Group_](../ledger/ledger-txn-groups.md).
   - \\( \\Domain{TL} \\): A leaf in the Merkle tree of transactions.
   - \\( \\Domain{TX} \\): A _Transaction_.
   - \\( \\Domain{SpecialAddr} \\): A prefix used to generate designated addresses for specific functions,
