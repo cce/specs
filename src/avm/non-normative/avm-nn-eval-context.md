@@ -81,10 +81,10 @@ details.
 These functions expose the current Ledger context to the AVM:
 
 - `getRound() -> uint64`
-Returns the current [round](../../ledger/ledger-round.md) from the Ledger.
+Returns the current [round](../../ledger/ledger-block.md#round-definition) from the Ledger.
 
 - `getLatestTimestamp() -> uint64`
-Returns the [latest timestamp](../../ledger/ledger-timestamp.md) of the most recently
+Returns the [latest timestamp](../../ledger/ledger-block.md#timestamp-definition) of the most recently
 committed block.
 
 ### Prefetched Ledger Accessors

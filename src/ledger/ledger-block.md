@@ -54,7 +54,7 @@ The block header contains the following components:
 The block’s _round_, which matches the round of the state it is transitioning
 into. (The block with round \\( 0 \\) is special in that this block specifies not
 a transition but rather the entire initial state, which is called the _genesis state_.
-This block is correspondingly called the [_genesis block_](./ledger-genesis.md)).
+This block is correspondingly called the [_genesis block_](#genesis)).
 The round is stored under msgpack key `rnd`.
 
 ### Genesis Identifier
@@ -110,7 +110,7 @@ key `prev`;
 
 - [SHA512 hash function](../crypto/crypto-sha512.md), stored under msgpack key `prev512`.
 
-The _previous hash_ of the [genesis block](./ledger-genesis.md) is \\( 0 \\)).
+The _previous hash_ of the [genesis block](#genesis) is \\( 0 \\)).
 
 ### Transaction Counter
 

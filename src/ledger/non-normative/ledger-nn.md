@@ -22,7 +22,7 @@ several subcomponents are defined to look up, commit, validate, and assemble sai
 blocks and their corresponding certificates.
 
 Some constructs are built to optimize specific fields look up in these blocks for
-a given [round](../ledger-round.md), or to get the state implicitly defined by an
+a given [round](../ledger-block.md#round-definition), or to get the state implicitly defined by an
 aggregate of their history up to a certain round. These constructs are called _Trackers_,
 and their usage and implementation details are addressed in the [corresponding section](ledger-nn-trackers.md).
 
