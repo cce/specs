@@ -4,10 +4,6 @@ The Algorand Specifications are published continuously at <https://specs.algoran
 
 The $\LaTeX$ PDF Book is generated on [releases](https://github.com/algorandfoundation/specs/releases/latest).
 
-> [!WARNING]
-> The PDF Book is a work in progress and may contain formatting errors or
-> missing graphics. Progress is tracked in [issue #243](https://github.com/algorandfoundation/specs/issues/243).
-
 ## Contributing to the Specifications
 
 Technical contributors should start with the [contribution guidelines](CONTRIBUTING.md).
