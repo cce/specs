@@ -1,14 +1,3 @@
-# Messages
-
-Players communicate with each other by exchanging _messages_.
-
-A message is an opaque object containing arbitrary data, save for the fields defined
-below.
-
-> [!NOTE]
-> For a detailed overview of message composition, whether consensus or other types,
-> see the [Algorand Network non-normative section](../network/network-overview.md).
-
 $$
 \newcommand \Propose {\mathit{propose}}
 \newcommand \Soft {\mathit{soft}}
@@ -23,9 +12,38 @@ $$
 \newcommand \Digest {\mathrm{Digest}}
 \newcommand \Encoding {\mathrm{Encoding}}
 \newcommand \Hash {\mathrm{Hash}}
+\newcommand \pk {\mathrm{pk}}
+\newcommand \sk {\mathrm{sk}}
+\newcommand \fv {\text{first}}
+\newcommand \lv {\text{last}}
+\newcommand \Vote {\mathrm{Vote}}
+\newcommand \Equivocation {\mathrm{Equivocation}}
+\newcommand \Seed {\mathrm{Seed}}
+\newcommand \Record {\mathrm{Record}}
+\newcommand \Stake {\mathrm{Stake}}
+\newcommand \Sign {\mathrm{Sign}}
+\newcommand \Verify {\mathrm{Verify}}
+\newcommand \abs[1] {\lvert #1 \rvert}
+\newcommand \Bundle {\mathrm{Bundle}}
+\newcommand \ValidEntry {\mathrm{ValidEntry}}
+\newcommand \VRF {\mathrm{VRF}}
+\newcommand \Prove {\mathrm{Prove}}
+\newcommand \ProofToHash {\mathrm{ProofToHash}}
+\newcommand \DigestLookup {\mathrm{DigestLookup}}
 $$
 
-# Elementary Data Types
+# Messages
+
+Players communicate with each other by exchanging _messages_.
+
+A message is an opaque object containing arbitrary data, save for the fields defined
+below.
+
+> [!NOTE]
+> For a detailed overview of message composition, whether consensus or other types,
+> see the [Algorand Network non-normative section](../network/network-overview.md).
+
+## Elementary Data Types
 
 A _period_ \\( p \\) is a 64-bit integer.
 
@@ -89,30 +107,7 @@ where:
 The special proposal-value where all fields are the zero-string is called the _bottom
 proposal_ \\( \bot \\).
 
-$$
-\newcommand \pk {\mathrm{pk}}
-\newcommand \sk {\mathrm{sk}}
-\newcommand \fv {\text{first}}
-\newcommand \lv {\text{last}}
-\newcommand \Vote {\mathrm{Vote}}
-\newcommand \Equivocation {\mathrm{Equivocation}}
-\newcommand \Propose {\mathit{propose}}
-\newcommand \Soft {\mathit{soft}}
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Late {\mathit{late}}
-\newcommand \Redo {\mathit{redo}}
-\newcommand \Down {\mathit{down}}
-\newcommand \Seed {\mathrm{Seed}}
-\newcommand \Record {\mathrm{Record}}
-\newcommand \Stake {\mathrm{Stake}}
-\newcommand \CommitteeSize {\mathrm{CommitteeSize}}
-\newcommand \CommitteeThreshold {\mathrm{CommitteeThreshold}}
-\newcommand \Sign {\mathrm{Sign}}
-\newcommand \Verify {\mathrm{Verify}}
-\newcommand \abs[1] {\lvert #1 \rvert}
-$$
-
-# Votes
+## Votes
 
 Let
 
@@ -238,14 +233,7 @@ An equivocation vote pair is _valid with respect to_ \\( L \\) (or simply _valid
 if \\( L \\) is unambiguous) if both of its constituent votes are also valid with
 respect to \\( L \\).
 
-$$
-\newcommand \Bundle {\mathrm{Bundle}}
-\newcommand \Propose {\mathit{propose}}
-\newcommand \CommitteeThreshold {\mathrm{CommitteeThreshold}}
-\newcommand \abs[1] {\lvert #1 \rvert}
-$$
-
-# Bundles
+## Bundles
 
 Let \\( V \\) be any set of votes and equivocation votes.
 
@@ -284,22 +272,7 @@ or \\( a_i \\) is an equivocation vote.
 - Let \\( w_i \\) be the weight of the signature in \\( a_i \\). Then
 \\( \sum_i w_i \geq \CommitteeThreshold(s) \\).
 
-$$
-\newcommand \pk {\mathrm{pk}}
-\newcommand \fv {\text{first}}
-\newcommand \lv {\text{last}}
-\newcommand \Sign {\mathrm{Sign}}
-\newcommand \ValidEntry {\mathrm{ValidEntry}}
-\newcommand \Hash {\mathrm{Hash}}
-\newcommand \Digest {\mathrm{Digest}}
-\newcommand \Encoding {\mathrm{Encoding}}
-\newcommand \Record {\mathrm{Record}}
-\newcommand \Verify {\mathrm{Verify}}
-\newcommand \Proposal {\mathrm{Proposal}}
-\newcommand \abs[1] {\lvert #1 \rvert}
-$$
-
-# Proposals
+## Proposals
 
 Let \\( e = (o, s) \\) be an entry and \\( y \\) be the output of a \\( \Sign \\)
 procedure.
@@ -332,22 +305,7 @@ Then \\( r_\fv \leq r \leq r_\lv \\).
 
 If \\( e \\) matches \\( v \\), we write \\( e = \Proposal(v) \\).
 
-$$
-\newcommand \VRF {\mathrm{VRF}}
-\newcommand \Prove {\mathrm{Prove}}
-\newcommand \ProofToHash {\mathrm{ProofToHash}}
-\newcommand \Verify {\mathrm{Verify}}
-\newcommand \pk {\mathrm{pk}}
-\newcommand \sk {\mathrm{sk}}
-\newcommand \fv {\text{first}}
-\newcommand \lv {\text{last}}
-\newcommand \Record {\mathrm{Record}}
-\newcommand \Seed {\mathrm{Seed}}
-\newcommand \Hash {\mathrm{Hash}}
-\newcommand \DigestLookup {\mathrm{DigestLookup}}
-$$
-
-# Seed
+## Seed
 
 Informally, the protocol interleaves \\( \delta_s \\) seeds in an alternating
 sequence. Each seed is derived from a seed \\( \delta_s \\) rounds in the past through
