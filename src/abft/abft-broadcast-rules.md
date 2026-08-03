@@ -10,6 +10,21 @@ $$
 \newcommand \CommitteeThreshold {\mathrm{CommitteeThreshold}}
 \newcommand \CommitteeSize {\mathrm{CommitteeSize}}
 \newcommand \Sign {\mathrm{Sign}}
+\newcommand \Bundle {\mathrm{Bundle}}
+\newcommand \Soft {\mathit{soft}}
+\newcommand \Cert {\mathit{cert}}
+\newcommand \Proposal {\mathrm{Proposal}}
+\newcommand \Entry {\mathrm{Entry}}
+\newcommand \Rand {\mathrm{Rand}}
+\newcommand \Hash {\mathrm{Hash}}
+\newcommand \Digest {\mathrm{Digest}}
+\newcommand \Encoding {\mathrm{Encoding}}
+\newcommand \FilterTimeout {\mathrm{FilterTimeout}}
+\newcommand \Next {\mathit{next}}
+\newcommand \DeadlineTimeout {\mathrm{DeadlineTimeout}}
+\newcommand \Late {\mathit{late}}
+\newcommand \Redo {\mathit{redo}}
+\newcommand \Down {\mathit{down}}
 $$
 
 # Broadcast Rules
@@ -51,14 +66,7 @@ messages.
 > [non-normative Ledger specification](../ledger/non-normative/ledger-nn.md). For an in-depth
 > review of broadcasting functionalities, refer to the [non-normative Network specification](../network/network-overview.md).
 
-$$
-\newcommand \Bundle {\mathrm{Bundle}}
-\newcommand \Soft {\mathit{soft}}
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Proposal {\mathrm{Proposal}}
-$$
-
-# Resynchronization Attempt
+## Resynchronization Attempt
 
 Where specified, a player attempts to resynchronize.
 
@@ -108,22 +116,7 @@ $$
 N(S, L, \ldots) = (S', L', (\ldots, \Bundle^\ast(r, p, s, v), \Proposal(v), \ldots)).
 $$
 
-$$
-\newcommand \pk {\mathrm{pk}}
-\newcommand \Bundle {\mathrm{Bundle}}
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Proposal {\mathrm{Proposal}}
-\newcommand \Vote {\mathrm{Vote}}
-\newcommand \Entry {\mathrm{Entry}}
-\newcommand \Seed {\mathrm{Seed}}
-\newcommand \Sign {\mathrm{Sign}}
-\newcommand \Rand {\mathrm{Rand}}
-\newcommand \Hash {\mathrm{Hash}}
-\newcommand \Digest {\mathrm{Digest}}
-\newcommand \Encoding {\mathrm{Encoding}}
-$$
-
-# Proposals
+## Proposals
 
 On observing that \\( (r, p) \\) has begun, the player attempts to
 resynchronize, and then
@@ -177,12 +170,7 @@ $$
 
 otherwise.
 
-$$
-\newcommand \Vote {\mathrm{Vote}}
-\newcommand \Proposal {\mathrm{Proposal}}
-$$
-
-# Reproposal Payloads
+## Reproposal Payloads
 
 On observing \\( \Vote(I, r, p, 0, v) \\), if \\( \Proposal(v) \in P \\) then the
 player broadcasts \\( \Proposal(v) \\).
@@ -193,15 +181,7 @@ $$
 N(S, L, \Vote(I, r, p, 0, v)) = (S', L', (\Proposal(v))).
 $$
 
-$$
-\newcommand \FilterTimeout {\mathrm{FilterTimeout}}
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Soft {\mathit{soft}}
-\newcommand \Vote {\mathrm{Vote}}
-\newcommand \Bundle {\mathrm{Bundle}}
-$$
-
-# Filtering
+## Filtering
 
 On observing a timeout event of \\( \FilterTimeout(p) \\) (where
 \\( \mu = (H, H', l, p_\mu) = \mu(S, r, p) \\)),
@@ -239,15 +219,7 @@ $$
 N(S, L, t(\FilterTimeout(p), p)) = (S, L, \epsilon).
 $$
 
-$$
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Soft {\mathit{soft}}
-\newcommand \Vote {\mathrm{Vote}}
-\newcommand \Bundle {\mathrm{Bundle}}
-\newcommand \Proposal {\mathrm{Proposal}}
-$$
-
-# Certifying
+## Certifying
 
 On observing that some proposal-value \\( v \\) is committable for its
 current round \\( r \\), and some period \\( p' \geq p \\) (its current period),
@@ -283,14 +255,7 @@ $$
 
 as long as \\( s \leq \Cert \\).
 
-$$
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Vote {\mathrm{Vote}}
-\newcommand \Bundle {\mathrm{Bundle}}
-\newcommand \Proposal {\mathrm{Proposal}}
-$$
-
-# Commitment
+## Commitment
 
 On observing \\( \Bundle(r, p, \Cert, v) \\) for some value \\( v \\), the player
 _commits_ the entry \\( e \\) corresponding to \\( \Proposal(v) \\); i.e., the
@@ -323,15 +288,7 @@ $$
 > However, if the protocol chooses to continue running, it may not transmit any
 > vote for which \\( v \neq \bot \\) until it has committed \\( e \\).
 
-$$
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Next {\mathit{next}}
-\newcommand \DeadlineTimeout {\mathrm{DeadlineTimeout}}
-\newcommand \Vote {\mathrm{Vote}}
-\newcommand \Bundle {\mathrm{Bundle}}
-$$
-
-# Recovery
+## Recovery
 
 On observing a timeout event of
 
@@ -387,16 +344,7 @@ $$
 N(S, L, t(T, p)) = (S', L, (\ldots, \Vote(I, r, p, \Next_h, \bot))).
 $$
 
-$$
-\newcommand \Vote {\mathrm{Vote}}
-\newcommand \Bundle {\mathrm{Bundle}}
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Late {\mathit{late}}
-\newcommand \Redo {\mathit{redo}}
-\newcommand \Down {\mathit{down}}
-$$
-
-# Fast Recovery
+## Fast Recovery
 
 On observing a timeout event of \\( T = k\lambda_f + u \\) where \\( k \\) is a positive
 integer and \\( u \in [0, \lambda_f] \\) sampled uniformly at random, the player
