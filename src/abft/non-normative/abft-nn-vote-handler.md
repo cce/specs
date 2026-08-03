@@ -47,10 +47,9 @@ for some \\( v_1 \neq v_2 \\).
 
 ---
 
-\\( \textbf{Algorithm 5} \text{: Handle Vote} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 5} \text{: Handle Vote} \\\\[0.5em]
 &\text{1: } \PSfunction \ValidateVote(\vt): \\\\
 &\text{2: } \quad \PSif \PSnot \VerifyVote(\vt) \PSthen \\\\
 &\text{3: } \quad \quad \DisconnectFromPeer(\SenderPeer(\vt)) \\\\

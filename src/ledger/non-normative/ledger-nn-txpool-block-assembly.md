@@ -29,10 +29,9 @@ The following pseudocode outlines a high-level view of how `BlockAssembly` opera
 
 ---
 
-\\( \textbf{Algorithm 5} \text{: Block Assembly} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 5} \text{: Block Assembly} \\\\[0.5em]
 &\text{1: } \PSfunction \AssembleBlock(r) \\\\
 &\text{2: } \quad \PSif \TP.\r < r - 2 \PSthen \\\\
 &\text{3: } \quad \quad \PSreturn \AssembleBlock.\EB(r) \\\\

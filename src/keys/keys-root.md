@@ -1,3 +1,5 @@
+{{#include ../_include/tex-macros/domain-separators.md}}
+
 # Root Keys
 
 Root keys are used to identify ownership of an account. An Algorand node only
@@ -23,7 +25,7 @@ salt, and the public key.
 
 > [!NOTE]
 > Application accounts are the exception: their address is the hash of the Application
-> ID (prefixed by `appID`), which binds no authorization material. No root key exists
+> ID (prefixed by \\( \\Domain{appID} \\)), which binds no authorization material. No root key exists
 > for these accounts: unless rekeyed, they are controlled exclusively by their
 > Application through [inner transactions](../avm/avm-ops-inner-transactions.md).
 

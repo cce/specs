@@ -28,12 +28,11 @@ In other words,
 
 $$
 \begin{aligned}
-&N((r, p, s, \bar{s}, V, P, \bar{v}), L, t(\FilterTimeout(p), p))
-&&= ((r, p, \Cert, \bar{s}, V, P, \bar{v}), L', \ldots) \\\\\
-&N((r, p, s, \bar{s}, V, P, \bar{v}), L, t(\DeadlineTimeout(p), p))
-&&= ((r, p, \Next_0, \bar{s}, V, P, \bar{v}), L', \ldots) \\\\\
-&N((r, p, s, \bar{s}, V, P, \bar{v}), L,
-t(\DeadlineTimeout(p) + 2^{s_t}\lambda + u, p))
-&&= ((r, p, \Next_{s_t}, \bar{s}, V, P, \bar{v}), L', \ldots).
+&N((r, p, s, \bar{s}, V, P, \bar{v}), L, t(\FilterTimeout(p), p)) \\\\
+&\qquad = ((r, p, \Cert, \bar{s}, V, P, \bar{v}), L', \ldots) \\\\[0.35em]
+&N((r, p, s, \bar{s}, V, P, \bar{v}), L, t(\DeadlineTimeout(p), p)) \\\\
+&\qquad = ((r, p, \Next_0, \bar{s}, V, P, \bar{v}), L', \ldots) \\\\[0.35em]
+&N((r, p, s, \bar{s}, V, P, \bar{v}), L, t(\DeadlineTimeout(p) + 2^{s_t}\lambda + u, p)) \\\\
+&\qquad = ((r, p, \Next_{s_t}, \bar{s}, V, P, \bar{v}), L', \ldots).
 \end{aligned}
 $$

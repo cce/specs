@@ -22,10 +22,9 @@ The following is an abstracted pseudocode of the \\( \BlockProposal \\) algorith
 
 ---
 
-\\( \textbf{Algorithm 3} \text{: Block Proposal} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 3} \text{: Block Proposal} \\\\[0.5em]
 &\text{1: } \PSfunction \BlockProposal() \\\\
 &\text{2: } \quad \PSif p \ne 0 \PSthen \\\\
 &\text{3: } \quad \quad \Resync() \\\\

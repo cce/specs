@@ -31,10 +31,9 @@ the integrity of the system.
 
 ---
 
-\\( \textbf{Algorithm 3} \text{: Full Node Shutdown} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 3} \text{: Full Node Shutdown} \\\\[0.5em]
 &\text{1: } \PSfunction \FullNode.\Stop() \\\\
 &\text{2: } \PScomment{Network Cleanup} \\\\
 &\text{3: } \quad \Node.\Network.\Stop\Handlers() \\\\

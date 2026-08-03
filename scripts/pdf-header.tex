@@ -1,0 +1,28 @@
+% Used by the PDF-only table layout filter.
+\usepackage{pdflscape}
+
+% Callouts for mdBook admonitions, produced by scripts/pdf-admonitions.lua.
+% GitHub alert palette; framed makes the left bar breakable across pages.
+\usepackage{xcolor}
+\usepackage{framed}
+\definecolor{calloutnote}{HTML}{0969DA}
+\definecolor{callouttip}{HTML}{1A7F37}
+\definecolor{calloutimportant}{HTML}{8250DF}
+\definecolor{calloutwarning}{HTML}{9A6700}
+\definecolor{calloutcaution}{HTML}{CF222E}
+
+% #1 = color name, #2 = title
+\newenvironment{callout}[2]{%
+  \def\FrameCommand{{\color{#1}\vrule width 3pt}\hspace{0.75em}}%
+  \par\smallskip
+  \MakeFramed{\advance\hsize-\width\FrameRestore}%
+  \noindent{\sffamily\bfseries\color{#1}#2}\par\nobreak\smallskip
+}{%
+  \endMakeFramed
+}
+
+% Leave enough room for subsection numbers such as 19.7.14 in the TOC.
+\makeatletter
+\renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{4.5em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.5em}}
+\makeatother

@@ -20,7 +20,7 @@ is committable in \\( (r, p) \\).
 a \\( s_0 > \Cert \\) such that \\( \Bundle(r, p-1, s_0, \bot) \\) was observed and there
 exists an \\( s_1 > \Cert \\) such that \\( \Bundle(r, p-1, s_1, \bar{v}) \\) was observed.
 
-- Otherwise, the player broadcasts* \\( \Vote(I, r, p, \Down, \bot \\).
+- Otherwise, the player broadcasts* \\( \Vote(I, r, p, \Down, \bot) \\).
 
 Finally, the player broadcasts all \\( \Vote(I, r, p, \Late, v) \in V\\), all
 \\( \Vote(I, r, p, \Redo, v) \in V\\), and all \\( \Vote(I, r, p, \Down, \bot) \in V \\)

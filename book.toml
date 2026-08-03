@@ -15,7 +15,7 @@ default-theme = "light"
 preferred-dark-theme = "dark"
 smart-punctuation = true
 mathjax-support = true
-additional-js = ["theme-ext/gtm.js", "theme-ext/gtm-noscript.js", "mermaid.min.js", "mermaid-init.js"]
+additional-js = ["theme-ext/gtm.js", "theme-ext/gtm-noscript.js", "mermaid.min.js", "mermaid-init.js", "theme-ext/mermaid-override.js"]
 additional-css = ["theme-ext/theme-override.css"]
 git-repository-url = "https://github.com/algorandfoundation/specs"
 edit-url-template = "https://github.com/algorandfoundation/specs/edit/master/{path}"
@@ -31,12 +31,14 @@ optional = true
 [output.pandoc.profile.pdf]
 output-file = "algorand-specs.pdf"
 pdf-engine = "lualatex"
-filters = ["mermaid-filter"]
+filters = ["scripts/pdf-noexport.lua", "mermaid-filter", "scripts/pdf-admonitions.lua", "scripts/pdf-layout.lua"]
+include-in-header = ["scripts/pdf-header.tex"]
 
 [output.pandoc.profile.pdf.variables]
-mainfont = "Noto Serif"
+mainfont = "Latin Modern Roman"
 sansfont = "Noto Sans"
 monofont = "Noto Sans Mono"
-mainfontfallback = ["Noto Sans Symbols:mode=harf", "Noto Sans Symbols2:mode=harf"]
+geometry = ["hmargin=1.45in"]
+mainfontfallback = ["Noto Serif:mode=harf", "Noto Sans Symbols:mode=harf", "Noto Sans Symbols2:mode=harf"]
 sansfontfallback = ["Noto Sans Symbols:mode=harf", "Noto Sans Symbols2:mode=harf"]
 monofontfallback = ["Noto Sans Symbols:mode=harf", "Noto Sans Symbols2:mode=harf"]

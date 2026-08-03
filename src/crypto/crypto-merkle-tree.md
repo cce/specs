@@ -1,3 +1,5 @@
+{{#include ../_include/tex-macros/domain-separators.md}}
+
 # Merkle Tree
 
 Algorand uses a Merkle Tree to commit to an array of elements and to generate and
@@ -47,7 +49,7 @@ and so on) and hashes each pair to produce a single value in the reduced list (r
 at position `0`; at position `1`; and so on).
 
 To hash two values into a single value, the reduction procedure concatenates the
-[domain-separation prefix](./crypto-domain-separators.md) `MA` together with the
+[domain-separation prefix](./crypto-domain-separators.md) \\( \\Domain{MA} \\) together with the
 two values (in the order they appear in the list), and then applies the hash function.
 
 When a list has an _odd_ number of values, the last value is paired together with

@@ -49,18 +49,17 @@ For the seed calculation algorithm, consider the following pseudocode:
 
 ---
 
-\\( \textbf{Algorithm 1} \text{: Compute Seed and Proof} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 1} \text{: Compute Seed and Proof} \\\\[0.5em]
 &\text{1: } \PSfunction \mathrm{ComputeSeedAndProof}(I) \\\\
 &\text{2: } \quad \PSif p = 0 \PSthen \\\\
 &\text{3: } \quad \quad y \gets \VRF.\Prove(\Secrets(I)_{\text{VRFkey}}, L[r - \delta_s]_Q) \\\\
 &\text{4: } \quad \quad \alpha \gets H(I || \VRF.\ProofToHash(y)) \\\\
 &\text{5: } \quad \PSelse \\\\
 &\text{6: } \quad \quad y \gets 0 \\\\
-&\text{6: } \quad \quad \alpha \gets H(L[r - \delta_s]_Q) \\\\
-&\text{7: } \quad \PSendif \\\\
+&\text{7: } \quad \quad \alpha \gets H(L[r - \delta_s]_Q) \\\\
+&\text{8: } \quad \PSendif \\\\
 &\text{9: } \quad \PSif r \bmod (\delta_s\delta_r) < \delta_s \PSthen \\\\
 &\text{10:} \quad \quad Q \gets H(\alpha || H(L[r - \delta_s \delta_r])) \\\\
 &\text{11:} \quad \PSelse \\\\

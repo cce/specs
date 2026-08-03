@@ -11,7 +11,7 @@ The Algorand protocol is parameterized by the following constants:
 
 These values represent durations of _time_.
 
-|         SYMBOL         | VALUE (seconds) | DESCRIPTION                                                                                        |
+|         SYMBOL         |    VALUE (s)    | DESCRIPTION                                                                                        |
 |:----------------------:|:---------------:|:---------------------------------------------------------------------------------------------------|
 |    \\( \lambda \\)     |  \\( 2.00 \\)   | Time for small message (e.g., a vote) propagation in ideal network conditions                      |
 | \\( \lambda_{0min} \\) |  \\( 0.25 \\)   | Minimum amount of time for small message propagation in good network conditions, for \\( p = 0 \\) |

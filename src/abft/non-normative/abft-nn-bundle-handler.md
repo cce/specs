@@ -19,10 +19,9 @@ The node runs a bundle handler when receiving a message with a _full bundle_.
 
 ---
 
-\\( \textbf{Algorithm 6} \text{: Handle Bundle} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 7} \text{: Handle Bundle} \\\\[0.5em]
 &\text{1: } \PSfunction \HandleBundle(\b): \\\\
 &\text{2: } \quad \PSif \PSnot \VerifyBundle(\b) \PSthen \\\\
 &\text{3: } \quad \quad \DisconnectFromPeer(\SenderPeer(\b)) \\\\

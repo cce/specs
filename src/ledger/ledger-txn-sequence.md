@@ -1,3 +1,5 @@
+{{#include ../_include/tex-macros/domain-separators.md}}
+
 $$
 \newcommand \Tx {\mathrm{Tx}}
 \newcommand \TxID {\Tx\mathrm{ID}}
@@ -33,7 +35,7 @@ a [Merkle Tree Commitment](../crypto/crypto-merkle-tree.md) to this sequence.
 The leaves in the Merkle Tree are hashed as:
 
 $$
-\Hash(\texttt{TL}, \TxID, \Hash(\STIB))
+\Hash(\Domain{TL}, \TxID, \Hash(\STIB))
 $$
 
 Where:
@@ -45,7 +47,7 @@ hash function;
 
 - The \\( \Hash(\STIB) \\) is a 32-byte hash of the _signed transaction_ and [ApplyData](./ledger-apply-data.md)
 for the transaction, hashed with the [domain-separation prefix](../crypto/crypto-domain-separators.md)
-`STIB` (_signed transaction in block_).
+\\( \\Domain{STIB} \\) (_signed transaction in block_).
 
 _Signed transactions in a block_ \\( \STIB \\) are encoded in a slightly different
 way than _standalone transactions_ \\( \Tx \\), for efficiency:
@@ -85,13 +87,13 @@ To construct these commitments, we use a [Vector Commitment](../crypto/crypto-ve
 The leaves in the Vector Commitment tree are hashed respectively as:
 
 $$
-\SHATFS(\texttt{TL}, \SHATFS(\TxID), \SHATFS(\STIB))
+\SHATFS(\Domain{TL}, \SHATFS(\TxID), \SHATFS(\STIB))
 $$
 
 and
 
 $$
-\SHAFOT(\texttt{TL}, \SHAFOT(\TxID), \SHAFOT(\STIB))
+\SHAFOT(\Domain{TL}, \SHAFOT(\TxID), \SHAFOT(\STIB))
 $$
 
 Where:
@@ -99,16 +101,16 @@ Where:
 - \\( \SHATFS \\) is the cryptographic [SHA-256](../crypto/crypto-sha256.md) hash
 function;
 
-- \\( \SHATFS(\TxID) = \SHATFS(\texttt{TX} || \Tx) \\)
+- \\( \SHATFS(\TxID) = \SHATFS(\Domain{TX} || \Tx) \\)
 
-- \\( \SHATFS(\STIB) = \SHATFS(\texttt{STIB} || \Sig(\Tx) || \ApplyData) \\)
+- \\( \SHATFS(\STIB) = \SHATFS(\Domain{STIB} || \Sig(\Tx) || \ApplyData) \\)
 
 - \\( \SHAFOT \\) is the cryptographic [SHA-512](../crypto/crypto-sha512.md) hash
 function;
 
-- \\( \SHAFOT(\TxID) = \SHAFOT(\texttt{TX} || \Tx) \\)
+- \\( \SHAFOT(\TxID) = \SHAFOT(\Domain{TX} || \Tx) \\)
 
-- \\( \SHAFOT(\STIB) = \SHAFOT(\texttt{STIB} || \Sig(\Tx) || \ApplyData) \\)
+- \\( \SHAFOT(\STIB) = \SHAFOT(\Domain{STIB} || \Sig(\Tx) || \ApplyData) \\)
 
 These Vector Commitments use [SHA-256](../crypto/crypto-sha256.md) and [SHA-512](../crypto/crypto-sha512.md)
 for internal nodes as well.

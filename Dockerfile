@@ -74,7 +74,13 @@ RUN . /tmp/toolchain.env \
 RUN . /tmp/toolchain.env \
     && cargo install --locked --root /usr/local mdbook-pandoc --version "${MDBOOK_PANDOC_VERSION}"
 
+# Admonition callouts (scripts/pdf-header.tex) need framed.sty.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends texlive-latex-extra \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY scripts/puppeteer-config.json /etc/puppeteer-config.json
+COPY scripts/mermaid-config.json /etc/mermaid-config.json
 
 # Wrap the real mmdc executable to inject the config file option
 RUN mv "${MMD_PATH}/mmdc" "${MMD_PATH}/mmdc-original"

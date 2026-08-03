@@ -1,4 +1,5 @@
 {{#include ../../_include/tex-macros/pseudocode.md}}
+{{#include ../../_include/tex-macros/domain-separators.md}}
 
 $$
 \newcommand \HandleProposal {\mathrm{HandleProposal}}
@@ -35,13 +36,13 @@ A proposal-value contains four fields:
 1. The original proposer’s address.
 
 1. The block digest, equal to the block header’s hash (including a domain separator).
-This field expands to \\( \Hash(\texttt{"BH"} || \Encode(\bh)) \\), where \\( \texttt{"BH"} \\)
+This field expands to \\( \Hash(\Domain{"BH"} || \Encode(\bh)) \\), where \\( \Domain{"BH"} \\)
 is the domain separator for a “block header”, and the encoding function is the msgpack
 of the block header (\\( \bh \\)).
 
 1. A hash of the proposal, \\( \Hash(\Proposal) \\). This field expands to
-\\( \Hash(\texttt{"PL"} || \Encode(\Proposal)) \\), where \\( \Proposal \\)
-represents the unauthenticated proposal, \\( \texttt{"PL"} \\) is the domain separator
+\\( \Hash(\Domain{"PL"} || \Encode(\Proposal)) \\), where \\( \Proposal \\)
+represents the unauthenticated proposal, \\( \Domain{"PL"} \\) is the domain separator
 for a “payload”, and the encoding function is the msgpack of the \\( \Proposal \\).
 
 > [!IMPORTANT]
@@ -108,10 +109,9 @@ steps of the protocol when a \\( \Next \\) vote has been successful.
 
 ---
 
-\\( \textbf{Algorithm 6} \text{: Handle Proposal} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 6} \text{: Handle Proposal} \\\\[0.5em]
 &\text{1: } \PSfunction \HandleProposal(\pr) \\\\
 &\text{2: } \quad v \gets \Proposal_v(\pr, \pr_p, \pr_I) \\\\
 &\text{3: } \quad \PSif \exists \Bundle(r+1, 0, \Soft, v) \in B \PSthen \\\\

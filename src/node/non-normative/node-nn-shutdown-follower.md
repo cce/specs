@@ -26,10 +26,9 @@ and predictable state.
 
 ---
 
-\\( \textbf{Algorithm 4} \text{: Follower Node Shutdown} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 4} \text{: Follower Node Shutdown} \\\\[0.5em]
 &\text{1: } \PSfunction \FollowerNode.\Stop() \\\\
 &\text{2: } \PScomment{Network Cleanup} \\\\
 &\text{3: } \quad \Node.\Network.\Stop\Handlers() \\\\

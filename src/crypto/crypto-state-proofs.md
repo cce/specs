@@ -1,3 +1,5 @@
+{{#include ../_include/tex-macros/domain-separators.md}}
+
 $$
 \newcommand \Proven {\mathrm{Proven}}
 \newcommand \Signed {\mathrm{Signed}}
@@ -63,7 +65,7 @@ to guarantee this property.
 Leaf hashing is done in the following manner:
 
 $$
-\Leaf = \Hash(\texttt{spp} || \W || \KLT || \StateProofPK), \\\\
+\Leaf = \Hash(\Domain{spp} || \W || \KLT || \StateProofPK), \\\\
 $$
 
 for each online participant.
@@ -86,7 +88,7 @@ to a signature array.
 Leaf hashing is done in the following manner:
 
 $$
-\Leaf = \Hash(\texttt{sps} || L || \SerializedMerkleSignature), \\\\
+\Leaf = \Hash(\Domain{sps} || L || \SerializedMerkleSignature), \\\\
 $$
 
 for each online participant.
@@ -102,7 +104,7 @@ value as described in the [technical report](https://eprint.iacr.org/archive/202
 When a signature is missing in the signature array, i.e., the prover didn’t receive
 a signature for this slot, the slot would be decoded as an empty string. As a result,
 the vector commitment leaf of this slot would be the hash value of the constant
-[domain separator](./crypto-domain-separators.md) `MB` (the bottom leaf).
+[domain separator](./crypto-domain-separators.md) \\( \\Domain{MB} \\) (the bottom leaf).
 
 ## Choice of Revealed Signatures
 
@@ -113,10 +115,12 @@ choice is made using a coin.
 In Algorand's implementation, the coin derivation is made in the following manner:
 
 $$
-\Hin = (\texttt{spc} || \Ver || \\\\
-\Participant\Cmt || \ln(\Proven\W) || \\\\
-\Sig\Cmt || \Signed\W || \\\\
-\SP\Msg\Hash)
+\begin{aligned}
+\Hin = (&\Domain{spc} || \Ver || \\\\
+&\Participant\Cmt || \ln(\Proven\W) || \\\\
+&\Sig\Cmt || \Signed\W || \\\\
+&\SP\Msg\Hash)
+\end{aligned}
 $$
 
 Where:

@@ -1,3 +1,5 @@
+{{#include ../_include/tex-macros/domain-separators.md}}
+
 $$
 \newcommand \Proven {\mathrm{Proven}}
 \newcommand \Total {\mathrm{Total}}
@@ -50,7 +52,7 @@ be meet:
 - The _transaction type_ **MUST** be `stpf`.
 
 - The _sender_ **MUST** be equal to a special address, which is the hash of the domain-separation
-prefix `SpecialAddr` (see the corresponding section in the [Algorand Cryptographic
+prefix \\( \\Domain{SpecialAddr} \\) (see the corresponding section in the [Algorand Cryptographic
 Primitive Specification](../crypto/crypto-domain-separators.md)) with the string
 constant `StateProofSender`.
 

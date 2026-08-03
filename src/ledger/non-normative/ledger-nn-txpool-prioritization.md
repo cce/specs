@@ -24,10 +24,9 @@ The function `computeFeePerByte` below demonstrates how this value is computed:
 
 ---
 
-\\( \textbf{Algorithm 2} \text{: Compute Fee per Byte} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 2} \text{: Compute Fee per Byte} \\\\[0.5em]
 &\text{1: } \PSfunction \ComputeFeePerByte() \\\\
 &\text{2: } \quad \FeePB \gets \FeeMul \\\\
 &\text{3: } \quad \PSif \FeePB = 0 \land \TP.\PendingFB > 1 \PSthen \\\\

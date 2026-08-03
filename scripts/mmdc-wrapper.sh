@@ -1,2 +1,5 @@
 #!/bin/sh
-exec "${MMD_PATH}/mmdc-original" --puppeteerConfigFile /etc/puppeteer-config.json "$@"
+exec "${MMD_PATH}/mmdc-original" \
+    --puppeteerConfigFile /etc/puppeteer-config.json \
+    --configFile /etc/mermaid-config.json \
+    "$@"

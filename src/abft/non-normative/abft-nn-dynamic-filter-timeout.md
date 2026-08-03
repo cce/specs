@@ -90,7 +90,7 @@ clamped on the minimum and maximum bounds defined in the [ABFT normative section
 
 ## Parameters
 
-|              NAME              | VALUE (seconds) | DESCRIPTION                                                                                                                                 |
+|              NAME              |    VALUE (s)    | DESCRIPTION                                                                                                                                 |
 |:------------------------------:|:---------------:|---------------------------------------------------------------------------------------------------------------------------------------------|
 | \\( \CredentialHistorySize \\) |   \\( 40 \\)    | Size of the credential arrival time history circular array \\( \CredentialHistory \\).                                                      |
 |     \\( \CredentialIdx \\)     |   \\( 37 \\)    | Entry of the (sorted) array \\( \CredentialHistory \\). Set to represent the 95th percentile (according to \\( \CredentialHistorySize \\)). |

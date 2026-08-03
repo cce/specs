@@ -53,10 +53,9 @@ for this round.
 
 ---
 
-\\( \textbf{Algorithm 4} \text{: Soft Vote} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 4} \text{: Soft Vote} \\\\[0.5em]
 &\text{1: } \PSfunction \SoftVote() \\\\
 &\text{2: } \quad \loh \gets \infty \\\\
 &\text{3: } \quad v \gets \bot \\\\

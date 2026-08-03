@@ -52,9 +52,9 @@ applied, the block is finalized and officially committed to the Ledger.
 
 ```mermaid
 flowchart TD
-    A[**EnsureBlock**] --> C[ledger.**addBlock**]
-    C --> D[Execute **Eval** to process the Block with its **certificate**]
-    D --> E[**StartEvaluator**<br>Fetch previous block and protocol params]
+    A[EnsureBlock] --> C[ledger.addBlock]
+    C --> D[Execute Eval to process the Block with its certificate]
+    D --> E[StartEvaluator<br>Fetch previous block and protocol params]
     E --> G[Initialize Evaluator and Base State]
     G --> H[Calculate updates for new Block]
     H --> I[Apply updates to Ledger state]

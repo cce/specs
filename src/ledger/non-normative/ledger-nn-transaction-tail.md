@@ -57,10 +57,9 @@ A duplication check is the core functionality of \\( \TxTail \\).
 
 ---
 
-\\( \textbf{Algorithm 1} \text{: Check Duplicate} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 1} \text{: Check Duplicate} \\\\[0.5em]
 &\text{1: } \PSfunction \CheckDuplicate(\Tx_r, \FirstValid, \LastValid, \Tx_{\ID}, \Tx_{\Lease}) \\\\
 &\text{2: } \quad \PSif \LastValid < \TxTail.\LowWaterMark \PSthen \\\\
 &\text{3: } \quad \quad \PSreturn \Tx_{\ID} \text{ is not in } \TxTail \\\\

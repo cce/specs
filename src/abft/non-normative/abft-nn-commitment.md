@@ -22,10 +22,9 @@ proposal (a.k.a. the _payset_).
 
 ---
 
-\\( \textbf{Algorithm 8} \text{: Commit} \\)
-
 $$
 \begin{aligned}
+&\textbf{Algorithm 8} \text{: Commit} \\\\[0.5em]
 &\text{1: } \PSfunction \Commit(v) \\\\
 &\text{2: } \quad e \gets \RetrieveProposal(v)_e \\\\
 &\text{3: } \quad L \gets L || e \\\\
