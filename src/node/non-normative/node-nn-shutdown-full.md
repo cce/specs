@@ -58,7 +58,7 @@ $$
 &\text{22:} \quad \PSfor \Handler \in \Node.\mathrm{Database}\Handlers \PSdo \\\\
 &\text{23:} \quad \quad \Handler.\Close() \\\\
 &\text{24:} \quad \PSendfor \\\\
-&\text{25:} \PSendfunction
+&\text{25: } \PSendfunction
 \end{aligned}
 $$
 
