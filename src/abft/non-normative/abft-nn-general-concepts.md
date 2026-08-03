@@ -66,7 +66,7 @@ round, are utilized here with the same definition as in the [normative specifica
 
 Analogous to these, we define a set of observed bundles \\( B \\) for a given round,
 that is built taking subsets of votes in \\( V \\) according to the rules for a
-valid bundle specified in the [normative specification](../abft-messages-bundles.md).
+valid bundle specified in the [normative specification](../abft-messages.md#bundles).
 
 ---
 

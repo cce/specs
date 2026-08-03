@@ -50,7 +50,7 @@ into. The timestamp is stored under msgpack key `ts`.
 
 ### Seed
 
-The block's [_seed_](../abft/abft-messages-seed.md), which matches the seed of the
+The block's [_seed_](../abft/abft-messages.md#seed), which matches the seed of the
 state it transitions into. The seed is stored under msgpack key `seed`.
 
 ### Reward Updates
