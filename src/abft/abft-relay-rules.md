@@ -104,7 +104,7 @@ value), then
 
 $$
 N(S, L, \Bundle(r_k, p_k, s_k, v))
-= (S' \cup \Bundle(r_k, p_k, s_k, v), L', (\Bundle^\ast(r_, p_k, s_k, v'), \ldots)).
+= (S' \cup \Bundle(r_k, p_k, s_k, v), L', (\Bundle^\ast(r_k, p_k, s_k, v'), \ldots)).
 $$
 
 ## Proposals
