@@ -1,9 +1,19 @@
+$$
+\newcommand \Soft {\mathit{soft}}
+\newcommand \Cert {\mathit{cert}}
+\newcommand \Bundle {\mathrm{Bundle}}
+\newcommand \Vote {\mathrm{Vote}}
+\newcommand \FilterTimeout {\mathrm{FilterTimeout}}
+\newcommand \DeadlineTimeout {\mathrm{DeadlineTimeout}}
+\newcommand \Next {\mathit{next}}
+$$
+
 # State Transitions
 
 After receiving message events or a time events, the player may update some components
 of its state.
 
-# New Round
+## New Round
 
 When a player observes that a new round \\( (r, 0) \\) has begun, the player
 sets
@@ -30,13 +40,7 @@ for some \\( i > 0 \\).
 >
 > New round [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/player.go#L454).
 
-$$
-\newcommand \Soft {\mathit{soft}}
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Bundle {\mathrm{Bundle}}
-$$
-
-# New Period
+## New Period
 
 When a player observes that a new period \\( (r, p) \\) has begun, the player sets
 
@@ -80,11 +84,7 @@ for some \\( i > 0 \\) (where \\( S = (r, p-i, s, \bar{s}, V, P, \bar{v}) \\)).
 >
 > New period [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/agreement/player.go#L411).
 
-$$
-\newcommand \Vote {\mathrm{Vote}}
-$$
-
-# Garbage Collection
+## Garbage Collection
 
 When a player observes that either a new _round_ or a new _period_
 \\( (r, p) \\) has begun, then the player _garbage-collects_ old state.
@@ -108,14 +108,7 @@ $$
 
 and \\( P^\ast_{r, p} \\) is defined similarly.
 
-$$
-\newcommand \FilterTimeout {\mathrm{FilterTimeout}}
-\newcommand \DeadlineTimeout {\mathrm{DeadlineTimeout}}
-\newcommand \Cert {\mathit{cert}}
-\newcommand \Next {\mathit{next}}
-$$
-
-# New Step
+## New Step
 
 A player may also update its step after receiving a timeout event.
 
