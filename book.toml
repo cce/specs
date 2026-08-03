@@ -31,7 +31,7 @@ optional = true
 [output.pandoc.profile.pdf]
 output-file = "algorand-specs.pdf"
 pdf-engine = "lualatex"
-filters = ["mermaid-filter", "scripts/pdf-admonitions.lua", "scripts/pdf-layout.lua", "scripts/pdf-noexport.lua"]
+filters = ["scripts/pdf-noexport.lua", "mermaid-filter", "scripts/pdf-admonitions.lua", "scripts/pdf-layout.lua"]
 include-in-header = ["scripts/pdf-header.tex"]
 
 [output.pandoc.profile.pdf.variables]

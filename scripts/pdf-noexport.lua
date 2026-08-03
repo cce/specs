@@ -5,10 +5,12 @@ Source:    https://gist.github.com/tarleb/a0f41adfa7b0e5a9be441e945f843299
 License:   MIT
 Copyright: © Albert Krewinkel
 
-Local change: `is_section_div` no longer requires a `number` attribute.
-`make_sections(false, ...)` never adds one, so the upstream check left every
-section wrapped in a Div, hiding top-level Header/Table pairs from the
-scripts/pdf-layout.lua landscape logic that runs after this filter.
+Local changes:
+- `is_section_div` no longer requires a `number` attribute.
+  `make_sections(false, ...)` never adds one, so the upstream check left every
+  section wrapped in a Div.
+- `section_header` guards with `div.t ~= 'Div'`; the upstream `not div.t == 'Div'`
+  parses as `(not div.t) == 'Div'`, which is always false.
 ]]
 
 -- pandoc.utils.make_sections exists since pandoc 2.8
@@ -25,7 +27,7 @@ end
 -- Returns the header element of a section, or nil if the argument is not a
 -- section.
 local function section_header (div)
-  if not div.t == 'Div' then return nil end
+  if div.t ~= 'Div' then return nil end
   local header = div.content and div.content[1]
   local is_header = is_section_div(div)
     and header
