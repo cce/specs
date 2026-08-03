@@ -1,3 +1,12 @@
+$$
+\newcommand \Vote {\mathrm{Vote}}
+\newcommand \Late {\mathit{late}}
+\newcommand \Down {\mathit{down}}
+\newcommand \Next {\mathit{next}}
+\newcommand \Bundle {\mathrm{Bundle}}
+\newcommand \Proposal {\mathrm{Proposal}}
+$$
+
 # Relay Rules
 
 Here we describe how players handle message events.
@@ -19,14 +28,7 @@ from the peer).
 We say that a player _ignores_ a message if it produces no outputs on
 receiving that message.
 
-$$
-\newcommand \Vote {\mathrm{Vote}}
-\newcommand \Late {\mathit{late}}
-\newcommand \Down {\mathit{down}}
-\newcommand \Next {\mathit{next}}
-$$
-
-# Votes
+## Votes
 
 On receiving a vote \\( \Vote_k(r_k, p_k, s_k, v) \\) a player
 
@@ -67,11 +69,7 @@ N(S, L, \Vote_k(r_k, p_k, s_k, v))
 = (S' \cup \Vote(I, r_k, p_k, s_k, v), L', (\Vote_k^\ast(r_k, p_k, s_k, v),\ldots)).
 $$
 
-$$
-\newcommand \Bundle {\mathrm{Bundle}}
-$$
-
-# Bundles
+## Bundles
 
 On receiving a bundle \\( \Bundle(r_k, p_k, s_k, v) \\) a player
 
@@ -109,11 +107,7 @@ N(S, L, \Bundle(r_k, p_k, s_k, v))
 = (S' \cup \Bundle(r_k, p_k, s_k, v), L', (\Bundle^\ast(r_, p_k, s_k, v'), \ldots)).
 $$
 
-$$
-\newcommand \Proposal {\mathrm{Proposal}}
-$$
-
-# Proposals
+## Proposals
 
 On receiving a proposal \\( \Proposal(v) \\\) a player
 
