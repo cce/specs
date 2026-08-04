@@ -5,7 +5,7 @@ $$
 \newcommand \spk {\mathrm{spk}}
 \newcommand \Tx {\mathrm{Tx}}
 \newcommand \TxType {\mathrm{TxType}}
-\newcommand \TxTail {\Tx\mathrm{Tail}}
+\newcommand \TxTail {\mathrm{TxTail}}
 \newcommand \Hash {\mathrm{Hash}}
 \newcommand \FirstValidRound {r_\mathrm{fv}}
 \newcommand \LastValidRound {r_\mathrm{lv}}
@@ -13,7 +13,7 @@ $$
 \newcommand \nonpart {\mathrm{nonpart}}
 \newcommand \MaxTxTail {\mathrm{TxTail}_{\max}}
 \newcommand \abs[1] {\lvert #1 \rvert}
-\newcommand \floor[1] {\left \lfloor #1 \right \rfloor }
+\newcommand \floor[1] {\left \lfloor #1 \right \rfloor}
 $$
 
 $$

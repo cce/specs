@@ -13,7 +13,7 @@ $$
 \newcommand \DomainSeparationEnabled {\mathrm{DomainSeparationEnabled}}
 \newcommand \Hashable {\mathrm{Hashable}}
 \newcommand \Vote {\mathrm{Vote}}
-\newcommand \Sig {\mathrm{Signature}}
+\newcommand \Signature {\mathrm{Signature}}
 $$
 
 # VRF Selection Keys
@@ -34,7 +34,7 @@ following fields:
 - _Unverified Credential_ (\\( \Cred \\)) contains a single field \\( \mathrm{Proof} \\),
 which is a VRF proof.
 
-- _Signature_ (\\( \Sig \\)), one-time signature of the vote.
+- _Signature_ (\\( \Signature \\)), one-time signature of the vote.
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**
@@ -63,7 +63,7 @@ flag, now must be true by the protocol.
 
 And this verified credential is wrapped in a \\( \Vote \\) struct with _Raw Vote_
 (\\( \mathrm{R} \\)), _Verified Credential_ (\\( \Credential \\)), and _Signature_
-(\\( \Sig \\)).
+(\\( \Signature \\)).
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**

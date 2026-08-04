@@ -15,7 +15,7 @@ $$
 \newcommand \Ver {\mathrm{Version}}
 \newcommand \Cmt {\mathrm{Commitment}}
 \newcommand \Participant {\mathrm{Participant}}
-\newcommand \Sig {\mathrm{Signature}}
+\newcommand \Signature {\mathrm{Signature}}
 \newcommand \Msg {\mathrm{Message}}
 \newcommand \SHAKE {\mathrm{SHAKE256}}
 \newcommand \IntToInd {\mathrm{IntToInd}}
@@ -25,7 +25,7 @@ $$
 \newcommand \MaxRev {\mathit{Max}\Reveals}
 \newcommand \target {\mathrm{target}}
 \newcommand \ceil {\mathrm{ceil}}
-\newcommand \floor {\mathrm{floor}}
+\newcommand \floor[1] {\left \lfloor #1 \right \rfloor}
 $$
 
 # State Proofs
@@ -118,7 +118,7 @@ $$
 \begin{aligned}
 \Hin = (&\Domain{spc} || \Ver || \\\\
 &\Participant\Cmt || \ln(\Proven\W) || \\\\
-&\Sig\Cmt || \Signed\W || \\\\
+&\Signature\Cmt || \Signed\W || \\\\
 &\SP\Msg\Hash)
 \end{aligned}
 $$
@@ -134,7 +134,7 @@ root on the participant array'
 value of \\( \Proven\W \\) with 16 bits of precision, as described in [SNARK-Friendly
 Weight Threshold Verification](https://github.com/algorandfoundation/specs/blob/master/_archive/dev/cryptographic-specs/weight-thresh.pdf),
 
-- \\( \Sig\Cmt \\) is a 512-bit string representing the vector commitment root on
+- \\( \Signature\Cmt \\) is a 512-bit string representing the vector commitment root on
 the signature array,
 
 - \\( \Signed\W \\) is a 64-bit, little-endian integer representing
@@ -325,9 +325,9 @@ $$
 Since reveals do not bottleneck the _quantum-secure_ verifier, we can take:
 
 $$
-\MaxRev_{PQ} <= \floor\left( \MaxRev_C \times \frac{\target_{PQ}}{\target_C} \right)
+\MaxRev_{PQ} <= \floor{\MaxRev_C \times \frac{\target_{PQ}}{\target_C}}
 $$
 
-To be an equality, i.e., \\( \MaxRev_{PQ} = \floor(\ldots) \\).
+To be an equality, i.e., \\( \MaxRev_{PQ} = \floor{\ldots} \\).
 
 Therefore, we must set \\( \MaxRev_{PQ} = 640 \\).

@@ -6,13 +6,13 @@ $$
 \newcommand \KLT {\mathrm{KeyLifeTime}}
 \newcommand \Hash {\mathrm{Hash}}
 \newcommand \SchemeID {\mathrm{SchemeID}}
-\newcommand \Sig {\mathrm{Signature}}
-\newcommand \Verify {\mathrm{VerifyingKey}}
+\newcommand \Signature {\mathrm{Signature}}
+\newcommand \VerifyingKey {\mathrm{VerifyingKey}}
 \newcommand \VectorIdx {\mathrm{VectorIndex}}
 \newcommand \Proof {\mathrm{Proof}}
 \newcommand \Digest {\mathrm{Digest}}
 \newcommand \ZDigest {\mathrm{Zero}\Digest}
-\newcommand \SigBits {\Sig\mathrm{BitString}}
+\newcommand \SigBits {\Signature\mathrm{BitString}}
 \newcommand \pk {\mathrm{pk}}
 \newcommand \Leaf {\mathrm{Leaf}}
 \newcommand \Round {\mathrm{Round}}
@@ -86,9 +86,9 @@ Primitives Specification](../crypto/crypto.md).
 
 A _signature_ in the scheme consists of the following elements:
 
-- \\( \Sig \\) is a signature generated with the FALCON scheme.
+- \\( \Signature \\) is a signature generated with the FALCON scheme.
 
-- \\( \Verify \\) is a FALCON ephemeral public key.
+- \\( \VerifyingKey \\) is a FALCON ephemeral public key.
 
 - \\( \VectorIdx \\) is an index of the ephemeral public key leaf in the vector
 commitment.
@@ -105,16 +105,16 @@ When signature is to be hashed, it must be serialized into a binary string accor
 to the following format:
 
 $$
-\SigBits = (\SchemeID || \Sig || \Verify || \VectorIdx || \Proof)
+\SigBits = (\SchemeID || \Signature || \VerifyingKey || \VectorIdx || \Proof)
 $$
 
 Where:
 
 - \\( \SchemeID \\) is a 16-bit, little-endian constant integer with value of \\( 0 \\).
 
-- \\( \Sig \\) is a 12,304-bit string representing a FALCON signature in a CT format.
+- \\( \Signature \\) is a 12,304-bit string representing a FALCON signature in a CT format.
 
-- \\( \Verify \\) is a 14,344-bit string.
+- \\( \VerifyingKey \\) is a 14,344-bit string.
 
 - \\( \VectorIdx \\) is a 64-bit, little-endian integer.
 
@@ -141,13 +141,13 @@ Where:
 A signature \\( s \\) for a message \\( m \\) at round \\( r \\) is valid under
 the public commitment \\( \pk \\) and \\( \KLT \\) if:
 
-- The FALCON signature \\( s.\Sig \\) is valid for the message \\( m \\) under the
-public key \\( s.\Verify \\)
+- The FALCON signature \\( s.\Signature \\) is valid for the message \\( m \\) under the
+public key \\( s.\VerifyingKey \\)
 
 - The proof \\( s.\Proof \\) is a valid vector commitment proof for the entry \\( \Leaf \\)
 at index \\( s.\VectorIdx \\) with respect to the vector commitment root \\( \pk \\)
 where:
 
-  - \\( \Leaf := \Domain{"KP"} || \SchemeID || \Round || s.\Verify \\),
+  - \\( \Leaf := \Domain{"KP"} || \SchemeID || \Round || s.\VerifyingKey \\),
 
   - \\( \Round := r - (r \mod \KLT) \\).

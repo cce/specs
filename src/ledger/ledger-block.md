@@ -13,7 +13,7 @@ $$
 \newcommand \PayoutMaxMarkAbsent {B_{N_\mathrm{a},\max}}
 \newcommand \MaxTxnBytesPerBlock {B_{\max}}
 \newcommand \Genesis {\mathrm{Genesis}}
-\newcommand \GenesisID {\Genesis{\mathrm{ID}}}
+\newcommand \GenesisID {\Genesis\mathrm{ID}}
 \newcommand \Hash {\mathrm{Hash}}
 \newcommand \GenesisHash {\Genesis\Hash}
 \newcommand \Prev {\mathrm{Prev}}
@@ -27,15 +27,15 @@ $$
 \newcommand \Seed {\mathrm{Seed}}
 \newcommand \Tx {\mathrm{Tx}}
 \newcommand \TxID {\Tx\mathrm{ID}}
-\newcommand \TxSeq {\Tx\mathrm{Seq}}
-\newcommand \TxCommit {\Tx\mathrm{Commit}}
-\newcommand \TxTail {\Tx\mathrm{Tail}}
+\newcommand \TxSeq {\mathrm{TxSeq}}
+\newcommand \TxCommit {\mathrm{TxCommit}}
+\newcommand \TxTail {\mathrm{TxTail}}
 \newcommand \SHATFS {\mathrm{SHA256}}
 \newcommand \SHAFOT {\mathrm{SHA512}}
 \newcommand \Sig {\mathrm{Sig}}
 \newcommand \STIB {\mathrm{STIB}}
 \newcommand \ApplyData {\mathrm{ApplyData}}
-\newcommand {\abs}[1] {\lvert #1 \rvert}
+\newcommand \abs[1] {\lvert #1 \rvert}
 \newcommand \MaxTxTail {\mathrm{TxTail}_{\max}}
 $$
 
