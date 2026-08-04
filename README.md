@@ -17,8 +17,7 @@ automation, deployments, and releases.
 
 ### Requirements
 
-All workflows require [Git](https://git-scm.com/downloads), [GNU Make](https://www.gnu.org/software/make/),
-[Bash](https://www.gnu.org/software/bash/), and the repository's Git submodules.
+All workflows require Git, GNU Make, Bash, and the repository's Git submodules.
 
 Choose one execution path:
 

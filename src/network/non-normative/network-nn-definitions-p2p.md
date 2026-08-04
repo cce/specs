@@ -17,7 +17,7 @@ Let’s define \\( \PtoPNet \\) as an object that models a working Peer-to-Peer 
 A minimal \\( \PtoPNet \\) should have:
 
 - A `GenesisID` identifying which network it is a part of (see
-[Ledger specifications](../../ledger/ledger-block.md#genesis-identifier-definition)),
+[Ledger specifications](../../ledger/ledger-block.md#genesis-identifier-genesis-identifier-definition)),
 
 - A `PeerStore` container to keep peer data and expose relevant connection metadata
 (see [Peer management section](./network-nn-peer-management.md)),
@@ -56,7 +56,7 @@ communication.
 > implementation. These two streams are multiplexed over a single connection.
 
 > [!NOTE]
-> For more information on `GossipSub`, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/overview/).
+> For more information on `GossipSub`, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/).
 
 ## P2P Network Topology
 
@@ -82,7 +82,7 @@ to a topic are _discoverable_ and _addressable_ by other peers capable of servin
 data about that topic.
 
 > [!NOTE]
-> For more information on `pubsub` protocol, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/overview/).
+> For more information on `pubsub` protocol, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/).
 
 The _topic_ used to subscribe to transaction gossiping is `algotx01`.
 
