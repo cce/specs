@@ -41,11 +41,11 @@ values_ \\( v \\). In other words, given a player \\( I \\) and a node’s conte
 tuple \\((r, p, s)\\), \\( \Equivocation(I, r, p, s) = (\Vote(I, r, p, s, v_1), \Vote(I, r, p, s, v_2)) \\)
 for some \\( v_1 \neq v_2 \\).
 
-## Algorithm
+## Algorithms
 
 ```pseudocode
 \begin{algorithm}
-\caption{Handle Vote}
+\caption{Validate Vote}
 \begin{algorithmic}
 \Function{ValidateVote}{$\vt$}
   \If{$\lnot \VerifyVote(\vt)$}
@@ -68,6 +68,16 @@ for some \\( v_1 \neq v_2 \\).
     \Return \Comment{Ignore vote}
   \EndIf
 \EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
+
+Votes that pass validation are then handled as follows:
+
+```pseudocode
+\begin{algorithm}
+\caption{Handle Vote}
+\begin{algorithmic}
 \Function{HandleVote}{$\vt$}
   \State $\ValidateVote(\vt)$ \Comment{Check the validity of the vote}
   \State $V \gets V \cup \vt$ \Comment{Observe the vote}

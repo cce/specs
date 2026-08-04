@@ -56,6 +56,13 @@
                     /\$([^$]+)\$/g,
                     "\\($1\\)"
                 );
+                // Unnumbered captions: pseudocode.js hardcodes "Algorithm N".
+                var caption = container.querySelector(
+                    ".ps-algorithm > .ps-line > .ps-keyword"
+                );
+                if (caption && /^Algorithm \d+\s*$/.test(caption.textContent)) {
+                    caption.textContent = "Algorithm: ";
+                }
                 rendered.push(container);
             });
 

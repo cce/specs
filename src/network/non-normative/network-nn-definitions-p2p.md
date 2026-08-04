@@ -17,7 +17,7 @@ Let’s define \\( \PtoPNet \\) as an object that models a working Peer-to-Peer 
 A minimal \\( \PtoPNet \\) should have:
 
 - A `GenesisID` identifying which network it is a part of (see
-[Ledger specifications](../../ledger/ledger-block.md#genesis-identifier-genesis-identifier-definition)),
+[Ledger specifications](../../ledger/ledger-block.md#genesis-identifier-definition)),
 
 - A `PeerStore` container to keep peer data and expose relevant connection metadata
 (see [Peer management section](./network-nn-peer-management.md)),

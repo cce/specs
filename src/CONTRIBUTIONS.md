@@ -248,11 +248,14 @@ Pseudocode blocks **MUST** only use the command subset supported by both rendere
 
 Conventions:
 
-- Captions **MUST NOT** contain manual numbering ("Algorithm N"): algorithms are
-  numbered automatically (per page on the Web version, book-wide in the PDF).
+- Captions **MUST NOT** contain numbering ("Algorithm N"). Reference
+  algorithms by their caption title, which **MUST** be unique across the book.
 - Lines are numbered automatically; **do not** write manual line numbers.
 - `\Return` is used bare (not wrapped in `\State`); the PDF filter adds the
   wrapper LaTeX needs.
+- Algorithms **MUST** fit on one PDF page (roughly 45 numbered lines): larger
+  ones overflow the page and get clipped. Split them at a function or semantic
+  boundary; the PDF build emits a warning past this size.
 - Mathematical notation inside statements uses `$...$` delimiters; all
   [TeX-macros](#tex-macros) are available inside.
 - Function names in `\Function`/`\Call` are plain text, not macros.
@@ -263,7 +266,7 @@ Conventions:
 > ````markdown
 > ```pseudocode
 > \begin{algorithm}
-> \caption{Transaction Ingestion}
+> \caption{Example Algorithm}
 > \begin{algorithmic}
 > \Function{Ingest}{$\TG\ gtx$}
 >   \If{$\lnot \BlockEval$}

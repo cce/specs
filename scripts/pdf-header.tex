@@ -6,6 +6,11 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 
+% Unnumbered algorithm captions: print "Algorithm:" instead of "Algorithm N".
+\makeatletter
+\renewcommand{\fnum@algorithm}{\fname@algorithm:}
+\makeatother
+
 % Callouts for mdBook admonitions, produced by scripts/pdf-admonitions.lua.
 % GitHub alert palette; framed makes the left bar breakable across pages.
 \usepackage{xcolor}
