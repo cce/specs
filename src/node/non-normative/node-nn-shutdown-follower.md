@@ -1,8 +1,6 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \Node {\mathrm{node}}
-\newcommand \FollowerNode {\mathrm{FollowerlNode}}
+\newcommand \FollowerNode {\mathrm{FollowerNode}}
 \newcommand \Stop {\mathrm{Stop}}
 \newcommand \Handlers {\mathrm{Handlers}}
 \newcommand \Network {\mathrm{Network}}
@@ -24,34 +22,32 @@ The shutdown procedure ensures that all services are stopped and resources are p
 deallocated. This prevents data corruption and ensures the node stops in a stable
 and predictable state.
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 4} \text{: Follower Node Shutdown} \\\\[0.5em]
-&\text{1: } \PSfunction \FollowerNode.\Stop() \\\\
-&\text{2: } \PScomment{Network Cleanup} \\\\
-&\text{3: } \quad \Node.\Network.\Stop\Handlers() \\\\
-&\text{4: } \quad \PSif \neg \Node.\Config.\Stop\Network \PSthen \\\\
-&\text{5: } \quad \quad \Node.\Network.\Stop() \\\\
-&\text{6: } \quad \PSendif \\\\
-&\text{7: } \PScomment{Service Shutdown} \\\\
-&\text{8: } \quad \PSif \exists \Node.\Catchpoint\Catchup\Service \PSthen \\\\
-&\text{9: } \quad \quad \Node.\Catchpoint\Catchup\Service.\Stop() \\\\
-&\text{10:} \quad \PSelse \\\\
-&\text{11:} \PScomment{Follower Services Only} \\\\
-&\text{12:} \quad \quad \Node.\Catchup\Service.\Stop() \\\\
-&\text{13:} \quad \quad \Node.\Block\Service.\Stop() \\\\
-&\text{14:} \quad \PSendif \\\\
-&\text{15:} \PScomment{Resource Cleanup} \\\\
-&\text{16:} \quad \Node.\Catchup.\Block\Auth.\Stop() \\\\
-&\text{17:} \quad \Node.\CryptoPool.\mathrm{lowPriority}.\Stop() \\\\
-&\text{18:} \quad \Node.\CryptoPool.\Stop() \\\\
-&\text{19: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Follower Node Shutdown}
+\begin{algorithmic}
+\Function{FollowerNode.Stop}{}
+  \State \Comment{Network Cleanup}
+  \State $\Node.\Network.\Stop\Handlers()$
+  \If{$\neg \Node.\Config.\Stop\Network$}
+    \State $\Node.\Network.\Stop()$
+  \EndIf
+  \State \Comment{Service Shutdown}
+  \If{$\exists \Node.\Catchpoint\Catchup\Service$}
+    \State $\Node.\Catchpoint\Catchup\Service.\Stop()$
+  \Else
+    \State \Comment{Follower Services Only}
+    \State $\Node.\Catchup\Service.\Stop()$
+    \State $\Node.\Block\Service.\Stop()$
+  \EndIf
+  \State \Comment{Resource Cleanup}
+  \State $\Node.\Catchup.\Block\Auth.\Stop()$
+  \State $\Node.\CryptoPool.\mathrm{lowPriority}.\Stop()$
+  \State $\Node.\CryptoPool.\Stop()$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**

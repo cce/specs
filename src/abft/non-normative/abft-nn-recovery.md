@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \DeadlineTimeout {\mathrm{DeadlineTimeout}}
 \newcommand \Recovery {\mathrm{Recovery}}
@@ -24,33 +22,29 @@ has not been observed before \\( \DeadlineTimeout(p) \\) for a given period \\( 
 
 ## Algorithm
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 9} \text{: Recovery} \\\\[0.5em]
-&\text{1: } \PSfunction \Recovery() \\\\
-&\text{2: } \quad \ResynchronizationAttempt() \\\\
-&\text{3: } \quad \PSfor a \in A \PSdo \\\\
-&\text{4: } \quad \quad \c \gets \Sortition(a_I, r, p, s) \\\\
-&\text{5: } \quad \quad \PSif \c_j > 0 \PSthen \\\\
-&\text{6: } \quad \quad \quad \PSif \exists v = \Proposal_v(\prop, \prop_p, \prop_I) \\\\
-            &\quad \quad \quad \quad \quad \text{for some } \prop \in P \mid \IsCommittable(v) \PSthen \\\\
-&\text{7: } \quad \quad \quad \quad \Broadcast(\Vote(a_I, r, p, s, v, \c)) \\\\
-&\text{8: } \quad \quad \quad \PSelseif \exists s_0 > \Cert \mid \Bundle(r, p - 1, s_0, \bot) \subseteq V \land \\\\
-            &\quad \quad \quad \quad \quad \quad \quad \exists s_1 > \Cert \mid \Bundle(r, p - 1, s_1, \bar{v}) \subseteq V \PSthen \\\\
-&\text{9: } \quad \quad \quad \quad \Broadcast(\Vote(a_I, r, p, s, \bar{v}, \c)) \\\\
-&\text{10:} \quad \quad \quad \PSelse \\\\
-&\text{11:} \quad \quad \quad \quad \Broadcast(\Vote(a_I, r, p, s, \bot, \c)) \\\\
-&\text{12:} \quad \quad \quad \PSendif \\\\
-&\text{13:} \quad \quad \PSendif \\\\
-&\text{14:} \quad \PSendfor \\\\
-&\text{15:} \quad \s \gets \s + 1 \\\\
-&\text{16: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Recovery}
+\begin{algorithmic}
+\Function{Recovery}{}
+  \State $\ResynchronizationAttempt()$
+  \For{$a \in A$}
+    \State $\creds \gets \Sortition(a_I, r, p, s)$
+    \If{$\creds_j > 0$}
+      \If{$\exists v = \Proposal_v(\prop, \prop_p, \prop_I)$ for some $\prop \in P \mid \IsCommittable(v)$}
+        \State $\Broadcast(\Vote(a_I, r, p, s, v, \creds))$
+      \ElsIf{$\exists s_0 > \Cert \mid \Bundle(r, p - 1, s_0, \bot) \subseteq V \land \exists s_1 > \Cert \mid \Bundle(r, p - 1, s_1, \bar{v}) \subseteq V$}
+        \State $\Broadcast(\Vote(a_I, r, p, s, \bar{v}, \creds))$
+      \Else
+        \State $\Broadcast(\Vote(a_I, r, p, s, \bot, \creds))$
+      \EndIf
+    \EndIf
+  \EndFor
+  \State $\s \gets \s + 1$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**
@@ -63,7 +57,7 @@ Afterward (Lines 3:5), the node plays independently for each _online_ account (r
 on the node). This means that for _every account_ available in \\( A \\), the
 \\( \Sortition \\) algorithm is run, and accounts selected in the recovery committee
 (i.e., the players) for the _current step_ \\( \Next_k \\) (that is, those whose
-\\( \c_j > 0 \\)) will produce one of the following three distinct outputs (Lines 6:14):
+\\( \creds_j > 0 \\)) will produce one of the following three distinct outputs (Lines 6:14):
 
 - If a _proposal-value_ \\( v \\) can be committed in the current context, then the
 player broadcasts a \\( \Next_k \\) vote for \\( v \\).

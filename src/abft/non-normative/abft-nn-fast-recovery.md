@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \Recovery {\mathrm{Recovery}}
 \newcommand \FastRecovery {\mathrm{FastRecovery}}
@@ -49,40 +47,37 @@ conditions were met.
 
 ## Algorithm
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 10} \text{: Fast Recovery} \\\\[0.5em]
-&\text{1: } \PSfunction \FastRecovery() \\\\
-&\text{2: } \quad \Resync() \\\\
-&\text{3: } \quad \PSfor a \in A \PSdo \\\\
-&\text{4: } \quad \quad \PSif \IsCommittable(\bar{v}) \PSthen \\\\
-&\text{5: } \quad \quad \quad \c \gets \Sortition(a_I, r, p, \Late) \\\\
-&\text{6: } \quad \quad \quad \PSif \c_j > 0 \PSthen \\\\
-&\text{7: } \quad \quad \quad \quad \Broadcast(\Vote(r, p, \Late, \bar{v}, \c)) \\\\
-&\text{8: } \quad \quad \quad \PSendif \\\\
-&\text{9: } \quad \quad \PSelseif \nexists s_0 > \Cert \mid \Bundle(r, p - 1, s_0, \bot) \subseteq V \land \\\\
-            &\quad \quad \quad \quad \quad \quad \exists s_1 > \Cert \mid \Bundle(r, p - 1, s_1, \bar{v}) \subseteq V \PSthen \\\\
-&\text{10:} \quad \quad \quad \c \gets \Sortition(a_I, r, p, \Redo) \\\\
-&\text{11:} \quad \quad \quad \PSif \c_j > 0 \PSthen \\\\
-&\text{12:} \quad \quad \quad \quad \Broadcast(\Vote(r, p, \Redo, \bar{v}, \c)) \\\\
-&\text{13:} \quad \quad \quad \PSendif \\\\
-&\text{14:} \quad \quad \PSelse \\\\
-&\text{15:} \quad \quad \quad \c \gets \Sortition(a_I, r, p, \Down) \\\\
-&\text{16:} \quad \quad \quad \PSif \c_j > 0 \PSthen \\\\
-&\text{17:} \quad \quad \quad \quad \Broadcast(\Vote(r, p, \Down, \bot, \c)) \\\\
-&\text{18:} \quad \quad \quad \PSendif \\\\
-&\text{19:} \quad \quad \PSendif \\\\
-&\text{20:} \quad \PSendfor \\\\
-&\text{21:} \quad \PSfor \vt \in V \text{ such that } \vt_s \geq 253 \PSdo \\\\
-&\text{22:} \quad \quad \Broadcast(\vt) \\\\
-&\text{23:} \quad \PSendfor \\\\
-&\text{24: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Fast Recovery}
+\begin{algorithmic}
+\Function{FastRecovery}{}
+  \State $\Resync()$
+  \For{$a \in A$}
+    \If{$\IsCommittable(\bar{v})$}
+      \State $\creds \gets \Sortition(a_I, r, p, \Late)$
+      \If{$\creds_j > 0$}
+        \State $\Broadcast(\Vote(r, p, \Late, \bar{v}, \creds))$
+      \EndIf
+    \ElsIf{$\nexists s_0 > \Cert \mid \Bundle(r, p - 1, s_0, \bot) \subseteq V \land \exists s_1 > \Cert \mid \Bundle(r, p - 1, s_1, \bar{v}) \subseteq V$}
+      \State $\creds \gets \Sortition(a_I, r, p, \Redo)$
+      \If{$\creds_j > 0$}
+        \State $\Broadcast(\Vote(r, p, \Redo, \bar{v}, \creds))$
+      \EndIf
+    \Else
+      \State $\creds \gets \Sortition(a_I, r, p, \Down)$
+      \If{$\creds_j > 0$}
+        \State $\Broadcast(\Vote(r, p, \Down, \bot, \creds))$
+      \EndIf
+    \EndIf
+  \EndFor
+  \For{$\vt \in V \text{ such that } \vt_s \geq 253$}
+    \State $\Broadcast(\vt)$
+  \EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**

@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \Bundle {\mathrm{Bundle}}
 \newcommand \HandleBundle {\mathrm{HandleBundle}}
@@ -17,26 +15,24 @@ The node runs a bundle handler when receiving a message with a _full bundle_.
 
 ## Algorithm
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 7} \text{: Handle Bundle} \\\\[0.5em]
-&\text{1: } \PSfunction \HandleBundle(\b): \\\\
-&\text{2: } \quad \PSif \PSnot \VerifyBundle(\b) \PSthen \\\\
-&\text{3: } \quad \quad \DisconnectFromPeer(\SenderPeer(\b)) \\\\
-&\text{4: } \quad \quad \PSreturn \\\\
-&\text{5: } \quad \PSendif \\\\
-&\text{6: } \quad \PSif \b_r = r \land \b_p + 1 \ge p \PSthen \\\\
-&\text{7: } \quad \quad \PSfor \vt \in \b \PSdo \\\\
-&\text{8: } \quad \quad \quad \HandleVote(\vt) \\\\
-&\text{9: } \quad \quad \PSendfor \\\\
-&\text{10:} \quad \PSendif \\\\
-&\text{11: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Handle Bundle}
+\begin{algorithmic}
+\Function{HandleBundle}{$\bdl$}
+  \If{$\lnot \VerifyBundle(\bdl)$}
+    \State $\DisconnectFromPeer(\SenderPeer(\bdl))$
+    \Return
+  \EndIf
+  \If{$\bdl_r = r \land \bdl_p + 1 \ge p$}
+    \For{$\vt \in \bdl$}
+      \State $\HandleVote(\vt)$
+    \EndFor
+  \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**
@@ -61,16 +57,16 @@ Then the bundle is processed, calling the vote handler _for each vote_ in the bu
 
 Note that multiple bundles can be processed concurrently. Therefore, while handling
 votes from a bundle \\( b \\) for _proposal-value_ \\( v \\) _separately_, if another
-bundle \\( \b\prime = \Bundle(\b_r, \b_p, \b_s, v\prime) \\) is formed and observed
+bundle \\( \bdl\prime = \Bundle(\bdl_r, \bdl_p, \bdl_s, v\prime) \\) is formed and observed
 first (with \\( v\prime \\) not necessarily equal to \\( v \\)[^1]), votes in
-\\( \b\prime \\) are relayed individually, and any output or state changes caused
-by observing \\( \b\prime \\) is produced.
+\\( \bdl\prime \\) are relayed individually, and any output or state changes caused
+by observing \\( \bdl\prime \\) is produced.
 
 All leftover votes in \\( b \\) are then processed according to the new node state
-determined by \\( \b\prime \\) observation (e.g., votes are discarded if the executing
+determined by \\( \bdl\prime \\) observation (e.g., votes are discarded if the executing
 step was _certification_ and a new round has started, and so \\( b_r < r \\)).
 
-If \\( \b \\) does not pass the previous check (Line 6), then no output is produced,
+If \\( \bdl \\) does not pass the previous check (Line 6), then no output is produced,
 and the bundle is ignored and discarded.
 
 ---

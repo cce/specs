@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \EventHandler {\mathrm{EventHandler}}
 \newcommand \BlockProposal {\mathrm{BlockProposal}}
@@ -58,45 +56,44 @@ different states happen.
 
 We may model the state machine’s main algorithm in the following way:
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 2} \text{: Main State Machine} \\\\[0.5em]
-&\text{1: } \PSfunction \EventHandler(ev) \\\\
-&\text{2: } \qquad \PSif \ev \text{ is a } \TimeoutEvent \PSthen \\\\
-&\text{3: } \qquad \quad \t \gets \ev_\t \\\\
-&\text{4: } \qquad \quad \PSif \t = 0 \PSthen \PScomment{Last round should have left us with s := propose} \\\\
-&\text{5: } \qquad \quad \quad \BlockProposal() \\\\&\text{6: } \qquad \quad \quad \PSif \text{finished a block} \lor \mathrm{CurrentTime}() = \mathrm{AssemblyDeadline}() \PSthen \\\\
-&\text{7: } \qquad \quad \quad \quad \s \gets \Soft \\\\
-&\text{8: } \qquad \quad \quad \PSendif \\\\
-&\text{9: } \qquad \quad \PSelseif time = \DynamicFilterTimeout(p) \PSthen \\\\
-&\text{10:} \qquad \quad \quad \SoftVote() \\\\
-&\text{11:} \qquad \quad \quad \s \gets \Cert \\\\
-&\text{12:} \qquad \quad \PSelseif \t = \DeadlineTimeout(p) \PSthen \\\\
-&\text{13:} \qquad \quad \quad \s \gets \Next_0 \\\\
-&\text{14:} \qquad \quad \quad \Recovery() \\\\
-&\text{15:} \qquad \quad \PSelseif \t = \DeadlineTimeout(p) + 2^{s_t - 3}\lambda \text{ for } 4 \le s_t \le 252 \PSthen \\\\
-&\text{16:} \qquad \quad \quad \s \gets \Next_{s_t} \\\\
-&\text{17:} \qquad \quad \quad \Recovery() \\\\
-&\text{18:} \qquad \quad \PSelseif \t = k\lambda_f + rnd \text{ for } k, rnd \in \mathbb{Z}, k > 0, 0 \le rnd \le \lambda_f \PSthen \\\\
-&\text{19:} \qquad \quad \quad \FastRecovery() \\\\
-&\text{20:} \qquad \quad \PSendif \\\\
-&\text{21:} \qquad \PSelse \PScomment{MessageEvent could trigger a commitment and round advancement} \\\\
-&\text{22:} \qquad \quad msg \gets ev_{msg} \\\\
-&\text{23:} \qquad \quad \PSif \data \text{ is of type } \texttt{Proposal } pp \PSthen \\\\
-&\text{24:} \qquad \quad \quad \HandleProposal(pp) \\\\
-&\text{25:} \qquad \quad \PSelseif \data \text{ is of type } \texttt{Vote } v \PSthen \\\\
-&\text{26:} \qquad \quad \quad \HandleVote(v) \\\\
-&\text{27:} \qquad \quad \PSelseif \data \text{ is of type } \texttt{Bundle } b \PSthen \\\\
-&\text{28:} \qquad \quad \quad \HandleBundle(b) \\\\
-&\text{29:} \qquad \quad \PSendif \\\\
-&\text{30:} \qquad \PSendif \\\\
-&\text{31: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Main State Machine}
+\begin{algorithmic}
+\Function{EventHandler}{$ev$}
+  \If{$\ev$ is a $\TimeoutEvent$}
+    \State $\tme \gets \ev_\tme$
+    \If{$\tme = 0$} \Comment{Last round should have left us with s := propose}
+      \State $\BlockProposal()$
+      \If{finished a block $\lor \mathrm{CurrentTime}() = \mathrm{AssemblyDeadline}()$}
+        \State $\s \gets \Soft$
+      \EndIf
+    \ElsIf{$time = \DynamicFilterTimeout(p)$}
+      \State $\SoftVote()$
+      \State $\s \gets \Cert$
+    \ElsIf{$\tme = \DeadlineTimeout(p)$}
+      \State $\s \gets \Next_0$
+      \State $\Recovery()$
+    \ElsIf{$\tme = \DeadlineTimeout(p) + 2^{s_t - 3}\lambda$ for $4 \le s_t \le 252$}
+      \State $\s \gets \Next_{s_t}$
+      \State $\Recovery()$
+    \ElsIf{$\tme = k\lambda_f + rnd$ for $k, rnd \in \mathbb{Z}, k > 0, 0 \le rnd \le \lambda_f$}
+      \State $\FastRecovery()$
+    \EndIf
+  \Else \Comment{MessageEvent could trigger a commitment and round advancement}
+    \State $msg \gets ev_{msg}$
+    \If{$\data$ is of type \texttt{Proposal} $pp$}
+      \State $\HandleProposal(pp)$
+    \ElsIf{$\data$ is of type \texttt{Vote} $v$}
+      \State $\HandleVote(v)$
+    \ElsIf{$\data$ is of type \texttt{Bundle} $b$}
+      \State $\HandleBundle(b)$
+    \EndIf
+  \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 The first three steps (\\( \Propose, \Soft, \Cert \\)) are the fundamental parts,
 and will be the only steps run in regular “healthy” functioning conditions.
@@ -207,7 +204,7 @@ trigger time).
 \\( \MessageEvent \\) are events triggered after observing a specific message carrying
 data.
 
-In **Algorithm 2**, we focused on three kinds of messages:
+In the _Main State Machine_ algorithm, we focused on three kinds of messages:
 
 - \\( \texttt{Proposal} \\),
 - \\( \texttt{Vote} \\),

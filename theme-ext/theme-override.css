@@ -5,3 +5,9 @@
   top: auto !important;
   bottom: auto !important;
 }
+
+/* pseudocode.js blocks: follow the mdBook theme instead of hardcoded black */
+.ps-root .ps-algorithm,
+.ps-root .ps-algorithm.with-caption > .ps-line:first-child {
+  border-color: var(--fg);
+}

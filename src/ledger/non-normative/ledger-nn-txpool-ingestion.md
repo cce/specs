@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \TP {\mathrm{TxPool}}
 \newcommand \TG {\mathrm{TxnGroup}}
@@ -8,7 +6,6 @@ $$
 \newcommand \Ledger {\mathrm{Ledger}}
 \newcommand \CheckSufficientFee {\mathrm{CheckSufficientFee}}
 \newcommand \now {\mathrm{now}}
-\newcommand \Ingest {\mathrm{Ingest}}
 $$
 
 # Ingestion
@@ -29,33 +26,31 @@ A \\( \BlockEval \\) is the construct used to ingest \\( \TG \\).
 The following pseudocode snippet illustrates how this ingestion process could be
 implemented:
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 4} \text{: Transaction Ingestion} \\\\[0.5em]
-&\text{1: } \PSfunction \Ingest(\TG\ gtx) \\\\
-&\text{2: } \quad \dots \\\\
-&\text{3: } \quad \PSif \lnot \BlockEval \PSthen \\\\
-&\text{4: } \quad \quad \PSreturn \PScomment{No pending Block Evaluator exists} \\\\
-&\text{5: } \quad \PSendif \\\\
-&\text{6: } \quad \PSif \lnot \texttt{recompute} \PSthen \\\\
-&\text{7: } \quad \quad r \gets \Ledger.\mathrm{getLatestRound}() \\\\
-&\text{8: } \quad \quad t^\ast \gets \now() + \delta_{\NB} \\\\
-&\text{9: } \quad \quad \PSwhile \BlockEval.\mathrm{round}() \leq r \land \now() < t^\ast \PSdo \\\\
-&\text{10:} \quad \quad \quad \textsf{Give time to the } \BlockEval \textsf{ to catch up} \\\\
-&\text{11:} \quad \quad \PSendwhile \\\\
-&\text{12:} \quad \quad \PSif \lnot \CheckSufficientFee(gtx) \PSthen \\\\
-&\text{13:} \quad \quad \quad \PSreturn gtx \PScomment{Discarded for insufficient fees} \\\\
-&\text{14:} \quad \quad \PSendif \\\\
-&\text{15:} \quad \PSendif \\\\
-&\text{16:} \quad \TP \gets \BlockEval.\mathrm{add}(gtx) \\\\
-&\text{17:} \quad \dots \\\\
-&\text{18: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Transaction Ingestion}
+\begin{algorithmic}
+\Function{Ingest}{$\TG\ gtx$}
+  \State $\dots$
+  \If{$\lnot \BlockEval$}
+    \Return \Comment{No pending Block Evaluator exists}
+  \EndIf
+  \If{$\lnot \texttt{recompute}$}
+    \State $r \gets \Ledger.\mathrm{getLatestRound}()$
+    \State $t^\ast \gets \now() + \delta_{\NB}$
+    \While{$\BlockEval.\mathrm{round}() \leq r \land \now() < t^\ast$}
+      \State give time to the $\BlockEval$ to catch up
+    \EndWhile
+    \If{$\lnot \CheckSufficientFee(gtx)$}
+      \Return $gtx$ \Comment{Discarded for insufficient fees}
+    \EndIf
+  \EndIf
+  \State $\TP \gets \BlockEval.\mathrm{add}(gtx)$
+  \State $\dots$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!NOTE]
 > Transaction ingestion [reference implementation](https://github.com/algorand/go-algorand/blob/b6e5bcadf0ad3861d4805c51cbf3f695c38a93b7/data/pools/transactionPool.go#L440).
