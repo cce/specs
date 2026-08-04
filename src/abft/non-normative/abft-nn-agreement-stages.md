@@ -68,7 +68,7 @@ We may model the state machine’s main algorithm in the following way:
       \If{finished a block $\lor \mathrm{CurrentTime}() = \mathrm{AssemblyDeadline}()$}
         \State $\s \gets \Soft$
       \EndIf
-    \ElsIf{$time = \DynamicFilterTimeout(p)$}
+    \ElsIf{$\tme = \DynamicFilterTimeout(p)$}
       \State $\SoftVote()$
       \State $\s \gets \Cert$
     \ElsIf{$\tme = \DeadlineTimeout(p)$}

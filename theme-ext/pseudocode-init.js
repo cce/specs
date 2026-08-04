@@ -15,13 +15,22 @@
 
     // pseudocode.js picks its math backend (KaTeX or MathJax) at render time,
     // and this book loads MathJax async from the page head - so wait for it.
-    function whenMathJaxReady(fn) {
+    var MATHJAX_POLL_MS = 100;
+    var MATHJAX_WAIT_MS = 30000;
+
+    function whenMathJaxReady(fn, waited) {
+        waited = waited || 0;
         if (window.MathJax && window.MathJax.Hub) {
             fn();
-        } else {
+        } else if (waited < MATHJAX_WAIT_MS) {
             setTimeout(function () {
-                whenMathJaxReady(fn);
-            }, 100);
+                whenMathJaxReady(fn, waited + MATHJAX_POLL_MS);
+            }, MATHJAX_POLL_MS);
+        } else {
+            console.warn(
+                "pseudocode-init: MathJax did not load; " +
+                "pseudocode blocks are left unrendered."
+            );
         }
     }
 
