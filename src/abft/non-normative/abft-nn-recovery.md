@@ -12,7 +12,7 @@ $$
 \newcommand \Bundle {\mathrm{Bundle}}
 \newcommand \Cert {\mathit{cert}}
 \newcommand \Next {\mathit{next}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 \newcommand \prop {\mathit{proposal}}
 \newcommand \s {\mathit{step}}
 $$

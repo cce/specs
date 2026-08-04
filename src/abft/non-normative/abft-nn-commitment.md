@@ -4,7 +4,7 @@ $$
 \newcommand \Commit {\mathrm{Commit}}
 \newcommand \RetrieveProposal {\mathrm{RetrieveProposal}}
 \newcommand \ApplyDeltas {\mathrm{ApplyDeltas}}
-\newcommand \TP {\mathrm{TransactionPool}}
+\newcommand \TP {\mathrm{TxPool}}
 \newcommand \Update {\mathrm{Update}}
 \newcommand \pset {\mathit{payset}}
 $$

@@ -2,7 +2,6 @@
 
 $$
 \newcommand \TxTail {\mathrm{TxTail}}
-\newcommand \CheckDuplicate {\mathrm{CheckDuplicate}}
 \newcommand \Tx {\mathrm{Tx}}
 \newcommand \ID {\mathrm{ID}}
 \newcommand \Lease {\mathrm{Lease}}

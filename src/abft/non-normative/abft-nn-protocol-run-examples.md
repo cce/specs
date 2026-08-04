@@ -1,5 +1,5 @@
 $$
-\newcommand \TP {\mathrm{TransactionPool}}
+\newcommand \TP {\mathrm{TxPool}}
 \newcommand \Next {\mathit{next}}
 \newcommand \Late {\mathit{late}}
 \newcommand \Redo {\mathit{redo}}

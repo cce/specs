@@ -22,9 +22,9 @@ $$
 \newcommand \Redo {\mathit{redo}}
 \newcommand \Down {\mathit{down}}
 \newcommand \ev {\mathit{ev}}
-\newcommand \t {\mathit{time}}
+\newcommand \tme {\mathit{time}}
 \newcommand \s {\mathit{step}}
-\newcommand \data {\mathit{msg}_\text\{data}}
+\newcommand \data {\mathit{msg}_\text{data}}
 \newcommand \TimeoutEvent {\texttt{TimeoutEvent}}
 \newcommand \MessageEvent {\texttt{MessageEvent}}
 \newcommand \DynamicFilterTimeout {\mathrm{DynamicFilterTimeout}}

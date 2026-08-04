@@ -16,7 +16,7 @@ $$
 \newcommand \loh {\mathit{lowestObservedHash}}
 \newcommand \vt {\mathit{vote}}
 \newcommand \ph {\mathit{priorityHash}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 $$
 
 # Soft Vote

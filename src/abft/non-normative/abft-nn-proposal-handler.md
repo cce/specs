@@ -18,7 +18,7 @@ $$
 \newcommand \Cert {\mathit{cert}}
 \newcommand \Next {\mathit{next}}
 \newcommand \pr {\mathit{proposal}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 $$
 
 # Proposal Handler

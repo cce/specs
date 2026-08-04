@@ -1,13 +1,13 @@
 {{#include ../../_include/tex-macros/pseudocode.md}}
 
 $$
-\newcommand \Resync {\mathrm{ResynchronizationAttempt}}
+\newcommand \Resync {\mathrm{Resync}}
 \newcommand \BlockProposal {\mathrm{BlockProposal}}
 \newcommand \BlockAssembly {\mathrm{BlockAssembly}}
 \newcommand \Sortition {\mathrm{Sortition}}
 \newcommand \Broadcast {\mathrm{Broadcast}}
 \newcommand \RetrieveProposal {\mathrm{RetrieveProposal}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 \newcommand \Proposal {\mathrm{Proposal}}
 \newcommand \Bundle {\mathrm{Bundle}}
 \newcommand \Vote {\mathrm{Vote}}

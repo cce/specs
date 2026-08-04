@@ -15,7 +15,7 @@ $$
 \newcommand \Down {\mathit{down}}
 \newcommand \Next {\mathit{next}}
 \newcommand \vt {\mathit{vote}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 \newcommand \s {\mathit{step}}
 $$
 

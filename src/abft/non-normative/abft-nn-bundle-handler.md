@@ -8,7 +8,7 @@ $$
 \newcommand \SenderPeer {\mathrm{SenderPeer}}
 \newcommand \DisconnectFromPeer {\mathrm{DisconnectFromPeer}}
 \newcommand \vt {\mathit{vote}}
-\newcommand \b {\mathit{bundle}}
+\newcommand \bdl {\mathit{bundle}}
 $$
 
 # Bundle Handler

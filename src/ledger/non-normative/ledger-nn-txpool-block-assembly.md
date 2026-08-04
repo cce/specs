@@ -7,7 +7,7 @@ $$
 \newcommand \AssembleBlock {\mathrm{AssembleBlock}}
 \newcommand \BlockEval {\mathrm{BlockEvaluator}}
 \newcommand \EB {\mathrm{emptyBlock}}
-\newcommand \r {\mathrm{round}}
+\newcommand \rnd {\mathrm{round}}
 \newcommand \nil {\mathit{nil}}
 $$
 
@@ -89,7 +89,7 @@ up to the round \\( r \\).
 
 If this doesn’t happen by the deadline, the algorithm performs another round of checks:
 
-- If the \\( \TP.\r \\) is now ahead of \\( r \\): the process is aborted, waiting
+- If the \\( \TP.\rnd \\) is now ahead of \\( r \\): the process is aborted, waiting
 for the network to catch up. This should rarely happen.
 
 - Othwewise, if the \\( \TP \\) is still behind: an additional wait period \\( \epsilon_{\AW} \\)
