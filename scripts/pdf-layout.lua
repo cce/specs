@@ -81,16 +81,27 @@ end
 
 -- Markdown link destinations can distort Pandoc's inferred column widths even
 -- though only their short labels are visible. Normalize the recurring tables.
-function Table(table)
+--
+-- Each rule below matches a table family by column count plus a header
+-- fragment, so it applies book-wide, not to a single table:
+--   5 columns, "Reference Implementation Name": the consensus parameter
+--   tables in src/ledger/ledger-parameters.md;
+--   4 columns, "Parameter Name": the node configuration tables in
+--   src/node/non-normative/node-nn-appendix-b-*.md;
+--   3 and 2 columns, "DESCRIPTION": the codec, parameter, and opcode table
+--   families across src/ledger, src/abft, src/network, and src/_include/auto.
+-- A new table matching one of these signatures silently inherits the widths;
+-- adjust the header fragments here when that is not intended.
+function Table(tbl)
   if not FORMAT:match("latex") then
     return nil
   end
 
-  local header = pandoc.utils.stringify(table.head)
-  local columns = #table.colspecs
+  local header = pandoc.utils.stringify(tbl.head)
+  local columns = #tbl.colspecs
 
   if columns == 5 and has_text(header, "Reference Implementation Name") then
-    table.colspecs = {
+    tbl.colspecs = {
       column(pandoc.AlignCenter, 0.13),
       column(pandoc.AlignCenter, 0.20),
       column(pandoc.AlignCenter, 0.08),
@@ -98,30 +109,31 @@ function Table(table)
       column(pandoc.AlignLeft, 0.17),
     }
   elseif columns == 4 and has_text(header, "Parameter Name") then
-    table.colspecs = {
+    tbl.colspecs = {
       column(pandoc.AlignLeft, 0.30),
       column(pandoc.AlignCenter, 0.30),
       column(pandoc.AlignCenter, 0.20),
       column(pandoc.AlignCenter, 0.20),
     }
   elseif columns == 3 and has_text(header, "DESCRIPTION") then
-    table.colspecs = {
+    tbl.colspecs = {
       column(pandoc.AlignLeft, 0.35),
       column(pandoc.AlignCenter, 0.18),
       column(pandoc.AlignLeft, 0.47),
     }
   elseif columns == 2 and has_text(header, "DESCRIPTION") then
-    table.colspecs = {
+    tbl.colspecs = {
       column(pandoc.AlignLeft, 0.35),
       column(pandoc.AlignLeft, 0.65),
     }
   end
 
-  return table
+  return tbl
 end
 
 
--- Keep dense-table headings on the landscape page.
+-- Every table with five or more columns is set on its own landscape page,
+-- keeping the immediately preceding heading (if any) on that page.
 function Pandoc(document)
   if not FORMAT:match("latex") then
     return nil

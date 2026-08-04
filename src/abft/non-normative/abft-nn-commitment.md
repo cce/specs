@@ -1,11 +1,11 @@
+{{#include ../../_include/tex-macros/pseudocode.md}}
+
 $$
 \newcommand \Commit {\mathrm{Commit}}
 \newcommand \RetrieveProposal {\mathrm{RetrieveProposal}}
 \newcommand \ApplyDeltas {\mathrm{ApplyDeltas}}
 \newcommand \TP {\mathrm{TransactionPool}}
 \newcommand \Update {\mathrm{Update}}
-\newcommand \PSfunction {\textbf{function }}
-\newcommand \PSendfunction {\textbf{end function}}
 \newcommand \pset {\mathit{payset}}
 $$
 

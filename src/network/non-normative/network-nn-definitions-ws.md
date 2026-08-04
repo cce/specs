@@ -46,7 +46,7 @@ graph TD
 A minimal \\( \WSNet \\) should have:
 
 - A `GenesisID` identifying which network it is a part of (see
-[Ledger specifications](../../ledger/ledger-genesis.md#genesis-identifier)),
+[Ledger specifications](../../ledger/ledger-block.md#genesis-identifier-definition)),
 
 - A `Phonebook` to bootstrap the peer discovery,
 

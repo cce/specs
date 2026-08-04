@@ -24,7 +24,7 @@ This intermediate ephemeral sub-key signs a batch of leaf-level ephemeral
 sub-keys. Hence, each intermediate ephemeral sub-key is associated with a
 batch number (\\( \Batch \\)), and each leaf ephemeral sub-key is associated with
 both a batch number (of its parent key) and an offset (\\( \Offset \\), denotes its offset
-within a \\( \Batch \\)). An [agreement voting message](../abft/abft-messages-votes.md)
+within a \\( \Batch \\)). An [agreement voting message](../abft/abft-messages.md#votes)
 is signed hierarchically:
 
 ```text

@@ -84,7 +84,7 @@ A player is forbidden from equivocating in \\( \Next_k \\) votes.
 Lastly (Line 15), the node’s current \\( \s \\) is updated.
 
 > [!NOTE]
-> For a formal definition of this functionality, refer to the ABFT [normative section](../abft-broadcast-rules-recovery.md).
+> For a formal definition of this functionality, refer to the ABFT [normative section](../abft-broadcast-rules.md#recovery).
 
 ---
 

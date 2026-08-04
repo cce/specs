@@ -63,5 +63,5 @@ infer that the network is not partitioned.
 
 - `GetGenesisID() -> string`\
 Returns the network-specific `genesisID`, a string indicating the kind of network
-this node is connected to (see the Ledger [normative section](../../ledger/ledger-genesis.md#genesis-identifier)
+this node is connected to (see the Ledger [normative section](../../ledger/ledger-block.md#genesis-identifier-definition)
 for further details on this field).

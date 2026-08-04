@@ -13,7 +13,7 @@ $$
 The cryptographic seed is a source of randomness for many internal operations inside
 the protocol.
 
-A formal definition of the _seed_ can be found in the [normative specification](../abft-messages-seed.md).
+A formal definition of the _seed_ can be found in the [normative specification](../abft-messages.md#seed).
 
 This section provides an engineering and implementation-oriented way of conceptualizing
 the seed computation, to ease its understanding.

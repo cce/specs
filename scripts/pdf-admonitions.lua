@@ -20,10 +20,12 @@ local latex_escapes = {
   ["&"] = "\\&",
   ["_"] = "\\_",
   ["#"] = "\\#",
+  ["^"] = "\\^{}",
+  ["~"] = "\\textasciitilde{}",
 }
 
 local function escaped_latex (text)
-  return (text:gsub("[\\{}$%%&_#]", latex_escapes))
+  return (text:gsub("[\\{}$%%&_#%^~]", latex_escapes))
 end
 
 function Div (div)

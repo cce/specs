@@ -102,4 +102,4 @@ Finally, the node broadcasts all fast recovery votes observed. That is, all vote
 \\( \vt \in V \\) for which \\( \vt_s \\) is a fast recovery step (\\( \Late, \Redo, \Down \\)).
 
 > [!NOTE]
-> For a formal definition of this functionality, refer to the ABFT [normative section](../abft-broadcast-rules-fast-recovery.md).
+> For a formal definition of this functionality, refer to the ABFT [normative section](../abft-broadcast-rules.md#fast-recovery).

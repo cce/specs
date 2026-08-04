@@ -45,7 +45,7 @@ nanoseconds.
 
 **Description:**
 
-Sets the buffer size holding incoming [votes](../../abft/abft-messages-votes.md).
+Sets the buffer size holding incoming [votes](../../abft/abft-messages.md#votes).
 
 ---
 
@@ -55,7 +55,7 @@ Sets the buffer size holding incoming [votes](../../abft/abft-messages-votes.md)
 
 **Description:**
 
-Sets the buffer size holding incoming [proposals](../../abft/abft-messages-proposals.md).
+Sets the buffer size holding incoming [proposals](../../abft/abft-messages.md#proposals).
 
 ---
 
@@ -65,6 +65,6 @@ Sets the buffer size holding incoming [proposals](../../abft/abft-messages-propo
 
 **Description:**
 
-Sets the buffer size holding incoming [bundles](../../abft/abft-messages-bundles.md).
+Sets the buffer size holding incoming [bundles](../../abft/abft-messages.md#bundles).
 
 ---

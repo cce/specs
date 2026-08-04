@@ -52,17 +52,17 @@ Possible values for the \\( tag \\) type are:
 
 |  TAG   | DESCRIPTION                                                                                                             |
 |:------:|-------------------------------------------------------------------------------------------------------------------------|
-| `"AV"` | Agreement Vote (a protocol vote, see [normative section](../../abft/abft-messages-votes.md)).                           |
+| `"AV"` | Agreement Vote (a protocol vote, see [normative section](../../abft/abft-messages.md#votes)).                           |
 | `"MI"` | Message of Interest.                                                                                                    |
 | `"MS"` | Message Digest Skip. A request by a \\( \Peer \\) to avoid sending messages with a specific hash.                       |
 | `"NP"` | Network Priority Response.                                                                                              |
 | `"NI"` | Network ID Verification.                                                                                                |
-| `"PP"` | Proposal Payload (see [normative section](../../abft/abft-messages-proposals.md)).                                      |
+| `"PP"` | Proposal Payload (see [normative section](../../abft/abft-messages.md#proposals)).                                      |
 | `"SP"` | State Proof Signature (see [normative section](../../crypto/crypto-state-proofs.md)).                                   |
 | `"TS"` | Topic Message Response.                                                                                                 |
 | `"TX"` | Transaction (see [normative section](../../ledger/ledger-transactions.md)).                                             |
 | `"UE"` | Unicast Catchup Request. Messages used to request blocks by a \\( \Peer \\) when serving blocks for the catchup service |
-| `"VB"` | Vote Bundle (a protocol bundle, see [normative section](../../abft/abft-messages-bundles.md)).                          |
+| `"VB"` | Vote Bundle (a protocol bundle, see [normative section](../../abft/abft-messages.md#bundles)).                          |
 | `"pi"` | Ping[^1].                                                                                                               |
 | `"pj"` | Ping Reply[^1].                                                                                                         |
 

@@ -47,7 +47,7 @@ $$
 &\text{16:} \quad \Node.\Catchup.\Block\Auth.\Stop() \\\\
 &\text{17:} \quad \Node.\CryptoPool.\mathrm{lowPriority}.\Stop() \\\\
 &\text{18:} \quad \Node.\CryptoPool.\Stop() \\\\
-&\text{19:} \PSendfunction
+&\text{19: } \PSendfunction
 \end{aligned}
 $$
 
