@@ -60,11 +60,22 @@
                 pre.parentNode.replaceChild(container, pre);
                 // With a MathJax 2.x backend pseudocode.js leaves math as
                 // $...$ text; rewrite to the \( ... \) delimiters this book's
-                // MathJax processes.
-                container.innerHTML = container.innerHTML.replace(
-                    /\$([^$]+)\$/g,
-                    "\\($1\\)"
+                // MathJax processes. Rewrite per text node (not innerHTML) so
+                // a stray unpaired $ cannot pair across element boundaries
+                // and swallow markup into the math delimiters.
+                var walker = document.createTreeWalker(
+                    container,
+                    NodeFilter.SHOW_TEXT
                 );
+                var text;
+                while ((text = walker.nextNode())) {
+                    if (text.nodeValue.indexOf("$") !== -1) {
+                        text.nodeValue = text.nodeValue.replace(
+                            /\$([^$]+)\$/g,
+                            "\\($1\\)"
+                        );
+                    }
+                }
                 // Unnumbered captions: pseudocode.js hardcodes "Algorithm N".
                 var caption = container.querySelector(
                     ".ps-algorithm > .ps-line > .ps-keyword"

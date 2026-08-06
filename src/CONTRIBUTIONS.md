@@ -251,8 +251,9 @@ Conventions:
 - Captions **MUST NOT** contain numbering ("Algorithm N"). Reference
   algorithms by their caption title, which **MUST** be unique across the book.
 - Lines are numbered automatically; **do not** write manual line numbers.
-- `\Return` is used bare (not wrapped in `\State`); the PDF filter adds the
-  wrapper LaTeX needs.
+- `\Return` is used bare (not wrapped in `\State`) and **MUST** start its own
+  line; the PDF filter adds the wrapper LaTeX needs, but only rewrites
+  line-leading occurrences.
 - Algorithms **MUST** fit on one PDF page (roughly 45 numbered lines): larger
   ones overflow the page and get clipped. Split them at a function or semantic
   boundary; the PDF build emits a warning past this size.

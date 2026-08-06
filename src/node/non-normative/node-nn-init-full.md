@@ -50,7 +50,7 @@ _Full Node_:
   \State $\Node \gets {\textbf{new }} \FullNode$
   \State $\Node.\mathrm{log} \gets \Logger(\Config)$
   \State $\Node.\GenesisBlock.\mathrm{ID} \gets \GenesisBlock.\mathrm{ID}()$
-  \State $\Node.\GenesisBlock.\mathrm{ID} \gets \GenesisBlock.\Hash()$
+  \State $\Node.\GenesisBlock.\Hash \gets \GenesisBlock.\Hash()$
   \State \Comment{Network Initialization}
   \If{$\Config.\mathrm{EnableHybridMode}$}
     \State $\Node.\Network \gets \Create\HYB\Network(\Phonebook)$

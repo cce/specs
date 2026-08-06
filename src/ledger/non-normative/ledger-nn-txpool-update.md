@@ -27,7 +27,7 @@ The state of the \\( \TP \\) is then updated as follows:
 \Function{Update}{$\NB\ b, \SD\ sd$}
   \If{$\TP_{pq}$ is empty or outdated}
     \If{$\TP.\PendingFB = 0$}
-      \State $\FeeMul \gets \frac{FeeMul}{FeeExp}$
+      \State $\FeeMul \gets \frac{\FeeMul}{\FeeExp}$
     \ElsIf{$\TP.\PendingFB = 1$}
       \State \Comment{Intentionally left blank to maintain the value of $\FeeMul$}
     \Else
