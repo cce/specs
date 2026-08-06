@@ -1,12 +1,9 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \Commit {\mathrm{Commit}}
 \newcommand \RetrieveProposal {\mathrm{RetrieveProposal}}
 \newcommand \ApplyDeltas {\mathrm{ApplyDeltas}}
-\newcommand \TP {\mathrm{TransactionPool}}
+\newcommand \TP {\mathrm{TxPool}}
 \newcommand \Update {\mathrm{Update}}
-\newcommand \pset {\mathit{payset}}
 $$
 
 # Commitment
@@ -20,21 +17,19 @@ related to the transactions contained in the committed block proposal.
 In the following pseudocode \\( e_t \\) denotes the body (transactions) of the
 proposal (a.k.a. the _payset_).
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 8} \text{: Commit} \\\\[0.5em]
-&\text{1: } \PSfunction \Commit(v) \\\\
-&\text{2: } \quad e \gets \RetrieveProposal(v)_e \\\\
-&\text{3: } \quad L \gets L || e \\\\
-&\text{4: } \quad \ApplyDeltas(e) \\\\
-&\text{5: } \quad \TP.\Update(e_t) \\\\
-&\text{6: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Commit}
+\begin{algorithmic}
+\Function{Commit}{$v$}
+  \State $e \gets \RetrieveProposal(v)_e$
+  \State $L \gets L || e$
+  \State $\ApplyDeltas(e)$
+  \State $\TP.\Update(e_t)$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**

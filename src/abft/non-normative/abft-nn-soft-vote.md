@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \Priority {\mathrm{Priority}}
 \newcommand \VRF {\mathrm{VRF}}
@@ -16,7 +14,7 @@ $$
 \newcommand \loh {\mathit{lowestObservedHash}}
 \newcommand \vt {\mathit{vote}}
 \newcommand \ph {\mathit{priorityHash}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 $$
 
 # Soft Vote
@@ -51,37 +49,35 @@ for this round.
 
 ## Algorithm
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 4} \text{: Soft Vote} \\\\[0.5em]
-&\text{1: } \PSfunction \SoftVote() \\\\
-&\text{2: } \quad \loh \gets \infty \\\\
-&\text{3: } \quad v \gets \bot \\\\
-&\text{4: } \quad \PSfor \vt_p \in V^\ast \PSdo \PScomment{The subset of votes corresponding to proposals} \\\\
-&\text{5: } \quad \quad \ph \gets \Priority(\vt_p) \\\\
-&\text{6: } \quad \quad \PSif \ph < \loh \PSthen \\\\
-&\text{7: } \quad \quad \quad \loh \gets \ph \\\\
-&\text{8: } \quad \quad \quad v \gets \vt_p \\\\
-&\text{9: } \quad \quad \PSendif \\\\
-&\text{10:} \quad \PSendfor \\\\
-&\text{11:} \quad \PSif \loh < \infty \PSthen \\\\
-&\text{12:} \quad \quad \PSfor a \in A \PSdo \\\\
-&\text{13:} \quad \quad \quad \c \gets \Sortition(a_I, r, p, \Soft) \\\\
-&\text{14:} \quad \quad \quad \PSif \c_j > 0 \PSthen \\\\
-&\text{15:} \quad \quad \quad \quad \Broadcast(\Vote(a_I, r, p, \Soft, v, \c)) \\\\
-&\text{16:} \quad \quad \quad \quad \PSif \RetrieveProposal(v) \PSthen \\\\
-&\text{17:} \quad \quad \quad \quad \quad \\Broadcast(\RetrieveProposal(v)) \\\\
-&\text{18:} \quad \quad \quad \quad \PSendif \\\\
-&\text{19:} \quad \quad \quad \PSendif \\\\
-&\text{20:} \quad \quad \PSendfor \\\\
-&\text{21:} \quad \PSendif \\\\
-&\text{22: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Soft Vote}
+\begin{algorithmic}
+\Function{SoftVote}{}
+  \State $\loh \gets \infty$
+  \State $v \gets \bot$
+  \For{$\vt_p \in V^\ast$} \Comment{The subset of votes corresponding to proposals}
+    \State $\ph \gets \Priority(\vt_p)$
+    \If{$\ph < \loh$}
+      \State $\loh \gets \ph$
+      \State $v \gets \vt_p$
+    \EndIf
+  \EndFor
+  \If{$\loh < \infty$}
+    \For{$a \in A$}
+      \State $\creds \gets \Sortition(a_I, r, p, \Soft)$
+      \If{$\creds_j > 0$}
+        \State $\Broadcast(\Vote(a_I, r, p, \Soft, v, \creds))$
+        \If{$\RetrieveProposal(v)$}
+          \State $\Broadcast(\RetrieveProposal(v))$
+        \EndIf
+      \EndIf
+    \EndFor
+  \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**
@@ -103,8 +99,8 @@ With the aid of a priority function, this stage performs a filtering action, sel
 the highest priority observed proposal to vote for, defined as the one with the
 lowest hashed value.
 
-The priority function (**Algorithm 4** - Lines 4 to 9) should be interpreted as
-follows.
+The priority function (_Soft Vote_ algorithm, Lines 4 to 9) should be interpreted
+as follows.
 
 Consider every proposal value \\( \vt_p \\) in the subset \\( V^\ast \\)
 and the hash of the \\( \VRF \\) proof \\( \ProofToHash(y) \\) obtained by its proposer
@@ -123,18 +119,18 @@ node’s general cryptographic hashing function.
 > on the \\( \Hash \\) function.
 
 Then, the node keeps track of the proposal-value \\( v \\) that minimizes the concatenation
-hashing (**Algorithm 4** - Lines 6 to 8).
+hashing (_Soft Vote_ algorithm, Lines 6 to 8).
 
 After running the filtering algorithm for all proposal votes observed, and assuming
 there was at least one proposal in \\( V^\ast \\), the broadcasting section of the
-algorithm is executed (**Algorithm 4** - Lines 11 to 15).
+algorithm is executed (_Soft Vote_ algorithm, Lines 11 to 15).
 
 For every _online_ account (registered on the node), selected to be part of the
 \\( \Soft \\) voting committee, a \\( \Soft \\) vote is broadcast for the previously
 filtered value \\( v \\).
 
 If the corresponding _full proposal_ has already been observed and is available
-in \\( P \\), it is also broadcast (**Algorithm 4** - Lines 16 to 17).
+in \\( P \\), it is also broadcast (_Soft Vote_ algorithm, Lines 16 to 17).
 
 If the previous assumption of non-empty \\( V^\ast \\) does not hold, no broadcasting
 is performed, and the node produces no output in its filtering step.
@@ -142,4 +138,4 @@ is performed, and the node produces no output in its filtering step.
 ---
 
 [^1]: Corresponds to the \\( j \\) output of \\( \Sortition \\), stored inside the
-\\( \c \\) structure.
+\\( \creds \\) structure.

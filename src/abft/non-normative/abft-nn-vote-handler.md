@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \ValidateVote {\mathrm{ValidateVote}}
 \newcommand \VerifyVote {\mathrm{VerifyVote}}
@@ -26,7 +24,7 @@ $$
 \newcommand \Cert {\mathit{cert}}
 \newcommand \sk {\mathrm{sk}}
 \newcommand \vt {\mathit{vote}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 $$
 
 # Vote Handler
@@ -43,86 +41,86 @@ values_ \\( v \\). In other words, given a player \\( I \\) and a node’s conte
 tuple \\((r, p, s)\\), \\( \Equivocation(I, r, p, s) = (\Vote(I, r, p, s, v_1), \Vote(I, r, p, s, v_2)) \\)
 for some \\( v_1 \neq v_2 \\).
 
-## Algorithm
+## Algorithms
 
----
+```pseudocode
+\begin{algorithm}
+\caption{Validate Vote}
+\begin{algorithmic}
+\Function{ValidateVote}{$\vt$}
+  \If{$\lnot \VerifyVote(\vt)$}
+    \State $\DisconnectFromPeer(\SenderPeer(\vt))$
+    \Return \Comment{Ignore invalid vote}
+  \EndIf
+  \If{$\vt_s = 0 \land (\vt \in V \lor \IsEquivocation(\vt))$}
+    \Return \Comment{Ignore vote, equivocation not allowed in proposal votes}
+  \EndIf
+  \If{$\vt_s > 0 \land \IsSecondEquivocation(\vt)$}
+    \Return \Comment{Ignore vote if it’s a second equivocation}
+  \EndIf
+  \If{$\vt_r < r$}
+    \Return \Comment{Ignore vote of past round}
+  \EndIf
+  \If{$\vt_r = r + 1 \land (\vt_p > 0 \lor \vt_s \in \{\Next_0, \dots, \Next_{249}\})$}
+    \Return \Comment{Ignore vote of next round if non-zero period or next-k step}
+  \EndIf
+  \If{$\vt_r = r \land (\vt_p \notin \{p-1, p, p+1\} \lor (\vt_p = p+1 \land \vt_s \in \{\Next_1, \dots, \Next_{249}\}) \lor (\vt_p = p \land \vt_s \in \{\Next_1, \dots, \Next_{249}\} \land \vt_s \notin \{s-1, s, s+1\}) \lor (\vt_p = p-1 \land \vt_s \in \{\Next_1, \dots, \Next_{249}\} \land \vt_s \notin \{\bar{s}-1, \bar{s}, \bar{s}+1\}))$}
+    \Return \Comment{Ignore vote}
+  \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
-$$
-\begin{aligned}
-&\textbf{Algorithm 5} \text{: Handle Vote} \\\\[0.5em]
-&\text{1: } \PSfunction \ValidateVote(\vt): \\\\
-&\text{2: } \quad \PSif \PSnot \VerifyVote(\vt) \PSthen \\\\
-&\text{3: } \quad \quad \DisconnectFromPeer(\SenderPeer(\vt)) \\\\
-&\text{4: } \quad \quad \PSreturn \PScomment{Ignore invalid vote} \\\\
-&\text{5: } \quad \PSendif \\\\
-&\text{6: } \quad \PSif \vt_s = 0 \land (\vt \in V \lor \IsEquivocation(\vt)) \PSthen \\\\
-&\text{7: } \quad \quad \PSreturn \PScomment{Ignore vote, equivocation not allowed in proposal votes} \\\\
-&\text{8: } \quad \PSendif \\\\
-&\text{9: } \quad \PSif \vt_s > 0 \land \IsSecondEquivocation(\vt) \PSthen \\\\
-&\text{10:} \quad \quad \PSreturn \PScomment{Ignore vote if it’s a second equivocation} \\\\
-&\text{11:} \quad \PSendif \\\\
-&\text{12:} \quad \PSif \vt_r < r \PSthen \\\\
-&\text{13:} \quad \quad \PSreturn \PScomment{Ignore vote of past round} \\\\
-&\text{14:} \quad \PSendif \\\\
-&\text{15:} \quad \PSif \vt_r = r + 1 \land (\vt_p > 0 \lor \vt_s \in \\{\Next_0, \dots, \Next_{249}\\}) \PSthen \\\\
-&\text{16:} \quad \quad \PSreturn \PScomment{Ignore vote of next round if non-zero period or next-k step} \\\\
-&\text{17:} \quad \PSendif \\\\
-&\text{18:} \quad \PSif \vt_r = r \land (\vt_p \notin \\{p-1, p, p+1\\} \lor \\\\
-&\text{} \quad \quad \quad \quad \quad \quad (\vt_p = p+1 \land \vt_s \in \\{\Next_1, \dots, \Next_{249}\\}) \lor \\\\
-&\text{} \quad \quad \quad \quad \quad \quad (\vt_p = p \land \vt_s \in \\{\Next_1, \dots, \Next_{249}\\} \land \vt_s \notin \\{s-1, s, s+1\\}) \lor \\\\
-&\text{} \quad \quad \quad \quad \quad \quad (\vt_p = p-1 \land \vt_s \in \\{\Next_1, \dots, \Next_{249}\\} \land \vt_s \notin \\{\bar{s}-1, \bar{s}, \bar{s}+1\\})) \PSthen \\\\
-&\text{19:} \quad \quad \PSreturn \PScomment{Ignore vote} \\\\
-&\text{20:} \quad \PSendif \\\\
-&\text{21: } \PSendfunction \\\\
-\end{aligned}
-$$
+Votes that pass validation are then handled as follows:
 
-$$
-\begin{aligned}
-&\text{22: } \PSfunction \HandleVote(\vt): \\\\
-&\text{23:} \quad \ValidateVote(\vt) \PScomment{Check the validity of the vote} \\\\
-&\text{24:} \quad V \gets V \cup \vt \PScomment{Observe the vote} \\\\
-&\text{25:} \quad \Relay(\vt) \\\\
-&\text{26:} \quad \PSif \vt_s = \Prop \PSthen \\\\
-&\text{27:} \quad \quad \PSif \RetrieveProposal(\vt_v) \neq \bot \PSthen \\\\
-&\text{28:} \quad \quad \quad \Broadcast(\RetrieveProposal(\vt_v)) \\\\
-&\text{29:} \quad \quad \PSendif \\\\
-&\text{30:} \quad \PSelseif \vt_s = \Soft \PSthen \\\\
-&\text{31:} \quad \quad \PSif \exists v : \Bundle(\vt_r, \vt_p, \Soft, v) \subset V \PSthen \\\\
-&\text{32:} \quad \quad \quad \PSfor a \in A \PSdo \\\\
-&\text{33:} \quad \quad \quad \quad \c \gets \Sortition(a_{\sk}, r, p, \Cert) \\\\
-&\text{34:} \quad \quad \quad \quad \PSif \c_j > 0 \PSthen \\\\
-&\text{35:} \quad \quad \quad \quad \quad \Broadcast(\Vote(a_I, r, p, \Cert, v, \c)) \\\\
-&\text{36:} \quad \quad \quad \quad \PSendif \\\\
-&\text{37:} \quad \quad \quad \PSendfor \\\\
-&\text{38:} \quad \quad \PSendif \\\\
-&\text{39:} \quad \PSelseif \vt_s = \Cert \PSthen \\\\
-&\text{40:} \quad \quad \PSif \exists v : \Bundle(\vt_r, \vt_p, \Cert, v) \subset V \PSthen \\\\
-&\text{41:} \quad \quad \quad \PSif \RetrieveProposal(v) = \bot \PSthen \\\\
-&\text{42:} \quad \quad \quad \quad \RequestProposal(v) \\\\
-&\text{43:} \quad \quad \quad \quad \PSif p < \vt_p \PSthen \\\\
-&\text{44:} \quad \quad \quad \quad \quad p_{old} \gets p \\\\
-&\text{45:} \quad \quad \quad \quad \quad \StartNewPeriod(\vt_p) \\\\
-&\text{46:} \quad \quad \quad \quad \quad \GarbageCollect(r, p_{old}) \\\\
-&\text{47:} \quad \quad \quad \quad \PSendif \\\\
-&\text{48:} \quad \quad \quad \PSendif \\\\
-&\text{49:} \quad \quad \quad \Commit(v) \\\\
-&\text{50:} \quad \quad \quad r_{old} \gets r \\\\
-&\text{51:} \quad \quad \quad \StartNewRound(\vt_r + 1) \\\\
-&\text{52:} \quad \quad \quad \GarbageCollect(r_{old}, p) \\\\
-&\text{53:} \quad \quad \PSendif \\\\
-&\text{54:} \quad \PSelseif \vt_s > \Cert \PSthen \\\\
-&\text{55:} \quad \quad \PSif \exists v : \Bundle(\vt_r, \vt_p, \vt_s, v) \subset V \PSthen \\\\
-&\text{56:} \quad \quad \quad p_{old} \gets p \\\\
-&\text{57:} \quad \quad \quad \StartNewPeriod(\vt_p + 1) \\\\
-&\text{58:} \quad \quad \quad \GarbageCollect(r, p_{old}) \\\\
-&\text{59:} \quad \quad \PSendif \\\\
-&\text{60:} \quad \PSendif \\\\
-&\text{61: } \PSendfunction \\\\
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Handle Vote}
+\begin{algorithmic}
+\Function{HandleVote}{$\vt$}
+  \State $\ValidateVote(\vt)$ \Comment{Check the validity of the vote}
+  \State $V \gets V \cup \vt$ \Comment{Observe the vote}
+  \State $\Relay(\vt)$
+  \If{$\vt_s = \Prop$}
+    \If{$\RetrieveProposal(\vt_v) \neq \bot$}
+      \State $\Broadcast(\RetrieveProposal(\vt_v))$
+    \EndIf
+  \ElsIf{$\vt_s = \Soft$}
+    \If{$\exists v : \Bundle(\vt_r, \vt_p, \Soft, v) \subset V$}
+      \For{$a \in A$}
+        \State $\creds \gets \Sortition(a_{\sk}, r, p, \Cert)$
+        \If{$\creds_j > 0$}
+          \State $\Broadcast(\Vote(a_I, r, p, \Cert, v, \creds))$
+        \EndIf
+      \EndFor
+    \EndIf
+  \ElsIf{$\vt_s = \Cert$}
+    \If{$\exists v : \Bundle(\vt_r, \vt_p, \Cert, v) \subset V$}
+      \If{$\RetrieveProposal(v) = \bot$}
+        \State $\RequestProposal(v)$
+        \If{$p < \vt_p$}
+          \State $p_{old} \gets p$
+          \State $\StartNewPeriod(\vt_p)$
+          \State $\GarbageCollect(r, p_{old})$
+        \EndIf
+      \EndIf
+      \State $\Commit(v)$
+      \State $r_{old} \gets r$
+      \State $\StartNewRound(\vt_r + 1)$
+      \State $\GarbageCollect(r_{old}, p)$
+    \EndIf
+  \ElsIf{$\vt_s > \Cert$}
+    \If{$\exists v : \Bundle(\vt_r, \vt_p, \vt_s, v) \subset V$}
+      \State $p_{old} \gets p$
+      \State $\StartNewPeriod(\vt_p + 1)$
+      \State $\GarbageCollect(r, p_{old})$
+    \EndIf
+  \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**
@@ -147,7 +145,7 @@ then it is broadcast by all accounts selected as the appropriate committee membe
 On Line 2, the \\( \ValidateVote \\) function checks if the vote is valid. If invalid,
 this is considered adversarial behavior. Therefore, a node may disconnect from the
 vote sender node (Line 3), retrieving the network ID of the original message sender
-with the \\( SenderPeer \\ helper network module function.
+with the \\( \SenderPeer \\) helper network module function.
 
 > [!NOTE]
 > For more details on disconnection actions and the definition of a _peer_, refer

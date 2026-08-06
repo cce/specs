@@ -71,6 +71,7 @@ help:
 	@echo "  make hooks-install     Install the Git pre-commit hook (requires uv)"
 	@echo "  make lint              Run all gating pre-commit hooks locally (requires uv)"
 	@echo "  make links-check       Check external links locally (requires uv)"
+	@echo "  make math-check        Pinpoint math blocks broken by Markdown inline parsing"
 
 # ---------- Diagnostics ----------
 
@@ -392,6 +393,15 @@ clean:
 lint: versions-check
 	@command -v $(UVX) >/dev/null 2>&1 || { echo "ERROR: 'uvx' not found. Install uv $(UV_VERSION)."; exit 1; }
 	@$(PRE_COMMIT) run --all-files
+
+math-check:
+	@MATH_CHECK_PYTHON="$(UV) run --managed-python --python $(PYTHON_VERSION)" \
+		bash scripts/math-check.sh
+
+docker-math-check:
+	@MATH_CHECK_MDBOOK="$(DOCKER_COMPOSE) run --rm mdbook-release mdbook" \
+		MATH_CHECK_PYTHON="$(UV) run --managed-python --python $(PYTHON_VERSION)" \
+		bash scripts/math-check.sh
 
 links-check: versions-check
 	@command -v $(UVX) >/dev/null 2>&1 || { echo "ERROR: 'uvx' not found. Install uv $(UV_VERSION)."; exit 1; }

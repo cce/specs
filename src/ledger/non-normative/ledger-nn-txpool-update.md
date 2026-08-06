@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \TP {\mathrm{TxPool}}
 \newcommand \NB {\mathrm{newBlock}}
@@ -22,32 +20,29 @@ are currently pending in the \\( \TP_{pq} \\) queue.
 
 The state of the \\( \TP \\) is then updated as follows:
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 3} \text{: Update } \TP \\\\[0.5em]
-&\text{1: } \PSfunction \Update(\NB\ b, \SD\ sd) \\\\
-&\text{2: } \quad \PSif \TP_{pq} \text{ is empty or outdated} \PSthen \\\\
-&\text{3: } \quad \quad \PSswitch \TP.\PendingFB \\\\
-&\text{4: } \quad \quad \quad \PScase\ 0: \\\\
-&\text{5: } \quad \quad \quad \quad \FeeMul \gets \frac{FeeMul}{FeeExp} \\\\
-&\text{6: } \quad \quad \quad \PScase\ 1: \\\\
-&\text{7: } \quad \quad \quad \quad \PScomment{Intentionally left blank to maintain the value of } \FeeMul \\\\
-&\text{8: } \quad \quad \quad \PScase\ \PSdefault: \\\\
-&\text{9: } \quad \quad \quad \quad \PSif \FeeMul = 0 \PSthen \\\\
-&\text{10:} \quad \quad \quad \quad \quad \FeeMul \gets 1 \\\\
-&\text{11:} \quad \quad \quad \quad \PSelse \\\\
-&\text{12:} \quad \quad \quad \quad \quad \FeeMul \gets \FeeMul \cdot \FeeExp \\\\
-&\text{13:} \quad \quad \quad \quad \PSendif \\\\
-&\text{14:} \quad \quad \PSendswitch \\\\
-&\text{15:} \quad \PSendif \\\\
-&\text{16:} \quad \TP.\mathrm{Prune}(b, sd) \\\\
-&\text{17: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Update $\TP$}
+\begin{algorithmic}
+\Function{Update}{$\NB\ b, \SD\ sd$}
+  \If{$\TP_{pq}$ is empty or outdated}
+    \If{$\TP.\PendingFB = 0$}
+      \State $\FeeMul \gets \frac{\FeeMul}{\FeeExp}$
+    \ElsIf{$\TP.\PendingFB = 1$}
+      \State \Comment{Intentionally left blank to maintain the value of $\FeeMul$}
+    \Else
+      \If{$\FeeMul = 0$}
+        \State $\FeeMul \gets 1$
+      \Else
+        \State $\FeeMul \gets \FeeMul \cdot \FeeExp$
+      \EndIf
+    \EndIf
+  \EndIf
+  \State $\TP.\mathrm{Prune}(b, sd)$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**

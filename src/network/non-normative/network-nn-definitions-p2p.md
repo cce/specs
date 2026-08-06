@@ -56,7 +56,7 @@ communication.
 > implementation. These two streams are multiplexed over a single connection.
 
 > [!NOTE]
-> For more information on `GossipSub`, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/overview/).
+> For more information on `GossipSub`, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/).
 
 ## P2P Network Topology
 
@@ -82,7 +82,7 @@ to a topic are _discoverable_ and _addressable_ by other peers capable of servin
 data about that topic.
 
 > [!NOTE]
-> For more information on `pubsub` protocol, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/overview/).
+> For more information on `pubsub` protocol, refer to the `libp2p` [specifications](https://docs.libp2p.io/concepts/pubsub/).
 
 The _topic_ used to subscribe to transaction gossiping is `algotx01`.
 

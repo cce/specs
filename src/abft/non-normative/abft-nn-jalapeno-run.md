@@ -5,7 +5,7 @@ $$
 \newcommand \Soft {\mathit{soft}}
 \newcommand \Cert {\mathit{cert}}
 \newcommand \Next {\mathit{next}}
-\newcommand \TP {\mathrm{TransactionPool}}
+\newcommand \TP {\mathrm{TxPool}}
 $$
 
 # Jalapeño Run (Recovery)

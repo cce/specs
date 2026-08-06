@@ -11,7 +11,6 @@ $$
 \newcommand \PayoutsChallengeGracePeriod {\Heartbeat_\mathrm{grace}}
 \newcommand \PayoutsChallengeInterval {\Heartbeat_r}
 \newcommand \PayoutsGoOnlineFee {B_{p,\Fee}}
-\newcommand \AccountMinBalance {A_{b,\min}}
 \newcommand \DefaultUpgradeWaitRounds {\delta_x}
 \newcommand \MaxUpgradeWaitRounds {\delta_{x_{\max}}}
 \newcommand \MinUpgradeWaitRounds {\delta_{x_{\min}}}
@@ -47,7 +46,6 @@ $$
 \newcommand \LogicSigMaxCost {\LogicSig_{c,\max}}
 \newcommand \LogicSigMaxSize {\LogicSig_{\max}}
 \newcommand \MaxAbsoluteLogicSigProgramSize {\LogicSig_{\mathrm{abs}}}
-\newcommand \LogicSigVersion {\LogicSig_{V}}
 \newcommand \MaxProposedExpiredOnlineAccounts {B_{N_\mathrm{e},\max}}
 \newcommand \PayoutsMaxMarkAbsent {B_{N_\mathrm{a},\max}}
 \newcommand \PayoutsMaxBalance {A_{r,\max}}

@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \VRF {\mathrm{VRF}}
 \newcommand \Prove {\mathrm{Prove}}
@@ -47,30 +45,28 @@ For the seed calculation algorithm, consider the following notation:
 
 For the seed calculation algorithm, consider the following pseudocode:
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 1} \text{: Compute Seed and Proof} \\\\[0.5em]
-&\text{1: } \PSfunction \mathrm{ComputeSeedAndProof}(I) \\\\
-&\text{2: } \quad \PSif p = 0 \PSthen \\\\
-&\text{3: } \quad \quad y \gets \VRF.\Prove(\Secrets(I)_{\text{VRFkey}}, L[r - \delta_s]_Q) \\\\
-&\text{4: } \quad \quad \alpha \gets H(I || \VRF.\ProofToHash(y)) \\\\
-&\text{5: } \quad \PSelse \\\\
-&\text{6: } \quad \quad y \gets 0 \\\\
-&\text{7: } \quad \quad \alpha \gets H(L[r - \delta_s]_Q) \\\\
-&\text{8: } \quad \PSendif \\\\
-&\text{9: } \quad \PSif r \bmod (\delta_s\delta_r) < \delta_s \PSthen \\\\
-&\text{10:} \quad \quad Q \gets H(\alpha || H(L[r - \delta_s \delta_r])) \\\\
-&\text{11:} \quad \PSelse \\\\
-&\text{12:} \quad \quad Q \gets H(\alpha) \\\\
-&\text{13:} \quad \PSendif \\\\
-&\text{14:} \quad \PSreturn (Q, y) \\\\
-&\text{15: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Compute Seed and Proof}
+\begin{algorithmic}
+\Function{ComputeSeedAndProof}{$I$}
+  \If{$p = 0$}
+    \State $y \gets \VRF.\Prove(\Secrets(I)_{\text{VRFkey}}, L[r - \delta_s]_Q)$
+    \State $\alpha \gets H(I || \VRF.\ProofToHash(y))$
+  \Else
+    \State $y \gets 0$
+    \State $\alpha \gets H(L[r - \delta_s]_Q)$
+  \EndIf
+  \If{$r \bmod (\delta_s\delta_r) < \delta_s$}
+    \State $Q \gets H(\alpha || H(L[r - \delta_s \delta_r]))$
+  \Else
+    \State $Q \gets H(\alpha)$
+  \EndIf
+  \Return $(Q, y)$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**
@@ -81,7 +77,7 @@ The function takes as input the _address_ \\( I \\) of an _online player_ who wi
 be computing the seed \\( Q \\).
 
 Note that the player needs to have registered participation keys on the node computing
-the seed, so as for the \\( \Secrets(I) \\) call (**Algorithm 1**, line 3) to retrieve
+the seed, so as for the \\( \Secrets(I) \\) call (_Compute Seed and Proof_ algorithm, line 3) to retrieve
 available \\( \VRF \\) secrets generated during that registration process.
 
 > [!NOTE]
@@ -102,7 +98,7 @@ as part of the proposal validation process.
 ## Example
 
 The following is an example of seed computation in three adjacent blocks, chosen
-to show both branches of the **Algorithm 1** execution, according to
+to show both branches of the _Compute Seed and Proof_ algorithm execution, according to
 \\( r \bmod \delta_s\delta_r \\) condition, also known as _re-randomization_.
 
 Noting that:

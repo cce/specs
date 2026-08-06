@@ -1,8 +1,5 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \TxTail {\mathrm{TxTail}}
-\newcommand \CheckDuplicate {\mathrm{CheckDuplicate}}
 \newcommand \Tx {\mathrm{Tx}}
 \newcommand \ID {\mathrm{ID}}
 \newcommand \Lease {\mathrm{Lease}}
@@ -55,33 +52,31 @@ that it is not present in the \\( \TxTail \\).
 
 A duplication check is the core functionality of \\( \TxTail \\).
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 1} \text{: Check Duplicate} \\\\[0.5em]
-&\text{1: } \PSfunction \CheckDuplicate(\Tx_r, \FirstValid, \LastValid, \Tx_{\ID}, \Tx_{\Lease}) \\\\
-&\text{2: } \quad \PSif \LastValid < \TxTail.\LowWaterMark \PSthen \\\\
-&\text{3: } \quad \quad \PSreturn \Tx_{\ID} \text{ is not in } \TxTail \\\\
-&\text{4: } \quad \PSendif \\\\
-&\text{5: } \quad \PSif \Tx_{\Lease} \neq \emptyset \PSthen \\\\
-&\text{6: } \quad \quad \FirstChecked \gets \FirstValid \\\\
-&\text{7: } \quad \quad \LastChecked \gets \LastValid \\\\
-&\text{8: } \quad \quad \PSfor r \in [\FirstChecked, \LastChecked] \PSdo \\\\
-&\text{9: } \quad \quad \quad \PSif \Tx_{\Lease} \in \RecentLeaseMap(\Tx_r).\Lease \land r \leq \Tx_{\Lease}.\mathrm{Expiration} \PSthen \\\\
-&\text{10:} \quad \quad \quad \quad \PSreturn \Lease \text{ is a duplicate} \\\\
-&\text{11:} \quad \quad \quad \PSendif \\\\
-&\text{12:} \quad \quad \PSendfor \\\\
-&\text{13:} \quad \PSendif \\\\
-&\text{14:} \quad \PSif \Tx_{\ID} \in \TxTail.\LastValidMap(\LastValid).\Tx_{\ID} \PSthen \\\\
-&\text{15:} \quad \quad \PSreturn \Tx_{\ID} \text{ is a duplicate transaction} \\\\
-&\text{16:} \quad \PSendif \\\\
-&\text{17:} \quad \PSreturn \\\\
-&\text{18: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Check Duplicate}
+\begin{algorithmic}
+\Function{CheckDuplicate}{$\Tx_r, \FirstValid, \LastValid, \Tx_{\ID}, \Tx_{\Lease}$}
+  \If{$\LastValid < \TxTail.\LowWaterMark$}
+    \Return $\Tx_{\ID}$ is not in $\TxTail$
+  \EndIf
+  \If{$\Tx_{\Lease} \neq \emptyset$}
+    \State $\FirstChecked \gets \FirstValid$
+    \State $\LastChecked \gets \LastValid$
+    \For{$r \in [\FirstChecked, \LastChecked]$}
+      \If{$\Tx_{\Lease} \in \RecentLeaseMap(\Tx_r).\Lease \land r \leq \Tx_{\Lease}.\mathrm{Expiration}$}
+        \Return $\Lease$ is a duplicate
+      \EndIf
+    \EndFor
+  \EndIf
+  \If{$\Tx_{\ID} \in \TxTail.\LastValidMap(\LastValid).\Tx_{\ID}$}
+    \Return $\Tx_{\ID}$ is a duplicate transaction
+  \EndIf
+  \Return
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 The algorithm receives four fields of a transaction:
 

@@ -15,7 +15,7 @@ $$
 \newcommand \Ver {\mathrm{Version}}
 \newcommand \Cmt {\mathrm{Commitment}}
 \newcommand \Participant {\mathrm{Participant}}
-\newcommand \Sig {\mathrm{Signature}}
+\newcommand \Signature {\mathrm{Signature}}
 \newcommand \Msg {\mathrm{Message}}
 \newcommand \SHAKE {\mathrm{SHAKE256}}
 \newcommand \IntToInd {\mathrm{IntToInd}}
@@ -25,7 +25,7 @@ $$
 \newcommand \MaxRev {\mathit{Max}\Reveals}
 \newcommand \target {\mathrm{target}}
 \newcommand \ceil {\mathrm{ceil}}
-\newcommand \floor {\mathrm{floor}}
+\newcommand \floor[1] {\left \lfloor #1 \right \rfloor}
 $$
 
 # State Proofs
@@ -33,7 +33,7 @@ $$
 State Proofs (a.k.a. _Compact Certificates_) allow external parties to efficiently
 validate Algorand blocks.
 
-The [technical report](https://eprint.iacr.org/archive/2020/1568/20210330:194331)
+The [technical report](https://eprint.iacr.org/archive/2020/1568/1617133411.pdf)
 provides the overall approach of State Proofs; this section describes the specific
 details of how State Proofs are realized in Algorand.
 
@@ -96,7 +96,7 @@ for each online participant.
 Where:
 
 - \\( L \\) is a 64-bit, little-endian integer representing the participant’s \\( L \\)
-value as described in the [technical report](https://eprint.iacr.org/archive/2020/1568/20210330:194331).
+value as described in the [technical report](https://eprint.iacr.org/archive/2020/1568/1617133411.pdf).
 
 - \\( \SerializedMerkleSignature \\) representing a Merkle Signature of the participant
 [merkle signature binary representation](../keys/keys-state-proof.md#signatures)
@@ -108,7 +108,7 @@ the vector commitment leaf of this slot would be the hash value of the constant
 
 ## Choice of Revealed Signatures
 
-As described in the [technical report](https://eprint.iacr.org/archive/2020/1568/20210330:194331)
+As described in the [technical report](https://eprint.iacr.org/archive/2020/1568/1617133411.pdf)
 section IV.A, a State Proof contains a pseudorandomly chosen set of signatures. The
 choice is made using a coin.
 
@@ -118,7 +118,7 @@ $$
 \begin{aligned}
 \Hin = (&\Domain{spc} || \Ver || \\\\
 &\Participant\Cmt || \ln(\Proven\W) || \\\\
-&\Sig\Cmt || \Signed\W || \\\\
+&\Signature\Cmt || \Signed\W || \\\\
 &\SP\Msg\Hash)
 \end{aligned}
 $$
@@ -134,7 +134,7 @@ root on the participant array'
 value of \\( \Proven\W \\) with 16 bits of precision, as described in [SNARK-Friendly
 Weight Threshold Verification](https://github.com/algorandfoundation/specs/blob/master/_archive/dev/cryptographic-specs/weight-thresh.pdf),
 
-- \\( \Sig\Cmt \\) is a 512-bit string representing the vector commitment root on
+- \\( \Signature\Cmt \\) is a 512-bit string representing the vector commitment root on
 the signature array,
 
 - \\( \Signed\W \\) is a 64-bit, little-endian integer representing
@@ -179,7 +179,7 @@ key `P`.
 version of every signature in the state proof.
 
 - The set of revealed signatures, chosen as described in section IV.A of the [technical
-report](https://eprint.iacr.org/archive/2020/1568/20210330:194331), under the msgpack
+report](https://eprint.iacr.org/archive/2020/1568/1617133411.pdf), under the msgpack
 key `r`. This set is stored as a msgpack map. The key of the map is the position
 in the array of the participant whose signature is being revealed. The value in
 the map is a msgpack struct with the following fields:
@@ -197,7 +197,7 @@ $$
 \mathit{PositionsToReveal} = [\IntToInd(\Coin_0), \ldots , \IntToInd(\Coin_{\NRev-1})]
 $$
 
-Where \\( \IntToInd \\) and \\( \NRev \\) are defined in the [technical report](https://eprint.iacr.org/archive/2020/1568/20210330:194331),
+Where \\( \IntToInd \\) and \\( \NRev \\) are defined in the [technical report](https://eprint.iacr.org/archive/2020/1568/1617133411.pdf),
 section **IV**.
 
 Note that, although the State Proof contains a commitment to the signatures, it does
@@ -235,13 +235,13 @@ in the state proof itself), respectively.
 by \\( r_{i} \\), where \\( r_{i} \gets T[\mathit{PositionsToReveal}[i]] \\) and
 \\( r_{i}.Sig.L \leq \Coin_i < r_{i}.Sig.L + r_{i}.Part.\W \\).
 
-\\( T \\) is defined in the [technical report](https://eprint.iacr.org/archive/2020/1568/20210330:194331),
+\\( T \\) is defined in the [technical report](https://eprint.iacr.org/archive/2020/1568/1617133411.pdf),
 section **IV**.
 
 ## Setting Security Strength
 
 - \\( \target_C \\): _“classical”_ security strength. This is set to \\( k + q \\)
-(where \\( k + q \\) are defined in section **IV.A** of the [technical report](https://eprint.iacr.org/archive/2020/1568/20210330:194331)).
+(where \\( k + q \\) are defined in section **IV.A** of the [technical report](https://eprint.iacr.org/archive/2020/1568/1617133411.pdf)).
 The goal is to have \\( <= 1/2^k \\) probability of breaking the State Proof by
 an attacker that makes up to \\( 2^q \\) hash evaluations/queries. We use \\( \target_C = 192 \\),
 which corresponds to, for example, \\( (k = 128, q = 64) \\), or \\( (k = 96, q = 96) \\).
@@ -325,9 +325,9 @@ $$
 Since reveals do not bottleneck the _quantum-secure_ verifier, we can take:
 
 $$
-\MaxRev_{PQ} <= \floor\left( \MaxRev_C \times \frac{\target_{PQ}}{\target_C} \right)
+\MaxRev_{PQ} <= \floor{\MaxRev_C \times \frac{\target_{PQ}}{\target_C}}
 $$
 
-To be an equality, i.e., \\( \MaxRev_{PQ} = \floor(\ldots) \\).
+To be an equality, i.e., \\( \MaxRev_{PQ} = \floor{\ldots} \\).
 
 Therefore, we must set \\( \MaxRev_{PQ} = 640 \\).

@@ -17,7 +17,7 @@ $$
 \newcommand \CommitteeThreshold {\mathrm{CommitteeThreshold}}
 \newcommand \VRF {\mathrm{VRF}}
 \newcommand \ProofToHash {\mathrm{ProofToHash}}
-\newcommand \TP {\mathrm{TransactionPool}}
+\newcommand \TP {\mathrm{TxPool}}
 \newcommand \Vote {\mathrm{Vote}}
 \newcommand \EventNewRound {\texttt{NewRound}}
 \newcommand \EventProposal {\texttt{Proposal}}
@@ -26,7 +26,7 @@ $$
 \newcommand \Propose {\mathit{propose}}
 \newcommand \Soft {\mathit{soft}}
 \newcommand \prop {\mathit{proposal}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 \newcommand \vt {\mathit{vote}}
 $$
 
@@ -85,7 +85,7 @@ The node will:
 
 1. Set \\( v \\) as the proposal-value obtained from block \\( e \\),
 
-1. Make two separate broadcasts for \\( \Vote(a_I, r,p, \prop, v, \c) \\) and for
+1. Make two separate broadcasts for \\( \Vote(a_I, r,p, \prop, v, \creds) \\) and for
 \\( e \\).
 
 Then, the main algorithm enters the \\( \Soft \\) step setting \\( s = 1 \\).
@@ -141,7 +141,8 @@ The soft vote procedure selects the highest priority block proposal and votes on
 it. The node goes through all the votes \\( \vt^\prime \in V \\) in its votes set
 which are in the \\( \Propose \\) step (\\( \vt^\prime_s = 0 \\)).
 
-Given the \\( \c_j \\) of player \\( I_j \\) for the vote \\( \vt^\prime_{\c_j} = (w_j, y, \VRF.\ProofToHash(y)) \\),
+Given the \\( \creds_j \\) of player \\( I_j \\) for the vote
+\\( \vt^\prime_{\creds_j} = (w_j, y, \VRF.\ProofToHash(y)) \\),
 the procedure runs a \\( \Priority\\) function on the vote, as described in the
 soft vote [non-normative section](./abft-nn-soft-vote.md#priority-function), and
 keeps track of the one with the highest priority (i.e., the one with the lowest
@@ -151,10 +152,10 @@ Next, if there was at least one \\( \vt \\) in \\( V \\), for every registered a
 \\( a \in A \\) it computes:
 
 $$
-(w_j, y, \VRF.\ProofToHash(y)) \gets \c^{\prime\prime} = \Sortition(a, \Soft)
+(w_j, y, \VRF.\ProofToHash(y)) \gets \creds^{\prime\prime} = \Sortition(a, \Soft)
 $$
 
-and, if \\( w_j > 0 \\) it broadcasts \\( \Vote(r, p, \Soft, v, \c^{\prime\prime}) \\).
+and, if \\( w_j > 0 \\) it broadcasts \\( \Vote(r, p, \Soft, v, \creds^{\prime\prime}) \\).
 
 Moreover, if \\( \prop \gets \RetrieveProposal(v) \\) is not \\( \bot \\), it also
 broadcasts \\( \prop \\).
@@ -167,7 +168,7 @@ When the node receives a event of type \\( \EventProposal \\), it runs the
 ### Commit
 
 When the node receives a event of type \\( \EventVote \\),
-\\( \Vote(r, p, \Soft, v, \c) \\), it
+\\( \Vote(r, p, \Soft, v, \creds) \\), it
 
 1. Relays the vote,
 
@@ -229,5 +230,5 @@ with \\( \vt_r = r, \vt_p = 0, \vt_s = \Soft \\), the sum of votes' weights is b
 than the committee threshold:
 
 $$
-\sum_{\vt \in V} \vt_{\c_j} \ge \CommitteeThreshold(\Soft).
+\sum_{\vt \in V} \vt_{\creds_j} \ge \CommitteeThreshold(\Soft).
 $$

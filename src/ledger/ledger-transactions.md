@@ -4,12 +4,8 @@ $$
 \newcommand \TxTail {\mathrm{TxTail}}
 \newcommand \TxType {\mathrm{TxType}}
 \newcommand \TxCommit {\mathrm{TxCommit}}
-\newcommand \vpk {\mathrm{vpk}}
 \newcommand \spk {\mathrm{spk}}
 \newcommand \sppk {\mathrm{sppk}}
-\newcommand \vf {\mathrm{vf}}
-\newcommand \vl {\mathrm{vl}}
-\newcommand \vkd {\mathrm{vkd}}
 \newcommand \Hash {\mathrm{Hash}}
 \newcommand \nonpart {\mathrm{nonpart}}
 \newcommand \RekeyTo {\mathrm{RekeyTo}}
@@ -19,7 +15,6 @@ $$
 \newcommand \GenesisID {\Genesis\mathrm{ID}}
 \newcommand \GenesisHash {\Genesis\Hash}
 \newcommand \Group {\Tx\mathrm{G}}
-\newcommand \RekeyTo {\mathrm{RekeyTo}}
 \newcommand \MaxTxnNoteBytes {T_{m,\max}}
 \newcommand \MaxAbsoluteTxnNoteBytes {T_{m,\mathrm{abs}}}
 $$

@@ -1,5 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \Node {\mathrm{node}}
 \newcommand \FullNode {\mathrm{FullNode}}
@@ -29,40 +27,38 @@ By following this structured approach, the node avoids corrupting data or leavin
 the Algorand network in an inconsistent state, which is critical for maintaining
 the integrity of the system.
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 3} \text{: Full Node Shutdown} \\\\[0.5em]
-&\text{1: } \PSfunction \FullNode.\Stop() \\\\
-&\text{2: } \PScomment{Network Cleanup} \\\\
-&\text{3: } \quad \Node.\Network.\Stop\Handlers() \\\\
-&\text{4: } \quad \Node.\Network.\Stop\mathrm{Validator}\Handlers() \\\\
-&\text{5: } \quad \PSif \neg \Node.\Config.\Stop\Network \PSthen \\\\
-&\text{6: } \quad \quad \Node.\Network.\Stop() \\\\
-&\text{7: } \quad \PSendif \\\\
-&\text{8: } \PScomment{Service Shutdown} \\\\
-&\text{9: } \quad \PSif \exists \Node.\Catchpoint\Catchup\Service \PSthen \\\\
-&\text{10:} \quad \quad \Node.\Catchpoint\Catchup\Service.\Stop() \\\\
-&\text{11:} \quad \PSelse \\\\
-&\text{12:} \PScomment{Full Node Services} \\\\
-&\text{13:} \quad \quad \Node.\Stop\mathrm{AllServices}() \\\\
-&\text{14:} \quad \PSendif \\\\
-&\text{15:} \PScomment{Resource Cleanup} \\\\
-&\text{16:} \quad \Node.\TP.\Stop() \\\\
-&\text{17:} \PScomment{Final Cleanup} \\\\
-&\text{18:} \quad \Node.\Ledger.\Close() \\\\
-&\text{19:} \PScomment{Post-Shutdown Cleanup} \\\\
-&\text{20:} \quad \mathrm{WaitMonitoringRoutines}() \\\\
-&\text{21:} \quad \Node.\AccountManager.\Registry.\Close() \\\\
-&\text{22:} \quad \PSfor \Handler \in \Node.\mathrm{Database}\Handlers \PSdo \\\\
-&\text{23:} \quad \quad \Handler.\Close() \\\\
-&\text{24:} \quad \PSendfor \\\\
-&\text{25: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Full Node Shutdown}
+\begin{algorithmic}
+\Function{FullNode.Stop}{}
+  \State \Comment{Network Cleanup}
+  \State $\Node.\Network.\Stop\Handlers()$
+  \State $\Node.\Network.\Stop\mathrm{Validator}\Handlers()$
+  \If{$\neg \Node.\Config.\Stop\Network$}
+    \State $\Node.\Network.\Stop()$
+  \EndIf
+  \State \Comment{Service Shutdown}
+  \If{$\exists \Node.\Catchpoint\Catchup\Service$}
+    \State $\Node.\Catchpoint\Catchup\Service.\Stop()$
+  \Else
+    \State \Comment{Full Node Services}
+    \State $\Node.\Stop\mathrm{AllServices}()$
+  \EndIf
+  \State \Comment{Resource Cleanup}
+  \State $\Node.\TP.\Stop()$
+  \State \Comment{Final Cleanup}
+  \State $\Node.\Ledger.\Close()$
+  \State \Comment{Post-Shutdown Cleanup}
+  \State $\mathrm{WaitMonitoringRoutines}()$
+  \State $\Node.\AccountManager.\Registry.\Close()$
+  \For{$\Handler \in \Node.\mathrm{Database}\Handlers$}
+    \State $\Handler.\Close()$
+  \EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**

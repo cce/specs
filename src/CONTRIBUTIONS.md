@@ -188,29 +188,97 @@ continuation lines indented.
 
 ### TeX-Macros
 
-TeX-macros are defined in the `./src/_include/tex-macros/` folder using the mdBook
-[include feature](https://rust-lang.github.io/mdBook/format/mdbook.html#including-files).
+TeX-macros are defined per page, in a `$$ ... $$` block of `\newcommand`
+definitions at the top of the file (before the first heading). Macros are
+page-scoped in the Web version, so each page **MUST** define every macro it
+uses, before the first usage.
 
-TeX-macros are divided into functional blocks (e.g., pseudocode, operators, constants, etc.).
+Macros shared by several pages (e.g., domain separators) live in the
+`./src/_include/tex-macros/` folder and are imported at the top of the consumer
+files using the mdBook [include feature](https://rust-lang.github.io/mdBook/format/mdbook.html#including-files).
 
-TeX-macros **MUST** be imported at the top of the consumer files using the mdBook.
+The same macro name **MUST** have the same definition on every page that
+defines it, so notation stays consistent across the book (in the PDF version,
+definitions are document-wide and the last redefinition wins).
 
-TeX macros can be imported entirely or partially (e.g., just a functional block).
+Avoid macro names that collide with LaTeX kernel or common-package commands
+(e.g., accent commands such as `\t`, `\b`, `\r`, `\c`): they break the PDF
+build or silently change output.
+
+After adding or editing math — definition blocks in particular — run
+`make math-check` (or `make docker-math-check`): Markdown inline parsing can
+silently break a `$$ ... $$` block (e.g., two `_` that pair as emphasis across
+lines) or reveal a malformed `\\( ... \\)` span, and the check pinpoints the
+exact line where the block must be split.
 
 > [!TIP]
 > **EXAMPLE:**
 >
-> Import all TeX-macros:
+> Page-local definitions:
 >
 > ```text
-> \{{#include ./_include/tex-macros.md:all}}
+> $$
+> \newcommand \TxTail {\mathrm{TxTail}}
+> \newcommand \floor[1] {\left \lfloor #1 \right \rfloor}
+> $$
 > ```
 >
-> Import just a block of TeX-macros (e.g., pseudocode commands):
+> Import shared macros (e.g., domain separators):
 >
 > ```text
-> \{{#include ./_include/tex-macros.md:pseudocode}}
+> \{{#include ./_include/tex-macros/domain-separators.md}}
 > ```
+
+## Pseudocode
+
+Algorithms are written in fenced `pseudocode` code blocks containing LaTeX
+`algorithmic` markup. The Web version renders them with [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js)
+(vendored in `theme-ext/`); the PDF version renders the same source natively with
+the `algorithm` and `algpseudocode` packages (via `scripts/pdf-pseudocode.lua`).
+
+Pseudocode blocks **MUST** only use the command subset supported by both renderers:
+
+- `\begin{algorithm}`, `\caption{...}`, `\begin{algorithmic}` (and the matching ends)
+- `\Function{Name}{$args$}` / `\EndFunction`, `\Procedure` / `\EndProcedure`
+- `\If{$cond$}` / `\ElsIf{$cond$}` / `\Else` / `\EndIf`
+- `\While{$cond$}` / `\EndWhile`, `\For{$spec$}` / `\ForAll{$spec$}` / `\EndFor`,
+  `\Repeat` / `\Until{$cond$}`
+- `\State`, `\Return`, `\Comment{...}`, `\Call{Name}{$args$}`, `\Require`, `\Ensure`
+- Text-style commands in open text (`\texttt{...}`, `\textbf{...}`, `\textit{...}`, etc.)
+
+Conventions:
+
+- Captions **MUST NOT** contain numbering ("Algorithm N"). Reference
+  algorithms by their caption title, which **MUST** be unique across the book.
+- Lines are numbered automatically; **do not** write manual line numbers.
+- `\Return` is used bare (not wrapped in `\State`) and **MUST** start its own
+  line; the PDF filter adds the wrapper LaTeX needs, but only rewrites
+  line-leading occurrences.
+- Algorithms **MUST** fit on one PDF page (roughly 45 numbered lines): larger
+  ones overflow the page and get clipped. Split them at a function or semantic
+  boundary; the PDF build emits a warning past this size.
+- Mathematical notation inside statements uses `$...$` delimiters; all
+  [TeX-macros](#tex-macros) are available inside.
+- Function names in `\Function`/`\Call` are plain text, not macros.
+
+> [!TIP]
+> **EXAMPLE:**
+>
+> ````markdown
+> ```pseudocode
+> \begin{algorithm}
+> \caption{Example Algorithm}
+> \begin{algorithmic}
+> \Function{Ingest}{$\TG\ gtx$}
+>   \If{$\lnot \BlockEval$}
+>     \Return \Comment{No pending Block Evaluator exists}
+>   \EndIf
+>   \State $\TP \gets \BlockEval.\mathrm{add}(gtx)$
+> \EndFunction
+> \end{algorithmic}
+> \end{algorithm}
+> ```
+> ````
 
 ## Admonitions
 

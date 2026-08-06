@@ -1,4 +1,3 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
 {{#include ../../_include/tex-macros/domain-separators.md}}
 
 $$
@@ -18,7 +17,7 @@ $$
 \newcommand \Cert {\mathit{cert}}
 \newcommand \Next {\mathit{next}}
 \newcommand \pr {\mathit{proposal}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 $$
 
 # Proposal Handler
@@ -107,38 +106,36 @@ The _pinned value_ \\( \bar{v} \\) is a proposal-value that was a _staged value_
 in a previous period. When available, this value is used to fast-forward the first
 steps of the protocol when a \\( \Next \\) vote has been successful.
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 6} \text{: Handle Proposal} \\\\[0.5em]
-&\text{1: } \PSfunction \HandleProposal(\pr) \\\\
-&\text{2: } \quad v \gets \Proposal_v(\pr, \pr_p, \pr_I) \\\\
-&\text{3: } \quad \PSif \exists \Bundle(r+1, 0, \Soft, v) \in B \PSthen \\\\
-&\text{4: } \quad \quad \Relay(\pr) \\\\
-&\text{5: } \quad \quad \PSreturn \PScomment{Future round, do not observe (node is behind)} \\\\
-&\text{6: } \quad \PSendif \\\\
-&\text{7: } \quad \PSif \PSnot \VerifyProposal(\pr) \lor \pr \in P \PSthen \\\\
-&\text{8: } \quad \quad \PSreturn \PScomment{Ignore proposal} \\\\
-&\text{9: } \quad \PSendif \\\\
-&\text{10:} \quad \PSif v \notin \\{\sigma, \bar{v}, \mu\\} \PSthen \\\\
-&\text{11:} \quad \quad \PSreturn \PScomment{Ignore proposal} \\\\
-&\text{12:} \quad \PSendif \\\\
-&\text{13:} \quad \Relay(\pr) \\\\
-&\text{14:} \quad P \gets P \cup \pr \\\\
-&\text{15:} \quad \PSif \IsCommittable(v) \land s \le \Cert \PSthen \\\\
-&\text{16:} \quad \quad \PSfor a \in A \PSdo \\\\
-&\text{17:} \quad \quad \quad \c \gets \Sortition(a_I, r, p, \Cert) \\\\
-&\text{18:} \quad \quad \quad \PSif \c_j > 0 \PSthen \\\\
-&\text{19:} \quad \quad \quad \quad \Broadcast(\Vote(a_I, r, p, \Cert, v, \c)) \\\\
-&\text{20:} \quad \quad \quad \PSendif \\\\
-&\text{21:} \quad \quad \PSendfor \\\\
-&\text{22:} \quad \PSendif \\\\
-&\text{23: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Handle Proposal}
+\begin{algorithmic}
+\Function{HandleProposal}{$\pr$}
+  \State $v \gets \Proposal_v(\pr, \pr_p, \pr_I)$
+  \If{$\exists \Bundle(r+1, 0, \Soft, v) \in B$}
+    \State $\Relay(\pr)$
+    \Return \Comment{Future round, do not observe (node is behind)}
+  \EndIf
+  \If{$\lnot \VerifyProposal(\pr) \lor \pr \in P$}
+    \Return \Comment{Ignore proposal}
+  \EndIf
+  \If{$v \notin \{\sigma, \bar{v}, \mu\}$}
+    \Return \Comment{Ignore proposal}
+  \EndIf
+  \State $\Relay(\pr)$
+  \State $P \gets P \cup \pr$
+  \If{$\IsCommittable(v) \land s \le \Cert$}
+    \For{$a \in A$}
+      \State $\creds \gets \Sortition(a_I, r, p, \Cert)$
+      \If{$\creds_j > 0$}
+        \State $\Broadcast(\Vote(a_I, r, p, \Cert, v, \creds))$
+      \EndIf
+    \EndFor
+  \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**

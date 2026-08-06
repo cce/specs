@@ -1,10 +1,8 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
 \newcommand \RootDir {\mathrm{rootDir}}
 \newcommand \Config {\mathrm{nodeConfig}}
 \newcommand \Phonebook {\mathrm{phonebookAddrs}}
-\newcommand \Genesis {\mathrm{genesisBlock}}
+\newcommand \GenesisBlock {\mathrm{genesisBlock}}
 \newcommand \Node {\mathrm{node}}
 \newcommand \FullNode {\mathrm{FullNode}}
 \newcommand \Logger {\mathrm{Logger}}
@@ -20,8 +18,8 @@ $$
 \newcommand \Block {\mathrm{Block}}
 \newcommand \Agreement {\mathrm{Agreement}}
 \newcommand \AccountManager {\mathrm{AccountManager}}
-\newcommand \StateProof {\mathrm{StateProof}}
-\newcommand \Heartbeat {\mathrm{Heartbeat}}
+\newcommand \StateProofService {\mathrm{StateProofService}}
+\newcommand \HeartbeatService {\mathrm{HeartbeatService}}
 \newcommand \TP {\mathrm{TxPool}}
 \newcommand \Catchup {\mathrm{Catchup}}
 \newcommand \Service {\mathrm{Service}}
@@ -44,52 +42,50 @@ Archival_), as defined in the [Ledger](../../ledger/ledger-overview.md),
 The pseudocode below outlines the main steps involved when initializing an `algod`
 _Full Node_:
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 1} \text{: Full Node Initialization} \\\\[0.5em]
-&\text{1: } \PSfunction \FullNode.\mathrm{Start}(\RootDir, \Config, \Phonebook, \Genesis) \\\\
-&\text{2: } \quad \Node \gets {\textbf{new }} \FullNode \\\\
-&\text{3: } \quad \Node.\mathrm{log} \gets \Logger(\Config) \\\\
-&\text{4: } \quad \Node.\Genesis.\mathrm{ID} \gets \Genesis.\mathrm{ID}() \\\\
-&\text{5: } \quad \Node.\Genesis.\mathrm{ID} \gets \Genesis.\Hash() \\\\
-&\text{6: } \PScomment{Network Initialization} \\\\
-&\text{7: } \quad \PSif \Config.\mathrm{EnableHybridMode} \PSthen \\\\
-&\text{8: } \quad \quad \Node.\Network \gets \Create\HYB\Network(\Phonebook) \\\\
-&\text{9: } \quad \PSelseif \Config.\mathrm{EnableP2P} \PSthen \\\\
-&\text{10:} \quad \quad \Node.\Network \gets \Create\PtoP\Network(\Phonebook) \\\\
-&\text{11:} \quad \PSelse \\\\
-&\text{12:} \quad \quad \Node.\Network \gets \Create\WS\Network(\Phonebook) \\\\
-&\text{13:} \quad \PSendif \\\\
-&\text{14:} \PScomment{Crypto Resource Pools Initialization} \\\\
-&\text{15:} \quad \Node.\CryptoPool \gets \Create\mathrm{ExecutionPool}() \\\\
-&\text{16:} \quad \Node.\CryptoPool.\mathrm{lowPriority} \gets \Create\mathrm{BacklogPool()} \\\\
-&\text{17:} \quad \Node.\CryptoPool.\mathrm{highPriority} \gets \Create\mathrm{BacklogPool()} \\\\
-&\text{18:} \PScomment{Ledger Initialization} \\\\
-&\text{19:} \quad \mathrm{ledgerPaths} \gets \mathrm{ResolvePaths}(\RootDir, \Config) \\\\
-&\text{20:} \quad \Node.\Ledger \gets \mathrm{LoadLedger}(\mathrm{ledgerPaths}, \Genesis) \\\\
-&\text{21:} \PScomment{Account Management} \\\\
-&\text{22:} \quad \Registry \gets \mathrm{ParticipationRegistry}() \\\\
-&\text{23:} \quad \Node.\AccountManager \gets \Create\AccountManager(\Registry) \\\\
-&\text{24:} \quad \mathrm{LoadParticipationKeys}(\Node) \\\\
-&\text{25:} \PScomment{Transaction Pool Initialization} \\\\
-&\text{26:} \quad \Node.\TP \gets \Create\TP(\Node.\Ledger) \\\\
-&\text{27:} \quad \mathrm{RegisterBlockListeners}(\Node.\TP) \\\\
-&\text{28:} \PScomment{Services Initialization} \\\\
-&\text{29:} \quad \Node.\Block\Service \gets \Create\Block\Service() \\\\
-&\text{30:} \quad \Node.\Ledger\Service \gets \Create\Ledger\Service() \\\\
-&\text{31:} \quad \Node.\TP\Service \gets \Create\TP\mathrm{Syncer}() \\\\
-&\text{32:} \quad \Node.\Agreement\Service \gets \Create\Agreement\Service() \\\\
-&\text{33:} \quad \Node.\Catchup\Service \gets \Create\Catchup\Service() \\\\
-&\text{34:} \quad \Node.\StateProof\Service \gets \Create\StateProof\Service() \\\\
-&\text{35:} \quad \Node.\Heartbeat\Service \gets \Create\Heartbeat\Service() \\\\
-&\text{36:} \quad \PSreturn \Node \\\\
-&\text{37: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Full Node Initialization}
+\begin{algorithmic}
+\Function{FullNode.Start}{$\RootDir, \Config, \Phonebook, \GenesisBlock$}
+  \State $\Node \gets {\textbf{new }} \FullNode$
+  \State $\Node.\mathrm{log} \gets \Logger(\Config)$
+  \State $\Node.\GenesisBlock.\mathrm{ID} \gets \GenesisBlock.\mathrm{ID}()$
+  \State $\Node.\GenesisBlock.\Hash \gets \GenesisBlock.\Hash()$
+  \State \Comment{Network Initialization}
+  \If{$\Config.\mathrm{EnableHybridMode}$}
+    \State $\Node.\Network \gets \Create\HYB\Network(\Phonebook)$
+  \ElsIf{$\Config.\mathrm{EnableP2P}$}
+    \State $\Node.\Network \gets \Create\PtoP\Network(\Phonebook)$
+  \Else
+    \State $\Node.\Network \gets \Create\WS\Network(\Phonebook)$
+  \EndIf
+  \State \Comment{Crypto Resource Pools Initialization}
+  \State $\Node.\CryptoPool \gets \Create\mathrm{ExecutionPool}()$
+  \State $\Node.\CryptoPool.\mathrm{lowPriority} \gets \Create\mathrm{BacklogPool()}$
+  \State $\Node.\CryptoPool.\mathrm{highPriority} \gets \Create\mathrm{BacklogPool()}$
+  \State \Comment{Ledger Initialization}
+  \State $\mathrm{ledgerPaths} \gets \mathrm{ResolvePaths}(\RootDir, \Config)$
+  \State $\Node.\Ledger \gets \mathrm{LoadLedger}(\mathrm{ledgerPaths}, \GenesisBlock)$
+  \State \Comment{Account Management}
+  \State $\Registry \gets \mathrm{ParticipationRegistry}()$
+  \State $\Node.\AccountManager \gets \Create\AccountManager(\Registry)$
+  \State $\mathrm{LoadParticipationKeys}(\Node)$
+  \State \Comment{Transaction Pool Initialization}
+  \State $\Node.\TP \gets \Create\TP(\Node.\Ledger)$
+  \State $\mathrm{RegisterBlockListeners}(\Node.\TP)$
+  \State \Comment{Services Initialization}
+  \State $\Node.\Block\Service \gets \Create\Block\Service()$
+  \State $\Node.\Ledger\Service \gets \Create\Ledger\Service()$
+  \State $\Node.\TP\Service \gets \Create\TP\mathrm{Syncer}()$
+  \State $\Node.\Agreement\Service \gets \Create\Agreement\Service()$
+  \State $\Node.\Catchup\Service \gets \Create\Catchup\Service()$
+  \State $\Node.\StateProofService \gets \Create\StateProofService()$
+  \State $\Node.\HeartbeatService \gets \Create\HeartbeatService()$
+  \Return $\Node$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**

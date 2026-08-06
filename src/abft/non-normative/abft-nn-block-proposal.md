@@ -1,13 +1,11 @@
-{{#include ../../_include/tex-macros/pseudocode.md}}
-
 $$
-\newcommand \Resync {\mathrm{ResynchronizationAttempt}}
+\newcommand \Resync {\mathrm{Resync}}
 \newcommand \BlockProposal {\mathrm{BlockProposal}}
 \newcommand \BlockAssembly {\mathrm{BlockAssembly}}
 \newcommand \Sortition {\mathrm{Sortition}}
 \newcommand \Broadcast {\mathrm{Broadcast}}
 \newcommand \RetrieveProposal {\mathrm{RetrieveProposal}}
-\newcommand \c {\mathit{credentials}}
+\newcommand \creds {\mathit{credentials}}
 \newcommand \Proposal {\mathrm{Proposal}}
 \newcommand \Bundle {\mathrm{Bundle}}
 \newcommand \Vote {\mathrm{Vote}}
@@ -20,37 +18,35 @@ The following is an abstracted pseudocode of the \\( \BlockProposal \\) algorith
 
 ## Algorithm
 
----
-
-$$
-\begin{aligned}
-&\textbf{Algorithm 3} \text{: Block Proposal} \\\\[0.5em]
-&\text{1: } \PSfunction \BlockProposal() \\\\
-&\text{2: } \quad \PSif p \ne 0 \PSthen \\\\
-&\text{3: } \quad \quad \Resync() \\\\
-&\text{4: } \quad \PSendif \\\\
-&\text{5: } \quad \PSfor a \in A \PSdo \\\\
-&\text{6: } \quad \quad \c \gets \Sortition(a_I, r, p, \prop) \\\\
-&\text{7: } \quad \quad \PSif \c_j > 0 \PSthen \\\\
-&\text{8: } \quad \quad \quad \PSif p = 0 \lor \exists s' \text{ such that } \Bundle(r, p-1, s', \bot) \subset V \PSthen \\\\
-&\text{9: } \quad \quad \quad \quad (e, y) \gets \BlockAssembly(a_I) \\\\
-&\text{10:} \quad \quad \quad \quad \prop \gets \Proposal(e, y, p, a_I) \\\\
-&\text{11:} \quad \quad \quad \quad v \gets \Proposal_\text{value}(\prop) \\\\
-&\text{12:} \quad \quad \quad \quad \Broadcast(\Vote(a_I, r, p, \prop, v, \c)) \\\\
-&\text{13:} \quad \quad \quad \quad \Broadcast(\prop) \\\\
-&\text{14:} \quad \quad \quad \PSelse \\\\
-&\text{15:} \quad \quad \quad \quad \Broadcast(\Vote(a_I, r, p, \prop, \bar{v}, \c)) \\\\
-&\text{16:} \quad \quad \quad \quad \PSif \RetrieveProposal(\bar{v}) \ne \bot \PSthen \\\\
-&\text{17:} \quad \quad \quad \quad \quad \Broadcast(\RetrieveProposal(\bar{v})) \\\\
-&\text{18:} \quad \quad \quad \quad \PSendif \\\\
-&\text{19:} \quad \quad \quad \PSendif \\\\
-&\text{20:} \quad \quad \PSendif \\\\
-&\text{21:} \quad \PSendfor \\\\
-&\text{22: } \PSendfunction
-\end{aligned}
-$$
-
----
+```pseudocode
+\begin{algorithm}
+\caption{Block Proposal}
+\begin{algorithmic}
+\Function{BlockProposal}{}
+  \If{$p \ne 0$}
+    \State $\Resync()$
+  \EndIf
+  \For{$a \in A$}
+    \State $\creds \gets \Sortition(a_I, r, p, \prop)$
+    \If{$\creds_j > 0$}
+      \If{$p = 0 \lor \exists s' \text{ such that } \Bundle(r, p-1, s', \bot) \subset V$}
+        \State $(e, y) \gets \BlockAssembly(a_I)$
+        \State $\prop \gets \Proposal(e, y, p, a_I)$
+        \State $v \gets \Proposal_\text{value}(\prop)$
+        \State $\Broadcast(\Vote(a_I, r, p, \prop, v, \creds))$
+        \State $\Broadcast(\prop)$
+      \Else
+        \State $\Broadcast(\Vote(a_I, r, p, \prop, \bar{v}, \creds))$
+        \If{$\RetrieveProposal(\bar{v}) \ne \bot$}
+          \State $\Broadcast(\RetrieveProposal(\bar{v}))$
+        \EndIf
+      \EndIf
+    \EndIf
+  \EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+```
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**
@@ -60,9 +56,9 @@ $$
 This algorithm is the first procedure executed when entering a new _round_, and upon starting any _period_ where a
 _reproposal_ is not possible.
 
-Starting on **Algorithm 3** - Line 2, the node attempts a resynchronization (described
-in the [corresponding section](./abft-nn-resync-attempt.md)), which has only effect
-on periods \\( p > 0 \\).
+Starting on Line 2 of the _Block Proposal_ algorithm, the node attempts a resynchronization
+(described in the [corresponding section](./abft-nn-resync-attempt.md)), which has
+only effect on periods \\( p > 0 \\).
 
 > [!IMPORTANT]
 > **IMPLEMENTATION:**
@@ -79,7 +75,7 @@ committee voting.
 For each participating account, the sortition algorithm
 runs to check if said account is allowed to participate in the proposal.
 
-If an account \\( a \\) is selected by sortition (because \\( \c_j = \Sortition(a_I, r, p, \prop)_j > 0 \\))
+If an account \\( a \\) is selected by sortition (because \\( \creds_j = \Sortition(a_I, r, p, \prop)_j > 0 \\))
 there are two options:
 
 1. If this is a _proposal step_ (\\( p = 0 \\)) or if the node has observed a bundle
@@ -93,10 +89,10 @@ the node:
    - Broadcasts the full block in a \\( \texttt{Proposal} \\) type message.
 
 1. Otherwise, a value \\( \bar{v} \\) has been pinned, supported by a bundle observed
-in period \\( p - 1 \\), and on **Algorithm 3** - Line 15 the node:
+in period \\( p - 1 \\), and on Line 15 of the _Block Proposal_ algorithm the node:
 
    - Gets the pinned value,
-   - Assembles a vote \\( \Vote(a_I, r, p, \prop, \bar{v}, \c) \\),
+   - Assembles a vote \\( \Vote(a_I, r, p, \prop, \bar{v}, \creds) \\),
    - Broadcasts this vote,
    - Broadcast the proposal for the pinned vote if it has already been observed.
 

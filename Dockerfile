@@ -76,7 +76,7 @@ RUN . /tmp/toolchain.env \
 
 # Admonition callouts (scripts/pdf-header.tex) need framed.sty.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends texlive-latex-extra \
+    && apt-get install -y --no-install-recommends texlive-latex-extra texlive-science \
     && rm -rf /var/lib/apt/lists/*
 
 COPY scripts/puppeteer-config.json /etc/puppeteer-config.json
