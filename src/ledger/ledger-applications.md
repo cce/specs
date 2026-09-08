@@ -228,3 +228,11 @@ Modifying such a box **FAILS** if the chain of callers of the modifying applicat
 \\( c \\) contains an application in \\( c \\)’s family that has already touched
 family-shared state and is separated from \\( c \\) by at least one application outside
 the family. Reads never trigger this rule.
+
+`FamilyBoxAccess` is read at each access, so a box is family-shared only for the
+accesses made while its owner’s flag is true. An application that sets its own
+`FamilyBoxAccess` to false does not touch family-shared state when it then modifies its
+own box, and an application that accessed a box before its owner set `FamilyBoxAccess`
+to true has not touched family-shared state. Changing `FamilyBoxAccess` during a group
+therefore changes which accesses this rule covers, including the accesses already made
+by applications that have not yet returned.
